@@ -1,0 +1,62 @@
+I want you to configure my Flutter project's native splash screen professionally.
+
+Use the attached/generated logo as the splash icon.
+
+Requirements:
+
+1. Add/configure flutter_native_splash in pubspec.yaml.
+2. Put the logo asset in:
+   assets/images/splash_logo.png
+
+3. The logo should be prepared for Android 12+ adaptive splash requirements:
+   - 1152x1152 px canvas
+   - transparent background
+   - logo centered
+   - keep the complete logo inside the 768 px diameter safe circle
+   - do not crop or stretch the logo
+   - preserve the rounded geometric shape and proportions
+   - no text
+   - clean high-resolution appearance
+
+4. Configure the splash screen with:
+   - background color: #FFFFFF
+   - logo as the splash image
+   - Android 12+ configuration included
+   - do NOT use icon_background_color unless it is actually required
+
+5. Use this configuration style:
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/images/splash_logo.png
+
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/splash_logo.png
+
+6. Add the dependency if it does not already exist.
+
+7. Check whether the assets directory is already declared in pubspec.yaml. Do not create duplicate asset declarations.
+
+8. Run:
+   flutter pub get
+   dart run flutter_native_splash:create
+
+9. Check the generated Android splash resources and make sure Android 12+ uses the correct logo without clipping.
+
+10. Do not unnecessarily change any existing Flutter architecture, routing, screens, themes, or business logic.
+
+11. Before editing, inspect the existing project structure and current pubspec.yaml so the implementation matches the project.
+
+12. After completing the work, report:
+   - files changed
+   - exact pubspec.yaml changes
+   - commands executed
+   - whether the splash is ready for Android 12+
+   - any remaining issue that I need to fix manually.
+
+Important:
+Do not replace my logo with a different design.
+Do not crop the logo.
+Do not add text or a background to the logo itself.
+Keep the implementation clean and production-ready.

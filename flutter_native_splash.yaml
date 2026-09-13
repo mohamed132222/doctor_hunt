@@ -1,0 +1,19 @@
+# flutter_native_splash configuration
+# Docs: https://pub.dev/packages/flutter_native_splash
+# Regenerate with: dart run flutter_native_splash:create
+# Remove with:     dart run flutter_native_splash:remove
+
+flutter_native_splash:
+  # ── All platforms except Android 12+ ───────────────────────────────────────
+  color: "#FFFFFF"
+  color_dark: "#FFFFFF"
+  image: assets/images/splash_logo.png
+
+  # ── Android 12+ ────────────────────────────────────────────────────────────
+  # Same white background and logo. The logo asset is a 1152x1152 transparent
+  # canvas with the mark kept inside the 768px safe circle, so it is never
+  # clipped by the circular mask. No icon_background_color is set — the white
+  # window background already provides the correct backdrop.
+  android_12:
+    color: "#FFFFFF"
+    image: assets/images/splash_logo.png
