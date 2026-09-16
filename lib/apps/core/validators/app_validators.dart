@@ -5,6 +5,10 @@ abstract final class AppValidators {
   AppValidators._();
 
   static final RegExp _emailRegex = RegExp(r'^[\w.+-]+@[\w-]+\.[\w.-]+$');
+  static final RegExp _nameRegex = RegExp(
+    r"^[A-Za-z\u0600-\u06FF][A-Za-z\u0600-\u06FF '.\-]*$",
+  );
+  static final RegExp _digitsRegex = RegExp(r'[^0-9]');
 
   /// Required non-empty text.
   static String? required(String? value, [String label = 'this field']) {
@@ -12,6 +16,27 @@ abstract final class AppValidators {
       return AppStrings.fieldRequired(label);
     }
     return null;
+  }
+
+  /// A person's name: required, at least [minLength] characters, and made of
+  /// letters (Latin or Arabic) with spaces, hyphens, apostrophes or dots.
+  static String? personName(String? value, {int minLength = 3}) {
+    final v = value?.trim() ?? '';
+    if (v.isEmpty) return AppStrings.fieldRequired(AppStrings.patientNameHint);
+    if (v.length < minLength) return AppStrings.nameTooShort;
+    return _nameRegex.hasMatch(v) ? null : AppStrings.nameInvalid;
+  }
+
+  /// A contact number: required, and 8–15 digits once separators are ignored.
+  static String? phone(String? value) {
+    final v = value?.trim() ?? '';
+    if (v.isEmpty) {
+      return AppStrings.fieldRequired(AppStrings.contactNumberHint);
+    }
+    final digits = v.replaceAll(_digitsRegex, '');
+    return digits.length >= 8 && digits.length <= 15
+        ? null
+        : AppStrings.phoneInvalid;
   }
 
   /// Valid email address.

@@ -1,0 +1,30 @@
+﻿REF: rows with content in popular/feature zones (x 10..365):
+  start y=380
+  end   y=421
+  start y=449
+  end   y=539
+  start y=573
+  end   y=590
+  start y=612
+  end   y=792
+  start y=810
+  end   y=827
+  start y=830
+  end   y=842
+  start y=849
+  end   y=861
+
+REF popular card: row scan (y=545..700 step 8) -> first/last dark col
+  y=577: x 20-348 n=101
+  y=585: x 20-141 n=80
+  y=617: x 100-374 n=179
+  y=625: x 96-374 n=191
+  y=633: x 94-374 n=195
+  y=641: x 93-374 n=198
+  y=649: x 91-374 n=202
+  y=657: x 93-374 n=204
+  y=665: x 95-374 n=206
+  y=673: x 93-374 n=209
+  y=681: x 95-374 n=219
+  y=689: x 88-374 n=227
+  y=697: x 69-374 n=228

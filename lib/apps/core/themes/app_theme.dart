@@ -17,6 +17,16 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     required this.splashWordmark,
     required this.cardShadow,
     required this.sheetHandle,
+    required this.headerGradientStart,
+    required this.headerGradientEnd,
+    required this.starRating,
+    required this.navInactive,
+    required this.softShadow,
+    required this.tileShadow,
+    required this.homeCardShadow,
+    required this.favoriteOutline,
+    required this.priceAccent,
+    required this.screenTint,
   });
 
   final Color gradientIce;
@@ -33,6 +43,35 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   /// Grey drag-handle bar on modal sheets.
   final Color sheetHandle;
 
+  /// Home header gradient (teal → green).
+  final Color headerGradientStart;
+  final Color headerGradientEnd;
+
+  /// Amber used for star ratings.
+  final Color starRating;
+
+  /// Inactive bottom-navigation icon colour.
+  final Color navInactive;
+
+  /// Tighter, lighter shadow used by overlaid pills (e.g. the home search).
+  final BoxShadow softShadow;
+
+  /// Soft, wider shadow that lifts the home category tiles.
+  final BoxShadow tileShadow;
+
+  /// Shadow for the home doctor cards — much lighter than [cardShadow] so it
+  /// hugs each card instead of reading as a shadow across the whole row.
+  final BoxShadow homeCardShadow;
+
+  /// Outline colour of an un-favourited heart.
+  final Color favoriteOutline;
+
+  /// Accent used for the hourly price.
+  final Color priceAccent;
+
+  /// Faint page tint used behind white cards on detail screens.
+  final Color screenTint;
+
   static const AppThemeColors light = AppThemeColors(
     gradientIce: AppColors.gradientIce,
     gradientMint: AppColors.gradientMint,
@@ -47,6 +86,28 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       offset: Offset(0, 8),
     ),
     sheetHandle: Color(0xFFC4C4C4),
+    headerGradientStart: Color(0xFF0EBE7E),
+    headerGradientEnd: Color(0xFF08D7AC),
+    starRating: Color(0xFFF59E0B),
+    navInactive: Color(0xFF858EA9),
+    softShadow: BoxShadow(
+      color: Color(0x05000000),
+      blurRadius: 8,
+      offset: Offset(0, 2),
+    ),
+    tileShadow: BoxShadow(
+      color: Color(0x14000000),
+      blurRadius: 16,
+      offset: Offset(0, 6),
+    ),
+    homeCardShadow: BoxShadow(
+      color: Color(0x09000000),
+      blurRadius: 18,
+      offset: Offset(0, 6),
+    ),
+    favoriteOutline: Color(0xFF777EA5),
+    priceAccent: Color(0xFF14B8A6),
+    screenTint: Color(0xFFF5F7FB),
   );
 
   @override
@@ -60,6 +121,16 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     Color? splashWordmark,
     BoxShadow? cardShadow,
     Color? sheetHandle,
+    Color? headerGradientStart,
+    Color? headerGradientEnd,
+    Color? starRating,
+    Color? navInactive,
+    BoxShadow? softShadow,
+    BoxShadow? tileShadow,
+    BoxShadow? homeCardShadow,
+    Color? favoriteOutline,
+    Color? priceAccent,
+    Color? screenTint,
   }) {
     return AppThemeColors(
       gradientIce: gradientIce ?? this.gradientIce,
@@ -71,6 +142,16 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       splashWordmark: splashWordmark ?? this.splashWordmark,
       cardShadow: cardShadow ?? this.cardShadow,
       sheetHandle: sheetHandle ?? this.sheetHandle,
+      headerGradientStart: headerGradientStart ?? this.headerGradientStart,
+      headerGradientEnd: headerGradientEnd ?? this.headerGradientEnd,
+      starRating: starRating ?? this.starRating,
+      navInactive: navInactive ?? this.navInactive,
+      softShadow: softShadow ?? this.softShadow,
+      tileShadow: tileShadow ?? this.tileShadow,
+      homeCardShadow: homeCardShadow ?? this.homeCardShadow,
+      favoriteOutline: favoriteOutline ?? this.favoriteOutline,
+      priceAccent: priceAccent ?? this.priceAccent,
+      screenTint: screenTint ?? this.screenTint,
     );
   }
 
@@ -87,6 +168,24 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
       splashWordmark: Color.lerp(splashWordmark, other.splashWordmark, t)!,
       cardShadow: BoxShadow.lerp(cardShadow, other.cardShadow, t)!,
       sheetHandle: Color.lerp(sheetHandle, other.sheetHandle, t)!,
+      headerGradientStart: Color.lerp(
+        headerGradientStart,
+        other.headerGradientStart,
+        t,
+      )!,
+      headerGradientEnd: Color.lerp(
+        headerGradientEnd,
+        other.headerGradientEnd,
+        t,
+      )!,
+      starRating: Color.lerp(starRating, other.starRating, t)!,
+      navInactive: Color.lerp(navInactive, other.navInactive, t)!,
+      softShadow: BoxShadow.lerp(softShadow, other.softShadow, t)!,
+      tileShadow: BoxShadow.lerp(tileShadow, other.tileShadow, t)!,
+      homeCardShadow: BoxShadow.lerp(homeCardShadow, other.homeCardShadow, t)!,
+      favoriteOutline: Color.lerp(favoriteOutline, other.favoriteOutline, t)!,
+      priceAccent: Color.lerp(priceAccent, other.priceAccent, t)!,
+      screenTint: Color.lerp(screenTint, other.screenTint, t)!,
     );
   }
 }

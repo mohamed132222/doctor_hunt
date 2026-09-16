@@ -1,0 +1,83 @@
+import 'package:flutter/material.dart';
+
+import '../../../../core/appsize/app_size.dart';
+import '../../../../core/appsize/screen_utils.dart';
+import '../../../../core/constants/app_strings.dart';
+import '../../../../core/themes/app_theme.dart';
+
+/// White rounded search field with a leading magnifier and a clear action.
+class HomeSearchBar extends StatefulWidget {
+  const HomeSearchBar({super.key, this.onChanged});
+
+  final ValueChanged<String>? onChanged;
+
+  @override
+  State<HomeSearchBar> createState() => _HomeSearchBarState();
+}
+
+class _HomeSearchBarState extends State<HomeSearchBar> {
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _clear() {
+    _controller.clear();
+    widget.onChanged?.call('');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Container(
+      height: context.h(AppSize.homeSearchHeight),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(context.r(AppSize.homeSearchRadius)),
+        boxShadow: [context.themeColors.softShadow],
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: context.w(AppSize.homeSearchPaddingH),
+      ),
+      child: Row(
+        children: [
+          Icon(
+            Icons.search,
+            size: context.w(AppSize.iconSmall),
+            color: theme.colorScheme.onSurfaceVariant,
+          ),
+          SizedBox(width: context.w(AppSize.homeSearchIconGap)),
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              onChanged: widget.onChanged,
+              style: theme.textTheme.bodyMedium,
+              decoration: InputDecoration(
+                hintText: AppStrings.searchHint,
+                border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                filled: false,
+                isDense: true,
+                isCollapsed: true,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: _clear,
+            behavior: HitTestBehavior.opaque,
+            child: Icon(
+              Icons.close,
+              size: context.w(AppSize.iconSmall),
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

@@ -27,6 +27,24 @@ abstract final class AppAssets {
   static const String passwordObscureIcon =
       'assets/icons/password_obscure_icon.svg';
   static const String checkIcon = 'assets/icons/check_icon.svg';
+  static const String bookIcon = 'assets/icons/book_icon.svg';
+  static const String messageIcon = 'assets/icons/message_icon.svg';
+  static const String homeIcon = 'assets/icons/home_icon.svg';
+  static const String heartIcon = 'assets/icons/heart_icon.svg';
+
+  // ── Home ──────────────────────────────────────────────────────────────────
+  static const String categoryDentist =
+      'assets/images/home/category_dentist.png';
+  static const String categoryCardio = 'assets/images/home/category_cardio.png';
+  static const String categoryEye = 'assets/images/home/category_eye.png';
+  static const String categoryStomach =
+      'assets/images/home/category_stomach.png';
+  static const String doctorCrickImage = 'assets/images/home/doctor_crick.png';
+
+  /// Stock doctor photos used by the home cards: a wide banner for the popular
+  /// cards and a square face crop for the feature cards' avatars.
+  static const String popularDoctorImage = 'assets/images/home/moc1.png';
+  static const String featureDoctorImage = 'assets/images/home/mock2.png';
   static const String patientIcon = 'assets/icons/patient_icon.svg';
   static const String adminIcon = 'assets/icons/admin_icon.svg';
 }

@@ -1,0 +1,18 @@
+﻿size (373, 67)
+ y=  0 dark_cols=373 range=0-372
+ y=  4 dark_cols=373 range=0-372
+ y=  8 dark_cols=373 range=0-372
+ y= 12 dark_cols=26 range=0-372
+ y= 16 dark_cols=14 range=0-372
+ y= 20 dark_cols=8 range=0-372
+ y= 24 dark_cols=0
+ y= 28 dark_cols=33 range=26-342
+ y= 32 dark_cols=20 range=25-339
+ y= 36 dark_cols=13 range=28-340
+ y= 40 dark_cols=3 range=38-40
+ y= 44 dark_cols=0
+ y= 48 dark_cols=0
+ y= 52 dark_cols=0
+ y= 56 dark_cols=0
+ y= 60 dark_cols=0
+ y= 64 dark_cols=0

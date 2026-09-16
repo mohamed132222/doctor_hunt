@@ -16,4 +16,5 @@ flutter_native_splash:
   # window background already provides the correct backdrop.
   android_12:
     color: "#FFFFFF"
+    color_dark: "#FFFFFF"
     image: assets/images/splash_logo.png

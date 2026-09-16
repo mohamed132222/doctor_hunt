@@ -42,24 +42,28 @@ class OnboardingSlide extends StatelessWidget {
           ),
         ),
         SizedBox(height: context.h(AppSize.onboardingImageTitleGap)),
-        Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.w(AppSize.onboardingTextPaddingH),
-          ),
-          child: Column(
-            children: [
-              Text(
-                item.title,
-                textAlign: TextAlign.center,
-                style: context.textStyles.onboardingTitle,
-              ),
-              SizedBox(height: context.h(AppSize.onboardingTitleSubtitleGap)),
-              Text(
-                item.subtitle,
-                textAlign: TextAlign.center,
-                style: context.textStyles.onboardingSubtitle,
-              ),
-            ],
+        // Flexible + scrollable: with an enlarged system font the text keeps its
+        // readable size and scrolls rather than overflowing the slide.
+        Flexible(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: context.w(AppSize.onboardingTextPaddingH),
+            ),
+            child: Column(
+              children: [
+                Text(
+                  item.title,
+                  textAlign: TextAlign.center,
+                  style: context.textStyles.onboardingTitle,
+                ),
+                SizedBox(height: context.h(AppSize.onboardingTitleSubtitleGap)),
+                Text(
+                  item.subtitle,
+                  textAlign: TextAlign.center,
+                  style: context.textStyles.onboardingSubtitle,
+                ),
+              ],
+            ),
           ),
         ),
         SizedBox(height: context.h(AppSize.onboardingSlideBottomGap)),
