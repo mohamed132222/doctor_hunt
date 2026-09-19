@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../appsize/app_size.dart';
-import '../appsize/screen_utils.dart';
+import '../appsize/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
 /// Centered title + subtitle header used at the top of auth screens.
@@ -20,7 +20,7 @@ class AuthHeader extends StatelessWidget {
           textAlign: TextAlign.center,
           style: context.textStyles.authTitle,
         ),
-        SizedBox(height: context.h(AppSize.authTitleSubtitleGap)),
+        SizedBox(height: context.paddingOf(AppSize.authTitleSubtitleGap)),
         Text(
           subtitle,
           textAlign: TextAlign.center,

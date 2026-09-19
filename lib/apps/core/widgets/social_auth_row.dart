@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../appsize/app_size.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../generated/image_assets.dart';
-import '../appsize/app_size.dart';
-import '../appsize/screen_utils.dart';
+import 'package:doctor_hunt/generated/image_assets.dart';
+import '../appsize/media_query_extension.dart';
 import '../constants/app_strings.dart';
 import '../themes/app_theme.dart';
 
@@ -24,7 +25,7 @@ class SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final radius = BorderRadius.circular(context.r(AppSize.r14));
+    final radius = BorderRadius.circular(context.sizeOf(AppSize.r14));
 
     return Expanded(
       child: DecoratedBox(
@@ -39,16 +40,16 @@ class SocialButton extends StatelessWidget {
             onTap: onPressed,
             borderRadius: radius,
             child: SizedBox(
-              height: context.h(AppSize.socialButtonHeight),
+              height: context.sizeOf(AppSize.socialButtonHeight),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
                     icon,
-                    width: context.w(AppSize.iconSocial),
-                    height: context.w(AppSize.iconSocial),
+                    width: context.sizeOf(AppSize.iconSocial),
+                    height: context.sizeOf(AppSize.iconSocial),
                   ),
-                  SizedBox(width: context.w(AppSize.s8)),
+                  SizedBox(width: context.paddingOf(AppSize.s8)),
                   Flexible(
                     child: Text(
                       label,
@@ -65,23 +66,41 @@ class SocialButton extends StatelessWidget {
   }
 }
 
-/// Row of the two social login buttons (Google + Facebook).
+/// Row of the social login buttons.
+///
+/// Shows Google alone (full width) by default; pass [showFacebook] to add the
+/// Facebook button beside it.
 class SocialAuthRow extends StatelessWidget {
-  const SocialAuthRow({super.key, this.onGoogle, this.onFacebook});
+  const SocialAuthRow({
+    super.key,
+    this.onGoogle,
+    this.onFacebook,
+    this.showFacebook = false,
+  });
 
   final VoidCallback? onGoogle;
   final VoidCallback? onFacebook;
 
+  /// When false the Google button spans the full width.
+  final bool showFacebook;
+
   @override
   Widget build(BuildContext context) {
+    final google = SocialButton(
+      label: AppStrings.socialGoogle,
+      icon: AppAssets.googleIcon,
+      onPressed: onGoogle,
+    );
+
+    if (!showFacebook) {
+      // Still needs a Flex parent: [SocialButton] is an [Expanded].
+      return Row(children: [google]);
+    }
+
     return Row(
       children: [
-        SocialButton(
-          label: AppStrings.socialGoogle,
-          icon: AppAssets.googleIcon,
-          onPressed: onGoogle,
-        ),
-        SizedBox(width: context.w(AppSize.s16)),
+        google,
+        SizedBox(width: context.paddingOf(AppSize.s16)),
         SocialButton(
           label: AppStrings.socialFacebook,
           icon: AppAssets.facebookIcon,

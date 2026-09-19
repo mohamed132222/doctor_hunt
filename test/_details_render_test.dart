@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:doctor_hunt/apps/core/themes/app_theme.dart';
-import 'package:doctor_hunt/apps/features/doctor_details/presentation/screens/doctor_details_screen.dart';
+import 'package:doctor_hunt/apps/features/patient/doctor_details/presentation/screens/doctor_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';

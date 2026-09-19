@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../appsize/app_size.dart';
-import '../appsize/screen_utils.dart';
+import '../appsize/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
 /// Row of page-indicator dots for carousels / onboarding.
@@ -19,9 +19,13 @@ class PageDots extends StatelessWidget {
         final active = index == activeIndex;
         return AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          margin: EdgeInsets.symmetric(horizontal: context.w(AppSize.s4)),
-          width: context.w(active ? AppSize.dotActiveWidth : AppSize.dotSize),
-          height: context.w(AppSize.dotSize),
+          margin: EdgeInsets.symmetric(
+            horizontal: context.paddingOf(AppSize.s4),
+          ),
+          width: context.sizeOf(
+            active ? AppSize.dotActiveWidth : AppSize.dotSize,
+          ),
+          height: context.sizeOf(AppSize.dotSize),
           decoration: BoxDecoration(
             color: active
                 ? context.colorScheme.primary

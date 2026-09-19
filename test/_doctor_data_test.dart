@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/apps/features/main/data/models/doctor.dart';
+import 'package:doctor_hunt/apps/features/patient/main/data/models/doctor.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -1,20 +1,20 @@
 import 'package:go_router/go_router.dart';
 
-import '../../features/appointment/presentation/screens/appointment_screen.dart';
-import '../../features/appointment/presentation/screens/schedule_screen.dart';
-import '../../features/auth/presentation/screens/choose_role_screen.dart';
-import '../../features/auth/presentation/screens/login_screen.dart';
-import '../../features/auth/presentation/screens/register_screen.dart';
-import '../../features/booking/presentation/screens/booking_screen.dart';
-import '../../features/doctor_details/presentation/screens/doctor_details_screen.dart';
-import '../../features/main/presentation/screens/book_screen.dart';
-import '../../features/main/presentation/screens/chat_screen.dart';
-import '../../features/main/presentation/screens/favorites_screen.dart';
-import '../../features/main/presentation/screens/home_screen.dart';
-import '../../features/main/presentation/screens/main_shell.dart';
-import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
-import '../../features/search/presentation/screens/search_screen.dart';
-import '../../features/splash/presentation/screens/splash_screen.dart';
+import '../../features/common/auth/presentation/screens/choose_role_screen.dart';
+import '../../features/common/auth/presentation/screens/login_screen.dart';
+import '../../features/common/auth/presentation/screens/register_screen.dart';
+import '../../features/common/onboarding/presentation/screens/onboarding_screen.dart';
+import '../../features/common/splash/presentation/screens/splash_screen.dart';
+import '../../features/patient/appointment/presentation/screens/appointment_screen.dart';
+import '../../features/patient/appointment/presentation/screens/schedule_screen.dart';
+import '../../features/patient/booking/presentation/screens/booking_screen.dart';
+import '../../features/patient/doctor_details/presentation/screens/doctor_details_screen.dart';
+import '../../features/patient/main/presentation/screens/book_screen.dart';
+import '../../features/patient/main/presentation/screens/chat_screen.dart';
+import '../../features/patient/main/presentation/screens/favorites_screen.dart';
+import '../../features/patient/main/presentation/screens/home_screen.dart';
+import '../../features/patient/main/presentation/screens/main_shell.dart';
+import '../../features/patient/search/presentation/screens/search_screen.dart';
 
 /// Central route configuration for the app.
 ///

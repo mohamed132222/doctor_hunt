@@ -1,8 +1,7 @@
+import 'package:doctor_hunt/apps/core/themes/app_theme.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:doctor_hunt/apps/core/themes/app_theme.dart';
-import 'package:doctor_hunt/apps/features/auth/presentation/screens/register_screen.dart';
 
 void main() {
   testWidgets('Register screen builds and fills the screen', (tester) async {

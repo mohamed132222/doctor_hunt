@@ -1,0 +1,15 @@
+# slang — type-safe i18n code generation.
+#
+#   dart run build_runner build -d
+#
+# Source of truth lives in lib/apps/core/i18n/ as <locale>.i18n.json.
+# Generated output (strings.g.dart) is committed so builds don't require
+# codegen — see the project README.
+base_locale: en
+fallback_strategy: base_locale
+input_directory: lib/apps/core/i18n
+input_file_pattern: .i18n.json
+output_directory: lib/apps/core/i18n
+output_file_name: strings.g.dart
+flutter_integration: true
+namespaces: false

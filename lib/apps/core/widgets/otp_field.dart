@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import '../appsize/app_size.dart';
+
 import 'package:flutter/services.dart';
 
-import '../appsize/app_size.dart';
-import '../appsize/screen_utils.dart';
+import '../appsize/media_query_extension.dart';
 
 /// A row of digit boxes for OTP / verification codes.
 ///
@@ -55,9 +56,9 @@ class _OtpFieldState extends State<OtpField> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final boxSize = context.w(AppSize.otpBoxSize);
-    final gap = context.w(AppSize.otpGap);
-    final radius = BorderRadius.circular(context.r(AppSize.otpRadius));
+    final boxSize = context.sizeOf(AppSize.otpBoxSize);
+    final gap = context.paddingOf(AppSize.otpGap);
+    final radius = BorderRadius.circular(context.sizeOf(AppSize.otpRadius));
 
     InputBorder border(Color color, double width) => OutlineInputBorder(
       borderRadius: radius,

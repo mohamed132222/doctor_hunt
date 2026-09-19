@@ -1,6 +1,7 @@
 /// Pixel-perfect design tokens (logical px at the 375×812 reference frame).
 ///
-/// Use [ScreenUtils] to scale these to the actual device size.
+/// Use the `context.sizeOf(...)` / `context.paddingOf(...)` extensions
+/// (in `media_query_extension.dart`) to scale these to the actual device size.
 /// Keep all hardcoded dimensions here — never inline numbers in widgets.
 abstract final class AppSize {
   AppSize._();
@@ -47,6 +48,14 @@ abstract final class AppSize {
   static const double iconSocial = 22;
   static const double iconLarge = 96;
 
+  // ── Misc surfaces ────────────────────────────────────────────────────────
+  static const double chooseRoleCardWidth = 56;
+  static const double placeholderIcon = 64;
+  static const double onboardingGlowOffset = 60;
+  static const double onboardingCtaPaddingH = 42;
+  static const double ellipseTopOffset = 80;
+  static const double ellipseBottomOffset = 50;
+
   // ── Illustration ──────────────────────────────────────────────────────────
   static const double illustrationCircle = 240;
 
@@ -71,6 +80,7 @@ abstract final class AppSize {
   static const double onboardingImageTop = 91;
   static const double onboardingImageTitleGap = 86;
   static const double onboardingTitleSubtitleGap = 14;
+  static const double onboardingSlideGap = 20;
 
   /// Gap below the subtitle (keeps the CTA at y=679 on the reference frame).
   static const double onboardingSlideBottomGap = 54;

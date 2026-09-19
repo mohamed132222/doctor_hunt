@@ -1,88 +1,71 @@
+import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
 
-import '../appsize/screen_utils.dart';
+import '../appsize/app_size.dart';
+import '../appsize/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
-/// Shared scaffold background: ice-blue → white → mint-green vertical gradient
-/// with optional decorative corner blobs.
+/// The app's standard page shell: it owns the [Scaffold] so screens don't
+/// each build one.
 ///
-/// [blob] controls where a soft green decorative circle sits (or `null` for
-/// a plain gradient).
+/// Paints the two brand ellipses — teal glow top-left, green glow
+/// bottom-right (the splash decoration) — over the surface colour, then
+/// lays the screen's content on top.
+///
+/// ```dart
+/// return AppBackground(child: MyBody());
+/// ```
 class AppBackground extends StatelessWidget {
   const AppBackground({
     super.key,
     required this.child,
-    this.blob = BlobPosition.none,
+    this.backgroundColor,
+    this.resizeToAvoidBottomInset,
   });
 
   final Widget child;
-  final BlobPosition blob;
+
+  /// Forwarded to the internal [Scaffold].
+  final Color? backgroundColor;
+
+  /// Forwarded to the internal [Scaffold].
+  final bool? resizeToAvoidBottomInset;
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.themeColors;
+    final width = context.screenWidth;
 
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            colors.gradientIce,
-            context.colorScheme.surface,
-            colors.gradientMint,
-          ],
-          stops: const [0.0, 0.55, 1.0],
-        ),
-      ),
-      child: Stack(
+    return Scaffold(
+      backgroundColor: backgroundColor,
+      resizeToAvoidBottomInset: resizeToAvoidBottomInset,
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-          if (blob == BlobPosition.topLeft)
-            Positioned(
-              top: -context.h(80),
-              left: -context.w(80),
-              child: _Blob(size: context.w(220), color: colors.primaryLight),
-            )
-          else if (blob == BlobPosition.topRight)
-            Positioned(
-              top: -context.h(80),
-              right: -context.w(80),
-              child: _Blob(size: context.w(220), color: colors.primaryLight),
+          Positioned.fill(
+            child: ColoredBox(color: context.colorScheme.surface),
+          ),
+          Positioned(
+            top: -context.paddingOf(AppSize.ellipseTopOffset),
+            left: -width * 0.25,
+            child: Image.asset(
+              AppAssets.ellipseTeal,
+              width: width * 0.9,
+              errorBuilder: (context, error, stackTrace) =>
+                  const SizedBox.shrink(),
             ),
-          if (blob != BlobPosition.none)
-            Positioned(
-              bottom: -context.h(100),
-              left: -context.w(60),
-              child: _Blob(
-                size: context.w(260),
-                color: colors.primaryLight,
-                opacity: 0.35,
-              ),
+          ),
+          Positioned(
+            bottom: -context.paddingOf(AppSize.ellipseBottomOffset),
+            right: -width * 0.2,
+            child: Image.asset(
+              AppAssets.ellipseGreen,
+              width: width * 0.7,
+              errorBuilder: (context, error, stackTrace) =>
+                  const SizedBox.shrink(),
             ),
-          Positioned.fill(child: child),
+          ),
+          child,
         ],
-      ),
-    );
-  }
-}
-
-enum BlobPosition { none, topLeft, topRight }
-
-class _Blob extends StatelessWidget {
-  const _Blob({required this.size, required this.color, this.opacity = 0.5});
-
-  final double size;
-  final Color color;
-  final double opacity;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color.withValues(alpha: opacity),
       ),
     );
   }

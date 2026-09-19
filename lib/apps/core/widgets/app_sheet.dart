@@ -3,7 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 import '../appsize/app_size.dart';
-import '../appsize/screen_utils.dart';
+import '../appsize/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
 /// Rounded modal sheet with the grey drag handle, a left-aligned title /
@@ -28,14 +28,14 @@ class AppSheet extends StatelessWidget {
     final bottomInset = math.max(
       MediaQuery.viewInsetsOf(context).bottom,
       MediaQuery.paddingOf(context).bottom +
-          context.h(AppSize.sheetBottomPadding),
+          context.paddingOf(AppSize.sheetBottomPadding),
     );
 
     return Padding(
       padding: EdgeInsets.only(
-        left: context.w(AppSize.sheetPaddingH),
-        right: context.w(AppSize.sheetPaddingH),
-        top: context.h(AppSize.sheetTopPadding),
+        left: context.paddingOf(AppSize.sheetPaddingH),
+        right: context.paddingOf(AppSize.sheetPaddingH),
+        top: context.paddingOf(AppSize.sheetTopPadding),
         bottom: bottomInset,
       ),
       child: SingleChildScrollView(
@@ -45,21 +45,25 @@ class AppSheet extends StatelessWidget {
           children: [
             Center(
               child: Container(
-                width: context.w(AppSize.sheetHandleWidth),
-                height: context.h(AppSize.sheetHandleHeight),
+                width: context.sizeOf(AppSize.sheetHandleWidth),
+                height: context.sizeOf(AppSize.sheetHandleHeight),
                 decoration: BoxDecoration(
                   color: context.themeColors.sheetHandle,
                   borderRadius: BorderRadius.circular(AppSize.r4),
                 ),
               ),
             ),
-            SizedBox(height: context.h(AppSize.sheetHandleTitleGap)),
+            SizedBox(height: context.paddingOf(AppSize.sheetHandleTitleGap)),
             Text(title, style: theme.textTheme.headlineMedium),
             if (subtitle != null) ...[
-              SizedBox(height: context.h(AppSize.sheetTitleSubtitleGap)),
+              SizedBox(
+                height: context.paddingOf(AppSize.sheetTitleSubtitleGap),
+              ),
               Text(subtitle!, style: context.textStyles.authSubtitle),
             ],
-            SizedBox(height: context.h(AppSize.sheetSubtitleContentGap)),
+            SizedBox(
+              height: context.paddingOf(AppSize.sheetSubtitleContentGap),
+            ),
             child,
           ],
         ),
@@ -80,7 +84,7 @@ Future<T?> showAppSheet<T>(BuildContext context, WidgetBuilder builder) {
     backgroundColor: context.colorScheme.surface,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
-        top: Radius.circular(context.r(AppSize.r24)),
+        top: Radius.circular(context.sizeOf(AppSize.r24)),
       ),
     ),
     builder: builder,

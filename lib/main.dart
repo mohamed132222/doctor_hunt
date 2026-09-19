@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-import 'apps/core/constants/app_strings.dart';
+import 'apps/core/i18n/strings.g.dart';
 import 'apps/core/router/app_router.dart';
 import 'apps/core/themes/app_theme.dart';
 
@@ -25,7 +25,7 @@ void main() {
   // Keep the native splash on screen until the first Flutter frame is ready
   // (the SplashScreen calls `FlutterNativeSplash.remove()`).
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(const DoctorHuntApp());
+  runApp(TranslationProvider(child: const DoctorHuntApp()));
 }
 
 class DoctorHuntApp extends StatelessWidget {
@@ -34,9 +34,13 @@ class DoctorHuntApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: AppStrings.appName,
+      title: t.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
+      // slang owns the locale: TranslationProvider rebuilds the whole tree on
+      // change, and `onLocaleChanged` flips text direction with it.
+      locale: TranslationProvider.of(context).flutterLocale,
+      supportedLocales: AppLocaleUtils.supportedLocales,
       routerConfig: AppRouter.router,
     );
   }

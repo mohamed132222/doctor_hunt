@@ -40,6 +40,8 @@ dependencies:
   flutter_svg: ^2.3.0
   flutter_map: ^8.3.2
   latlong2: ^0.10.1
+  slang: ^3.32.0
+  slang_flutter: ^3.32.0
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +53,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
+  build_runner: ^2.5.4
+  slang_build_runner: ^3.32.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
