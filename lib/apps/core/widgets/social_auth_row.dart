@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import '../appsize/app_size.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:doctor_hunt/generated/image_assets.dart';
 import '../appsize/media_query_extension.dart';
-import '../constants/app_strings.dart';
 import '../themes/app_theme.dart';
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 
 /// A single social-auth button rendered as a soft white card with a shadow.
 class SocialButton extends StatelessWidget {
@@ -25,7 +24,7 @@ class SocialButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final radius = BorderRadius.circular(context.sizeOf(AppSize.r14));
+    final radius = BorderRadius.circular(context.r14);
 
     return Expanded(
       child: DecoratedBox(
@@ -40,16 +39,16 @@ class SocialButton extends StatelessWidget {
             onTap: onPressed,
             borderRadius: radius,
             child: SizedBox(
-              height: context.sizeOf(AppSize.socialButtonHeight),
+              height: context.socialButtonHeight,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
                     icon,
-                    width: context.sizeOf(AppSize.iconSocial),
-                    height: context.sizeOf(AppSize.iconSocial),
+                    width: context.iconSocial,
+                    height: context.iconSocial,
                   ),
-                  SizedBox(width: context.paddingOf(AppSize.s8)),
+                  SizedBox(width: context.s8),
                   Flexible(
                     child: Text(
                       label,
@@ -87,7 +86,7 @@ class SocialAuthRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final google = SocialButton(
-      label: AppStrings.socialGoogle,
+      label: t.socialGoogle,
       icon: AppAssets.googleIcon,
       onPressed: onGoogle,
     );
@@ -100,9 +99,9 @@ class SocialAuthRow extends StatelessWidget {
     return Row(
       children: [
         google,
-        SizedBox(width: context.paddingOf(AppSize.s16)),
+        SizedBox(width: context.s16),
         SocialButton(
-          label: AppStrings.socialFacebook,
+          label: t.socialFacebook,
           icon: AppAssets.facebookIcon,
           onPressed: onFacebook,
         ),

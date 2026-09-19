@@ -1,6 +1,6 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_strings.dart';
 import '../widgets/placeholder_tab.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -8,9 +8,6 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PlaceholderTab(
-      title: AppStrings.tabChat,
-      icon: Icons.chat_bubble,
-    );
+    return PlaceholderTab(title: t.tabChat, icon: Icons.chat_bubble);
   }
 }

@@ -1,12 +1,11 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/router/app_router.dart';
-import '../../../../../core/widgets/auth_switch_link.dart';
 import '../../../../../core/widgets/app_background.dart';
+import '../../../../../core/widgets/auth_switch_link.dart';
 import '../widgets/login_body.dart';
 
 /// Login screen — thin StatelessWidget; form state lives in [LoginBody].
@@ -27,28 +26,24 @@ class LoginScreen extends StatelessWidget {
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: constraints.maxHeight),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: context.paddingOf(AppSize.s24),
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: context.s24),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         children: [
-                          SizedBox(
-                            height: context.paddingOf(AppSize.authTitleTopGap),
-                          ),
-                          const LoginBody(),
+                          SizedBox(height: context.authTitleTopGap),
+                          LoginBody(),
                         ],
                       ),
                       Padding(
                         padding: EdgeInsets.only(
-                          top: context.paddingOf(AppSize.s24),
-                          bottom: context.paddingOf(AppSize.authBottomGap),
+                          top: context.s24,
+                          bottom: context.authBottomGap,
                         ),
                         child: AuthSwitchLink(
-                          prefix: AppStrings.loginSwitchPrefix,
-                          action: AppStrings.loginSwitchAction,
+                          prefix: t.loginSwitchPrefix,
+                          action: t.loginSwitchAction,
                           onTap: () => context.go(RoutePath.register),
                         ),
                       ),

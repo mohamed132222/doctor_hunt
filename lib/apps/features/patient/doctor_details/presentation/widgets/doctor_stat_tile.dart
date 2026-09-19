@@ -17,15 +17,11 @@ class DoctorStatTile extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      constraints: BoxConstraints(
-        minHeight: context.sizeOf(AppSize.detailsStatHeight),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: context.paddingOf(AppSize.s8)),
+      constraints: BoxConstraints(minHeight: context.detailsStatHeight),
+      padding: EdgeInsets.symmetric(horizontal: context.s8),
       decoration: BoxDecoration(
         color: context.themeColors.screenTint,
-        borderRadius: BorderRadius.circular(
-          context.sizeOf(AppSize.detailsStatRadius),
-        ),
+        borderRadius: BorderRadius.circular(context.detailsStatRadius),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -38,7 +34,7 @@ class DoctorStatTile extends StatelessWidget {
               color: theme.colorScheme.onSurface,
             ),
           ),
-          SizedBox(height: context.paddingOf(AppSize.s2)),
+          SizedBox(height: context.s2),
           Text(
             stat.label,
             style: theme.textTheme.bodySmall?.copyWith(

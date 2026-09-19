@@ -27,15 +27,14 @@ class AppSheet extends StatelessWidget {
     // Push the content above the keyboard, and always clear the bottom inset.
     final bottomInset = math.max(
       MediaQuery.viewInsetsOf(context).bottom,
-      MediaQuery.paddingOf(context).bottom +
-          context.paddingOf(AppSize.sheetBottomPadding),
+      MediaQuery.paddingOf(context).bottom + context.sheetBottomPadding,
     );
 
     return Padding(
       padding: EdgeInsets.only(
-        left: context.paddingOf(AppSize.sheetPaddingH),
-        right: context.paddingOf(AppSize.sheetPaddingH),
-        top: context.paddingOf(AppSize.sheetTopPadding),
+        left: context.sheetPaddingH,
+        right: context.sheetPaddingH,
+        top: context.sheetTopPadding,
         bottom: bottomInset,
       ),
       child: SingleChildScrollView(
@@ -45,25 +44,21 @@ class AppSheet extends StatelessWidget {
           children: [
             Center(
               child: Container(
-                width: context.sizeOf(AppSize.sheetHandleWidth),
-                height: context.sizeOf(AppSize.sheetHandleHeight),
+                width: context.sheetHandleWidth,
+                height: context.sheetHandleHeight,
                 decoration: BoxDecoration(
                   color: context.themeColors.sheetHandle,
                   borderRadius: BorderRadius.circular(AppSize.r4),
                 ),
               ),
             ),
-            SizedBox(height: context.paddingOf(AppSize.sheetHandleTitleGap)),
+            SizedBox(height: context.sheetHandleTitleGap),
             Text(title, style: theme.textTheme.headlineMedium),
             if (subtitle != null) ...[
-              SizedBox(
-                height: context.paddingOf(AppSize.sheetTitleSubtitleGap),
-              ),
+              SizedBox(height: context.sheetTitleSubtitleGap),
               Text(subtitle!, style: context.textStyles.authSubtitle),
             ],
-            SizedBox(
-              height: context.paddingOf(AppSize.sheetSubtitleContentGap),
-            ),
+            SizedBox(height: context.sheetSubtitleContentGap),
             child,
           ],
         ),
@@ -83,9 +78,7 @@ Future<T?> showAppSheet<T>(BuildContext context, WidgetBuilder builder) {
     useSafeArea: true,
     backgroundColor: context.colorScheme.surface,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(context.sizeOf(AppSize.r24)),
-      ),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(context.r24)),
     ),
     builder: builder,
   );

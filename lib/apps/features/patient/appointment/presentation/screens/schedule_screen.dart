@@ -1,6 +1,6 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/widgets/app_background.dart';
 import '../../../doctor_details/presentation/widgets/doctor_top_bar.dart';
 import '../../../main/data/models/doctor.dart';
@@ -17,9 +17,7 @@ class ScheduleScreen extends StatelessWidget {
     final doctor = doctorById(doctorId);
 
     return AppBackground(
-      child: doctor == null
-          ? const _DoctorNotFound()
-          : ScheduleBody(doctor: doctor),
+      child: doctor == null ? _DoctorNotFound() : ScheduleBody(doctor: doctor),
     );
   }
 }
@@ -33,8 +31,8 @@ class _DoctorNotFound extends StatelessWidget {
       bottom: false,
       child: Column(
         children: [
-          DoctorTopBar(title: AppStrings.appointmentTitle, centerTitle: false),
-          const Expanded(child: Center(child: Text(AppStrings.doctorNotFound))),
+          DoctorTopBar(title: t.appointmentTitle, centerTitle: false),
+          Expanded(child: Center(child: Text(t.doctorNotFound))),
         ],
       ),
     );

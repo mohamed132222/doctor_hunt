@@ -33,11 +33,11 @@ class RoleCard extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           AnimatedContainer(
-            duration: const Duration(milliseconds: 180),
-            padding: EdgeInsets.all(context.paddingOf(AppSize.s20)),
+            duration: Duration(milliseconds: 180),
+            padding: EdgeInsets.all(context.s20),
             decoration: BoxDecoration(
               color: scheme.surface,
-              borderRadius: BorderRadius.circular(context.sizeOf(AppSize.r16)),
+              borderRadius: BorderRadius.circular(context.r16),
               border: Border.all(
                 color: selected ? scheme.primary : scheme.outline,
                 width: selected ? AppSize.borderFocus : AppSize.borderThin,
@@ -46,8 +46,8 @@ class RoleCard extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  width: context.paddingOf(AppSize.s48),
-                  height: context.paddingOf(AppSize.s48),
+                  width: context.s48,
+                  height: context.s48,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -57,18 +57,18 @@ class RoleCard extends StatelessWidget {
                   ),
                   child: SvgPicture.asset(
                     option.icon,
-                    width: context.paddingOf(AppSize.s24),
-                    height: context.paddingOf(AppSize.s24),
+                    width: context.s24,
+                    height: context.s24,
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
                 ),
-                SizedBox(width: context.paddingOf(AppSize.s16)),
+                SizedBox(width: context.s16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(option.title, style: theme.textTheme.titleLarge),
-                      SizedBox(height: context.paddingOf(AppSize.s4)),
+                      SizedBox(height: context.s4),
                       Text(
                         option.description,
                         style: theme.textTheme.bodySmall,
@@ -81,11 +81,11 @@ class RoleCard extends StatelessWidget {
           ),
           if (selected)
             Positioned(
-              top: context.paddingOf(AppSize.s16),
-              right: context.paddingOf(AppSize.s16),
+              top: context.s16,
+              right: context.s16,
               child: Container(
-                width: context.paddingOf(AppSize.s28),
-                height: context.paddingOf(AppSize.s28),
+                width: context.s28,
+                height: context.s28,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -93,7 +93,7 @@ class RoleCard extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.check,
-                  size: context.paddingOf(AppSize.s16),
+                  size: context.s16,
                   color: scheme.onPrimary,
                 ),
               ),

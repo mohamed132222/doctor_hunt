@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../appsize/app_size.dart';
 
 import '../appsize/media_query_extension.dart';
 
@@ -41,8 +40,8 @@ class PrimaryButton extends StatelessWidget {
         : Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, size: context.sizeOf(AppSize.iconSmall)),
-              SizedBox(width: context.paddingOf(AppSize.s8)),
+              Icon(icon, size: context.iconSmall),
+              SizedBox(width: context.s8),
               Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
             ],
           );
@@ -53,7 +52,7 @@ class PrimaryButton extends StatelessWidget {
 
     // Merge onto whatever style was passed (or the theme default) so callers
     // only state what they override.
-    final resolved = (style ?? const ButtonStyle()).merge(
+    final resolved = (style ?? ButtonStyle()).merge(
       ButtonStyle(
         minimumSize: h == null
             ? null

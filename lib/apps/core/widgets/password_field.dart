@@ -1,9 +1,7 @@
+import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
-import '../appsize/app_size.dart';
-
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:doctor_hunt/generated/image_assets.dart';
 import '../appsize/media_query_extension.dart';
 import 'auth_text_field.dart';
 
@@ -33,8 +31,8 @@ class _PasswordFieldState extends State<PasswordField> {
 
   @override
   Widget build(BuildContext context) {
-    final iconWidth = context.sizeOf(AppSize.authEyeIconWidth);
-    final iconHeight = context.sizeOf(AppSize.authEyeIconHeight);
+    final iconWidth = context.authEyeIconWidth;
+    final iconHeight = context.authEyeIconHeight;
 
     return AuthTextField(
       hint: widget.hint,

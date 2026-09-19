@@ -1,6 +1,6 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_strings.dart';
 import '../widgets/placeholder_tab.dart';
 
 class BookScreen extends StatelessWidget {
@@ -8,9 +8,6 @@ class BookScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PlaceholderTab(
-      title: AppStrings.tabBook,
-      icon: Icons.menu_book_rounded,
-    );
+    return PlaceholderTab(title: t.tabBook, icon: Icons.menu_book_rounded);
   }
 }

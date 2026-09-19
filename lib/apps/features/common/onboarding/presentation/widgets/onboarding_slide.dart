@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../../../../core/appsize/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../data/models/onboarding_item.dart';
-import '../../../../../core/appsize/app_size.dart';
-import '../../../../../core/appsize/media_query_extension.dart';
 
 /// A single onboarding slide: illustration + title + subtitle.
 ///
@@ -19,15 +18,13 @@ class OnboardingSlide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.sizeOf(AppSize.onboardingSlideGap),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: context.onboardingSlideGap),
       child: Column(
         children: [
           Center(
             child: ClipOval(child: Image.asset(item.image, fit: BoxFit.cover)),
           ),
-          SizedBox(height: context.sizeOf(AppSize.onboardingSlideBottomGap)),
+          SizedBox(height: context.onboardingSlideBottomGap),
           Column(
             children: [
               Text(
@@ -35,9 +32,7 @@ class OnboardingSlide extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: context.textStyles.onboardingTitle,
               ),
-              SizedBox(
-                height: context.sizeOf(AppSize.onboardingTitleSubtitleGap),
-              ),
+              SizedBox(height: context.onboardingTitleSubtitleGap),
               Text(
                 item.subtitle,
                 textAlign: TextAlign.center,
@@ -45,7 +40,7 @@ class OnboardingSlide extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: context.sizeOf(AppSize.onboardingSlideBottomGap)),
+          SizedBox(height: context.onboardingSlideBottomGap),
         ],
       ),
     );

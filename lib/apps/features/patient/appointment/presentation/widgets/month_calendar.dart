@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
@@ -29,9 +30,7 @@ class MonthCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.calendarRadius),
-    );
+    final radius = BorderRadius.circular(context.calendarRadius);
     final firstOfMonth = DateTime(month.year, month.month);
     final daysInMonth = DateTime(month.year, month.month + 1, 0).day;
     // Dart weekday is Mon = 1 … Sun = 7, so Monday-start grids need no shift.
@@ -42,9 +41,7 @@ class MonthCalendar extends StatelessWidget {
       child: ConstrainedBox(
         // Keeps day cells phone-sized on tablets and in landscape instead of
         // stretching the grid across the full width.
-        constraints: BoxConstraints(
-          maxWidth: context.sizeOf(AppSize.calendarMaxWidth),
-        ),
+        constraints: BoxConstraints(maxWidth: context.calendarMaxWidth),
         child: Container(
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
@@ -55,11 +52,9 @@ class MonthCalendar extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                height: context.sizeOf(AppSize.calendarHeaderHeight),
+                height: context.calendarHeaderHeight,
                 color: theme.colorScheme.primary,
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.paddingOf(AppSize.s12),
-                ),
+                padding: EdgeInsets.symmetric(horizontal: context.s12),
                 child: Row(
                   children: [
                     Expanded(
@@ -76,12 +71,12 @@ class MonthCalendar extends StatelessWidget {
                     ),
                     _MonthArrow(
                       icon: Icons.chevron_left,
-                      tooltip: AppStrings.previousMonth,
+                      tooltip: t.previousMonth,
                       onTap: onPreviousMonth,
                     ),
                     _MonthArrow(
                       icon: Icons.chevron_right,
-                      tooltip: AppStrings.nextMonth,
+                      tooltip: t.nextMonth,
                       onTap: onNextMonth,
                     ),
                   ],
@@ -89,10 +84,10 @@ class MonthCalendar extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(
-                  context.paddingOf(AppSize.s8),
-                  context.paddingOf(AppSize.s12),
-                  context.paddingOf(AppSize.s8),
-                  context.paddingOf(AppSize.s12),
+                  context.s8,
+                  context.s12,
+                  context.s8,
+                  context.s12,
                 ),
                 child: Column(
                   children: [
@@ -113,12 +108,12 @@ class MonthCalendar extends StatelessWidget {
                           ),
                       ],
                     ),
-                    SizedBox(height: context.paddingOf(AppSize.s6)),
+                    SizedBox(height: context.s6),
                     GridView.count(
                       crossAxisCount: 7,
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      mainAxisSpacing: context.paddingOf(AppSize.s4),
+                      physics: NeverScrollableScrollPhysics(),
+                      mainAxisSpacing: context.s4,
                       children: [
                         for (var i = 0; i < leadingBlanks; i++)
                           const SizedBox.shrink(),
@@ -167,14 +162,12 @@ class _MonthArrow extends StatelessWidget {
       message: tooltip,
       child: InkResponse(
         onTap: onTap,
-        radius: context.paddingOf(AppSize.s20),
+        radius: context.s20,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.paddingOf(AppSize.s4),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: context.s4),
           child: Icon(
             icon,
-            size: context.paddingOf(AppSize.s20),
+            size: context.s20,
             color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
@@ -200,7 +193,7 @@ class _DayCell extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final size = context.sizeOf(AppSize.calendarCell);
+    final size = context.calendarCell;
 
     return Semantics(
       label: '${date.day}',

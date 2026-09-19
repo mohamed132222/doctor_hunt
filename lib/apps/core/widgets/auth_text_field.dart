@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../appsize/app_size.dart';
 import '../appsize/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
@@ -35,7 +34,7 @@ class AuthTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(context.sizeOf(AppSize.r14)),
+        borderRadius: BorderRadius.circular(context.r14),
         boxShadow: [context.themeColors.cardShadow],
       ),
       child: TextFormField(

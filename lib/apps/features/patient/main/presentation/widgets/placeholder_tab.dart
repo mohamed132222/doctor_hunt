@@ -1,8 +1,7 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
 
 /// Minimal placeholder for a bottom-nav tab screen.
@@ -24,12 +23,12 @@ class PlaceholderTab extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: context.sizeOf(AppSize.placeholderIcon),
+              size: context.placeholderIcon,
               color: context.colorScheme.outlineVariant,
             ),
-            SizedBox(height: context.paddingOf(AppSize.s16)),
+            SizedBox(height: context.s16),
             Text(
-              AppStrings.tabPlaceholder(title),
+              t.tabPlaceholder(title: title),
               style: theme.textTheme.bodyLarge?.copyWith(
                 color: context.colorScheme.onSurfaceVariant,
               ),

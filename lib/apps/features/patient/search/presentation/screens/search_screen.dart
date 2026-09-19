@@ -1,9 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/widgets/app_background.dart';
 import '../../../doctor_details/presentation/widgets/doctor_top_bar.dart';
@@ -31,9 +30,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final gutter = EdgeInsets.symmetric(
-      horizontal: context.paddingOf(AppSize.homeRowPaddingH),
-    );
+    final gutter = EdgeInsets.symmetric(horizontal: context.homeRowPaddingH);
 
     return AppBackground(
       child: SafeArea(
@@ -41,7 +38,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Column(
           children: [
             DoctorTopBar(
-              title: AppStrings.findDoctorsTitle,
+              title: t.findDoctorsTitle,
               centerTitle: false,
               onBack: () => context.pop(),
             ),
@@ -53,20 +50,20 @@ class _SearchScreenState extends State<SearchScreen> {
                 onChanged: _onQueryChanged,
               ),
             ),
-            SizedBox(height: context.paddingOf(AppSize.s16)),
+            SizedBox(height: context.s16),
             Expanded(
               child: _results.isEmpty
-                  ? const _NoResults()
+                  ? _NoResults()
                   : ListView.separated(
                       padding: EdgeInsets.fromLTRB(
-                        context.paddingOf(AppSize.homeRowPaddingH),
+                        context.homeRowPaddingH,
                         0,
-                        context.paddingOf(AppSize.homeRowPaddingH),
-                        context.paddingOf(AppSize.s24),
+                        context.homeRowPaddingH,
+                        context.s24,
                       ),
                       itemCount: _results.length,
                       separatorBuilder: (context, index) =>
-                          SizedBox(height: context.paddingOf(AppSize.s16)),
+                          SizedBox(height: context.s16),
                       itemBuilder: (context, index) {
                         final doctor = _results[index];
                         return SearchDoctorCard(
@@ -99,26 +96,24 @@ class _NoResults extends StatelessWidget {
 
     return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: context.paddingOf(AppSize.s32),
-        ),
+        padding: EdgeInsets.symmetric(horizontal: context.s32),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               Icons.search_off_rounded,
-              size: context.sizeOf(AppSize.iconLarge) * 0.5,
+              size: context.iconLarge * 0.5,
               color: theme.colorScheme.onSurfaceVariant,
             ),
-            SizedBox(height: context.paddingOf(AppSize.s12)),
+            SizedBox(height: context.s12),
             Text(
-              AppStrings.noSearchResults,
+              t.noSearchResults,
               textAlign: TextAlign.center,
               style: theme.textTheme.titleMedium,
             ),
-            SizedBox(height: context.paddingOf(AppSize.s4)),
+            SizedBox(height: context.s4),
             Text(
-              AppStrings.noSearchResultsHint,
+              t.noSearchResultsHint,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,

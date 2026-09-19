@@ -1,9 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/validators/app_validators.dart';
 import '../../../../../core/widgets/auth_header.dart';
@@ -40,7 +39,7 @@ class _RegisterBodyState extends State<RegisterBody> {
     if (!_agreed) {
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text(AppStrings.termsRequired)));
+      ).showSnackBar(SnackBar(content: Text(t.termsRequired)));
       return;
     }
     context.go(RoutePath.home);
@@ -53,43 +52,39 @@ class _RegisterBodyState extends State<RegisterBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const AuthHeader(
-            title: AppStrings.registerTitle,
-            subtitle: AppStrings.authSubtitle,
-          ),
-          SizedBox(height: context.paddingOf(AppSize.s32)),
-          const SocialAuthRow(showFacebook: true),
-          SizedBox(height: context.paddingOf(AppSize.s24)),
+          AuthHeader(title: t.registerTitle, subtitle: t.authSubtitle),
+          SizedBox(height: context.s32),
+          SocialAuthRow(showFacebook: true),
+          SizedBox(height: context.s24),
           AuthTextField(
-            hint: AppStrings.nameHint,
+            hint: t.nameHint,
             controller: _nameController,
             textInputAction: TextInputAction.next,
-            validator: (v) =>
-                AppValidators.required(v, AppStrings.nameFieldLabel),
+            validator: (v) => AppValidators.required(v, t.nameFieldLabel),
           ),
-          SizedBox(height: context.paddingOf(AppSize.s16)),
+          SizedBox(height: context.s16),
           AuthTextField(
-            hint: AppStrings.emailHint,
+            hint: t.emailHint,
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
             validator: AppValidators.email,
           ),
-          SizedBox(height: context.paddingOf(AppSize.s16)),
+          SizedBox(height: context.s16),
           PasswordField(
-            hint: AppStrings.passwordHint,
+            hint: t.passwordHint,
             controller: _passwordController,
             textInputAction: TextInputAction.done,
             validator: AppValidators.password,
           ),
-          SizedBox(height: context.paddingOf(AppSize.s16)),
+          SizedBox(height: context.s16),
           _TermsRow(
             agreed: _agreed,
             onChanged: (v) => setState(() => _agreed = v),
           ),
-          SizedBox(height: context.paddingOf(AppSize.s32)),
-          PrimaryButton(label: AppStrings.registerButton, onPressed: _register),
-          SizedBox(height: context.paddingOf(AppSize.s16)),
+          SizedBox(height: context.s32),
+          PrimaryButton(label: t.registerButton, onPressed: _register),
+          SizedBox(height: context.s16),
         ],
       ),
     );
@@ -108,7 +103,7 @@ class _TermsRow extends StatelessWidget {
     return Row(
       children: [
         Checkbox(value: agreed, onChanged: (v) => onChanged(v ?? false)),
-        SizedBox(width: context.paddingOf(AppSize.s12)),
+        SizedBox(width: context.s12),
         Expanded(
           child: GestureDetector(
             onTap: () => onChanged(!agreed),
@@ -116,11 +111,11 @@ class _TermsRow extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: AppStrings.termsPrefix,
+                    text: t.termsPrefix,
                     style: theme.textTheme.bodySmall,
                   ),
                   TextSpan(
-                    text: AppStrings.termsAction,
+                    text: t.termsAction,
                     style: theme.textTheme.titleSmall,
                   ),
                 ],

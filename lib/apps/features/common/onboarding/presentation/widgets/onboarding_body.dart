@@ -1,13 +1,12 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/primary_button.dart';
-import 'package:doctor_hunt/generated/image_assets.dart';
 import '../../data/models/onboarding_item.dart';
 import 'onboarding_slide.dart';
 
@@ -46,7 +45,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
       return;
     }
     _controller.nextPage(
-      duration: const Duration(milliseconds: 350),
+      duration: Duration(milliseconds: 350),
       curve: Curves.easeInOut,
     );
   }
@@ -63,12 +62,12 @@ class _OnboardingBodyState extends State<OnboardingBody> {
           alignment: Alignment.bottomRight,
           child: Transform.translate(
             offset: Offset(
-              context.sizeOf(AppSize.onboardingGlowOffset),
-              context.sizeOf(AppSize.onboardingGlowOffset),
+              context.onboardingGlowOffset,
+              context.onboardingGlowOffset,
             ),
             child: Image.asset(
               AppAssets.onboardingGlow,
-              width: context.sizeOf(AppSize.onboardingGlowWidth),
+              width: context.onboardingGlowWidth,
               errorBuilder: (context, error, stackTrace) =>
                   const SizedBox.shrink(),
             ),
@@ -76,14 +75,14 @@ class _OnboardingBodyState extends State<OnboardingBody> {
         ),
         // Decorative shape — top-left / top-right, animated between slides.
         AnimatedAlign(
-          duration: const Duration(milliseconds: 400),
+          duration: Duration(milliseconds: 400),
           curve: Curves.easeInOut,
           alignment: _shapeOnRight ? Alignment.topRight : Alignment.topLeft,
           child: Transform.flip(
             flipX: _shapeOnRight,
             child: Image.asset(
               AppAssets.onboardingShape,
-              width: context.sizeOf(AppSize.onboardingShapeWidth),
+              width: context.onboardingShapeWidth,
               errorBuilder: (context, error, stackTrace) =>
                   const SizedBox.shrink(),
             ),
@@ -93,7 +92,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
         Positioned.fill(
           child: Column(
             children: [
-              SizedBox(height: context.sizeOf(AppSize.onboardingImageTop)),
+              SizedBox(height: context.onboardingImageTop),
               Expanded(
                 child: PageView.builder(
                   controller: _controller,
@@ -105,15 +104,15 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: context.sizeOf(AppSize.onboardingCtaPaddingH),
+                  horizontal: context.onboardingCtaPaddingH,
                 ),
                 child: PrimaryButton(
-                  label: _isLast ? AppStrings.getStarted : AppStrings.next,
+                  label: _isLast ? t.getStarted : t.next,
                   onPressed: _next,
                   style: context.buttonStyles.onboardingCta,
                 ),
               ),
-              SizedBox(height: context.sizeOf(AppSize.onboardingButtonSkipGap)),
+              SizedBox(height: context.onboardingButtonSkipGap),
               TextButton(
                 onPressed: _goNext,
                 style: TextButton.styleFrom(
@@ -121,15 +120,12 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                   padding: EdgeInsets.zero,
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                child: Text(
-                  AppStrings.skip,
-                  style: context.textStyles.onboardingSkip,
-                ),
+                child: Text(t.skip, style: context.textStyles.onboardingSkip),
               ),
               SizedBox(
                 height:
                     MediaQuery.paddingOf(context).bottom +
-                    context.sizeOf(AppSize.onboardingBottomPadding),
+                    context.onboardingBottomPadding,
               ),
             ],
           ),

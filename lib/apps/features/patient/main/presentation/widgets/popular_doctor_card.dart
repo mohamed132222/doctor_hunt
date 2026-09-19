@@ -20,14 +20,11 @@ class PopularDoctorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.popularCardRadius),
-    );
+    final radius = BorderRadius.circular(context.popularCardRadius);
 
     return SizedBox(
-      width: context.sizeOf(AppSize.popularCardWidth),
-      height:
-          context.sizeOf(AppSize.popularCardWidth) * AppSize.popularCardAspect,
+      width: context.popularCardWidth,
+      height: context.popularCardWidth * AppSize.popularCardAspect,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
@@ -49,17 +46,17 @@ class PopularDoctorCard extends StatelessWidget {
                         width: double.infinity,
                         child: DoctorPhoto(
                           doctor: doctor,
-                          iconSize: context.sizeOf(AppSize.doctorAvatarSize),
+                          iconSize: context.doctorAvatarSize,
                         ),
                       ),
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(
-                      context.paddingOf(AppSize.s12),
-                      context.paddingOf(AppSize.s12),
-                      context.paddingOf(AppSize.s12),
-                      context.paddingOf(AppSize.s8),
+                      context.s12,
+                      context.s12,
+                      context.s12,
+                      context.s8,
                     ),
                     child: Column(
                       children: [
@@ -69,7 +66,7 @@ class PopularDoctorCard extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(height: context.paddingOf(AppSize.s2)),
+                        SizedBox(height: context.s2),
                         Text(
                           doctor.specialty,
                           style: theme.textTheme.bodySmall?.copyWith(
@@ -79,10 +76,10 @@ class PopularDoctorCard extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(height: context.paddingOf(AppSize.s4)),
+                        SizedBox(height: context.s4),
                         RatingStars(
                           rating: doctor.rating,
-                          size: context.sizeOf(AppSize.popularStarSize),
+                          size: context.popularStarSize,
                         ),
                       ],
                     ),

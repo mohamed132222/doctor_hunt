@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
@@ -34,9 +35,7 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
     final scheme = theme.colorScheme;
     final colors = context.themeColors;
     final doctor = widget.doctor;
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.searchCardRadius),
-    );
+    final radius = BorderRadius.circular(context.searchCardRadius);
 
     return Container(
       decoration: BoxDecoration(
@@ -51,7 +50,7 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
           onTap: widget.onTap,
           borderRadius: radius,
           child: Padding(
-            padding: EdgeInsets.all(context.paddingOf(AppSize.s12)),
+            padding: EdgeInsets.all(context.s12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -61,20 +60,18 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                     Hero(
                       tag: doctor.photoHeroTag,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          context.sizeOf(AppSize.r12),
-                        ),
+                        borderRadius: BorderRadius.circular(context.r12),
                         child: SizedBox(
-                          width: context.sizeOf(AppSize.searchPhotoSize),
-                          height: context.sizeOf(AppSize.searchPhotoSize),
+                          width: context.searchPhotoSize,
+                          height: context.searchPhotoSize,
                           child: DoctorPhoto(
                             doctor: doctor,
-                            iconSize: context.paddingOf(AppSize.s24),
+                            iconSize: context.s24,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: context.paddingOf(AppSize.s12)),
+                    SizedBox(width: context.s12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +82,7 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s2)),
+                          SizedBox(height: context.s2),
                           Text(
                             doctor.specialty,
                             style: theme.textTheme.bodySmall?.copyWith(
@@ -96,9 +93,9 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s4)),
+                          SizedBox(height: context.s4),
                           Text(
-                            AppStrings.experienceYears(doctor.experienceYears),
+                            t.experienceYears(years: doctor.experienceYears),
                             style: theme.textTheme.bodySmall?.copyWith(
                               fontSize: AppSize.s12,
                               color: scheme.onSurfaceVariant,
@@ -106,15 +103,15 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s8)),
+                          SizedBox(height: context.s8),
                           Row(
                             children: [
                               _Metric(
-                                label: AppStrings.satisfactionPercent(
-                                  doctor.satisfaction,
+                                label: t.satisfactionPercent(
+                                  percent: doctor.satisfaction,
                                 ),
                               ),
-                              SizedBox(width: context.paddingOf(AppSize.s12)),
+                              SizedBox(width: context.s12),
                               Expanded(
                                 child: _Metric(
                                   label: AppStrings.patientStories(
@@ -127,13 +124,13 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                         ],
                       ),
                     ),
-                    SizedBox(width: context.paddingOf(AppSize.s8)),
+                    SizedBox(width: context.s8),
                     GestureDetector(
                       onTap: () => setState(() => _favorite = !_favorite),
                       behavior: HitTestBehavior.opaque,
                       child: Icon(
                         _favorite ? Icons.favorite : Icons.favorite_border,
-                        size: context.sizeOf(AppSize.detailsHeartSize),
+                        size: context.detailsHeartSize,
                         color: _favorite
                             ? scheme.error
                             : colors.favoriteOutline,
@@ -141,7 +138,7 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                     ),
                   ],
                 ),
-                SizedBox(height: context.paddingOf(AppSize.s12)),
+                SizedBox(height: context.s12),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -150,14 +147,14 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AppStrings.nextAvailableLabel,
+                            t.nextAvailableLabel,
                             style: theme.textTheme.bodySmall?.copyWith(
                               fontSize: AppSize.s12,
                               fontWeight: FontWeight.w600,
                               color: scheme.primary,
                             ),
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s2)),
+                          SizedBox(height: context.s2),
                           Text(
                             doctor.nextAvailable,
                             style: theme.textTheme.bodySmall?.copyWith(
@@ -170,21 +167,19 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                         ],
                       ),
                     ),
-                    SizedBox(width: context.paddingOf(AppSize.s8)),
+                    SizedBox(width: context.s8),
                     SizedBox(
-                      width: context.sizeOf(AppSize.searchBookWidth),
-                      height: context.sizeOf(AppSize.searchBookHeight),
+                      width: context.searchBookWidth,
+                      height: context.searchBookHeight,
                       child: Material(
                         color: scheme.primary,
-                        borderRadius: BorderRadius.circular(
-                          context.sizeOf(AppSize.r8),
-                        ),
+                        borderRadius: BorderRadius.circular(context.r8),
                         clipBehavior: Clip.antiAlias,
                         child: InkWell(
                           onTap: widget.onBook,
                           child: Center(
                             child: Text(
-                              AppStrings.bookNow,
+                              t.bookNow,
                               style: theme.textTheme.labelLarge?.copyWith(
                                 fontSize: AppSize.s12,
                               ),
@@ -220,14 +215,14 @@ class _Metric extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: context.sizeOf(AppSize.searchRankDot),
-          height: context.sizeOf(AppSize.searchRankDot),
+          width: context.searchRankDot,
+          height: context.searchRankDot,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: theme.colorScheme.primary,
           ),
         ),
-        SizedBox(width: context.paddingOf(AppSize.s6)),
+        SizedBox(width: context.s6),
         Flexible(
           child: Text(
             label,

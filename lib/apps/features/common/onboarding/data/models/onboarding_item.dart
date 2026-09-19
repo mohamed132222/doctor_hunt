@@ -1,4 +1,4 @@
-import '../../../../../core/constants/app_strings.dart';
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 
 /// A single onboarding slide.
@@ -6,7 +6,7 @@ import 'package:doctor_hunt/generated/image_assets.dart';
 /// Slides differ only by [image]; the decorative ellipse side is derived from
 /// the slide index (odd → right, even → left) inside the body.
 class OnboardingItem {
-  const OnboardingItem({
+  OnboardingItem({
     required this.image,
     required this.title,
     required this.subtitle,
@@ -17,20 +17,20 @@ class OnboardingItem {
   final String subtitle;
 }
 
-const List<OnboardingItem> kOnboardingItems = [
+List<OnboardingItem> kOnboardingItems = [
   OnboardingItem(
     image: AppAssets.onboarding1,
-    title: AppStrings.onboardingTitle1,
-    subtitle: AppStrings.onboardingSubtitle,
+    title: t.onboardingTitle1,
+    subtitle: t.onboardingSubtitle,
   ),
   OnboardingItem(
     image: AppAssets.onboarding2,
-    title: AppStrings.onboardingTitle2,
-    subtitle: AppStrings.onboardingSubtitle,
+    title: t.onboardingTitle2,
+    subtitle: t.onboardingSubtitle,
   ),
   OnboardingItem(
     image: AppAssets.onboarding3,
-    title: AppStrings.onboardingTitle3,
-    subtitle: AppStrings.onboardingSubtitle,
+    title: t.onboardingTitle3,
+    subtitle: t.onboardingSubtitle,
   ),
 ];

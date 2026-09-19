@@ -1,8 +1,7 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
 import 'home_search_bar.dart';
 
@@ -21,15 +20,15 @@ class HomeHeader extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = context.themeColors;
     final safeTop = MediaQuery.paddingOf(context).top;
-    final searchHeight = context.sizeOf(AppSize.homeSearchHeight);
+    final searchHeight = context.homeSearchHeight;
 
     // Fixed-aspect geometry — use the width scale throughout so the header's
     // parts stay proportional (and in step with the card rows).
     final gradientHeight =
         safeTop +
-        context.paddingOf(AppSize.homeHeaderTopGap) +
-        context.sizeOf(AppSize.homeAvatarSize) +
-        context.paddingOf(AppSize.homeHeaderTitleGap) +
+        context.homeHeaderTopGap +
+        context.homeAvatarSize +
+        context.homeHeaderTitleGap +
         searchHeight / 2;
 
     return Stack(
@@ -47,18 +46,16 @@ class HomeHeader extends StatelessWidget {
                 colors: [colors.headerGradientStart, colors.headerGradientEnd],
               ),
               borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(
-                  context.sizeOf(AppSize.homeHeaderRadius),
-                ),
+                bottom: Radius.circular(context.homeHeaderRadius),
               ),
             ),
           ),
         ),
         Padding(
           padding: EdgeInsets.fromLTRB(
-            context.paddingOf(AppSize.homeHeaderPaddingH),
-            safeTop + context.paddingOf(AppSize.homeHeaderTopGap),
-            context.paddingOf(AppSize.homeHeaderPaddingH),
+            context.homeHeaderPaddingH,
+            safeTop + context.homeHeaderTopGap,
+            context.homeHeaderPaddingH,
             0,
           ),
           child: Column(
@@ -71,14 +68,14 @@ class HomeHeader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppStrings.homeGreeting,
+                          t.homeGreeting,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onPrimary,
                           ),
                         ),
-                        SizedBox(height: context.paddingOf(AppSize.s4)),
+                        SizedBox(height: context.s4),
                         Text(
-                          AppStrings.homeTitle,
+                          t.homeTitle,
                           style: theme.textTheme.headlineSmall?.copyWith(
                             color: theme.colorScheme.onPrimary,
                           ),
@@ -86,11 +83,11 @@ class HomeHeader extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(width: context.paddingOf(AppSize.s16)),
-                  _Avatar(size: context.sizeOf(AppSize.homeAvatarSize)),
+                  SizedBox(width: context.s16),
+                  _Avatar(size: context.homeAvatarSize),
                 ],
               ),
-              SizedBox(height: context.paddingOf(AppSize.homeHeaderTitleGap)),
+              SizedBox(height: context.homeHeaderTitleGap),
               HomeSearchBar(
                 onChanged: onSearchChanged,
                 onSubmitted: onSearchSubmitted,

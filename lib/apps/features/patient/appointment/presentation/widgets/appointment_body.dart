@@ -1,9 +1,9 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/validators/app_validators.dart';
 import '../../../../../core/widgets/auth_text_field.dart';
@@ -15,15 +15,15 @@ import 'patient_tile.dart';
 
 /// A patient the appointment can be booked for.
 class _Patient {
-  const _Patient(this.label, {this.image});
+  _Patient(this.label, {this.image});
 
   final String label;
   final String? image;
 }
 
-const List<_Patient> _patients = [
-  _Patient(AppStrings.mySelf, image: 'assets/images/home/mock2.png'),
-  _Patient(AppStrings.childGirl),
+List<_Patient> _patients = [
+  _Patient(t.mySelf, image: 'assets/images/home/mock2.png'),
+  _Patient(t.childGirl),
 ];
 
 /// Booking step 2: who the appointment is for, plus the patient's details.
@@ -63,16 +63,14 @@ class _AppointmentBodyState extends State<AppointmentBody> {
 
   @override
   Widget build(BuildContext context) {
-    final gutter = EdgeInsets.symmetric(
-      horizontal: context.paddingOf(AppSize.homeRowPaddingH),
-    );
+    final gutter = EdgeInsets.symmetric(horizontal: context.homeRowPaddingH);
     final theme = Theme.of(context);
 
     return SafeArea(
       bottom: false,
       child: Column(
         children: [
-          DoctorTopBar(title: AppStrings.appointmentTitle, centerTitle: false),
+          DoctorTopBar(title: t.appointmentTitle, centerTitle: false),
           Expanded(
             child: Form(
               key: _formKey,
@@ -85,56 +83,56 @@ class _AppointmentBodyState extends State<AppointmentBody> {
                       padding: gutter,
                       child: AppointmentDoctorCard(doctor: widget.doctor),
                     ),
-                    SizedBox(height: context.paddingOf(AppSize.s20)),
+                    SizedBox(height: context.s20),
                     Padding(
                       padding: gutter,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            AppStrings.appointmentForTitle,
+                            t.appointmentForTitle,
                             style: theme.textTheme.titleMedium,
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s12)),
+                          SizedBox(height: context.s12),
                           AuthTextField(
-                            hint: AppStrings.patientNameHint,
+                            hint: t.patientNameHint,
                             controller: _nameController,
                             textInputAction: TextInputAction.next,
                             validator: AppValidators.personName,
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s14)),
+                          SizedBox(height: context.s14),
                           AuthTextField(
-                            hint: AppStrings.contactNumberHint,
+                            hint: t.contactNumberHint,
                             controller: _phoneController,
                             keyboardType: TextInputType.phone,
                             validator: AppValidators.phone,
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s24)),
+                          SizedBox(height: context.s24),
                           Text(
-                            AppStrings.whoIsPatientTitle,
+                            t.whoIsPatientTitle,
                             style: theme.textTheme.titleMedium,
                           ),
                         ],
                       ),
                     ),
-                    SizedBox(height: context.paddingOf(AppSize.s12)),
+                    SizedBox(height: context.s12),
                     SizedBox(
                       height:
-                          context.sizeOf(AppSize.patientTileHeight) +
-                          context.paddingOf(AppSize.s6) +
+                          context.patientTileHeight +
+                          context.s6 +
                           AppSize.patientLabelLine *
                               MediaQuery.textScalerOf(context).scale(1) +
-                          context.paddingOf(AppSize.s4),
+                          context.s4,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         padding: gutter,
                         itemCount: _patients.length + 1,
                         separatorBuilder: (context, index) =>
-                            SizedBox(width: context.paddingOf(AppSize.s12)),
+                            SizedBox(width: context.s12),
                         itemBuilder: (context, index) {
                           if (index == 0) {
                             return PatientTile(
-                              label: AppStrings.addPatient,
+                              label: t.addPatient,
                               isAdd: true,
                               onTap: _addPatient,
                             );
@@ -150,18 +148,18 @@ class _AppointmentBodyState extends State<AppointmentBody> {
                         },
                       ),
                     ),
-                    SizedBox(height: context.paddingOf(AppSize.s24)),
+                    SizedBox(height: context.s24),
                     Padding(
                       padding: gutter,
                       child: PrimaryButton(
-                        label: AppStrings.next,
+                        label: t.next,
                         height: AppSize.appointmentNextHeight,
                         radius: AppSize.bookingActionRadius,
                         fontSize: AppSize.s16,
                         onPressed: _submit,
                       ),
                     ),
-                    SizedBox(height: context.paddingOf(AppSize.s24)),
+                    SizedBox(height: context.s24),
                   ],
                 ),
               ),
@@ -175,6 +173,6 @@ class _AppointmentBodyState extends State<AppointmentBody> {
   void _addPatient() {
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text(AppStrings.addPatient)));
+    ).showSnackBar(SnackBar(content: Text(t.addPatient)));
   }
 }

@@ -1,8 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 
 /// One selectable patient in the "Who is this patient?" row.
 ///
@@ -28,8 +28,8 @@ class PatientTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final width = context.sizeOf(AppSize.patientTileWidth);
-    final height = context.sizeOf(AppSize.patientTileHeight);
+    final width = context.patientTileWidth;
+    final height = context.patientTileHeight;
 
     return Semantics(
       label: label,
@@ -46,16 +46,14 @@ class PatientTile extends StatelessWidget {
               height: height,
               child: Material(
                 color: isAdd ? scheme.primaryContainer : scheme.surface,
-                borderRadius: BorderRadius.circular(
-                  context.sizeOf(AppSize.patientTileRadius),
-                ),
+                borderRadius: BorderRadius.circular(context.patientTileRadius),
                 clipBehavior: Clip.antiAlias,
                 child: InkWell(
                   onTap: onTap,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(
-                        context.sizeOf(AppSize.patientTileRadius),
+                        context.patientTileRadius,
                       ),
                       border: Border.all(
                         color: selected
@@ -72,7 +70,7 @@ class PatientTile extends StatelessWidget {
               ),
             ),
             if (!isAdd) ...[
-              SizedBox(height: context.paddingOf(AppSize.s6)),
+              SizedBox(height: context.s6),
               Text(
                 label,
                 style: theme.textTheme.bodySmall?.copyWith(
@@ -99,14 +97,10 @@ class _AddContent extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(
-          Icons.add_rounded,
-          size: context.paddingOf(AppSize.s32),
-          color: scheme.primary,
-        ),
-        SizedBox(height: context.paddingOf(AppSize.s2)),
+        Icon(Icons.add_rounded, size: context.s32, color: scheme.primary),
+        SizedBox(height: context.s2),
         Text(
-          AppStrings.addPatient,
+          t.addPatient,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             fontSize: AppSize.s12,
             fontWeight: FontWeight.w600,
@@ -132,7 +126,7 @@ class _PhotoContent extends StatelessWidget {
       return Center(
         child: Icon(
           Icons.person_rounded,
-          size: context.paddingOf(AppSize.s28),
+          size: context.s28,
           color: scheme.onSurfaceVariant,
         ),
       );
@@ -144,7 +138,7 @@ class _PhotoContent extends StatelessWidget {
       errorBuilder: (context, error, stackTrace) => Center(
         child: Icon(
           Icons.person_rounded,
-          size: context.paddingOf(AppSize.s28),
+          size: context.s28,
           color: scheme.onSurfaceVariant,
         ),
       ),

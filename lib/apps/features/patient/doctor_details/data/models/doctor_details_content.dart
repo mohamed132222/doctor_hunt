@@ -1,10 +1,9 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:latlong2/latlong.dart';
-
-import '../../../../../core/constants/app_strings.dart';
 
 /// A single figure in the doctor's stats row.
 class DoctorStat {
-  const DoctorStat({required this.value, required this.label});
+  DoctorStat({required this.value, required this.label});
 
   final String value;
   final String label;
@@ -12,23 +11,23 @@ class DoctorStat {
 
 /// One numbered entry in the doctor's services list.
 class ServicePoint {
-  const ServicePoint({required this.text});
+  ServicePoint({required this.text});
 
   final String text;
 }
 
 /// Stats shown under the doctor's summary card.
-const List<DoctorStat> kDoctorStats = [
-  DoctorStat(value: AppStrings.statRunningValue, label: AppStrings.statRunning),
-  DoctorStat(value: AppStrings.statOngoingValue, label: AppStrings.statOngoing),
-  DoctorStat(value: AppStrings.statPatientValue, label: AppStrings.statPatient),
+List<DoctorStat> kDoctorStats = [
+  DoctorStat(value: t.statRunningValue, label: t.statRunning),
+  DoctorStat(value: t.statOngoingValue, label: t.statOngoing),
+  DoctorStat(value: t.statPatientValue, label: t.statPatient),
 ];
 
 /// Numbered points rendered in the Services section.
-const List<ServicePoint> kServicePoints = [
-  ServicePoint(text: AppStrings.servicePoint1),
-  ServicePoint(text: AppStrings.servicePoint2),
-  ServicePoint(text: AppStrings.servicePoint3),
+List<ServicePoint> kServicePoints = [
+  ServicePoint(text: t.servicePoint1),
+  ServicePoint(text: t.servicePoint2),
+  ServicePoint(text: t.servicePoint3),
 ];
 
 /// Where these doctors practise (Kenyatta National Hospital, Nairobi) and a

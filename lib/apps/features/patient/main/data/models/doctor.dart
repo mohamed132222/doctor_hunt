@@ -1,6 +1,5 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
-
-import '../../../../../core/constants/app_strings.dart';
 
 /// A doctor shown on the home screen.
 class Doctor {
@@ -45,38 +44,38 @@ class Doctor {
   String get photoHeroTag => 'doctor-photo-$id';
 }
 
-const List<Doctor> kPopularDoctors = [
+List<Doctor> kPopularDoctors = [
   Doctor(
     id: 'fillerup',
-    name: AppStrings.doctorFillerup,
-    specialty: AppStrings.specialistFallback,
+    name: t.doctorFillerup,
+    specialty: t.specialistFallback,
     rating: 4.8,
     pricePerHour: 30,
     image: AppAssets.popularDoctorImage,
   ),
   Doctor(
     id: 'addison',
-    name: AppStrings.doctorAddison,
-    specialty: AppStrings.specialistFallback,
+    name: t.doctorAddison,
+    specialty: t.specialistFallback,
     rating: 4.6,
     pricePerHour: 28,
     image: AppAssets.popularDoctorImage,
   ),
   Doctor(
     id: 'bennett',
-    name: AppStrings.doctorBennett,
-    specialty: AppStrings.specialistFallback,
+    name: t.doctorBennett,
+    specialty: t.specialistFallback,
     rating: 4.5,
     pricePerHour: 26,
     image: AppAssets.popularDoctorImage,
   ),
 ];
 
-const List<Doctor> kFeatureDoctors = [
+List<Doctor> kFeatureDoctors = [
   Doctor(
     id: 'crick',
-    name: AppStrings.doctorCrick,
-    specialty: AppStrings.specialistFallback,
+    name: t.doctorCrick,
+    specialty: t.specialistFallback,
     rating: 3.7,
     pricePerHour: 25,
     image: AppAssets.featureDoctorImage,
@@ -84,8 +83,8 @@ const List<Doctor> kFeatureDoctors = [
   ),
   Doctor(
     id: 'strain',
-    name: AppStrings.doctorStrain,
-    specialty: AppStrings.specialistFallback,
+    name: t.doctorStrain,
+    specialty: t.specialistFallback,
     rating: 3.0,
     pricePerHour: 22,
     image: AppAssets.featureDoctorImage,
@@ -93,24 +92,24 @@ const List<Doctor> kFeatureDoctors = [
   ),
   Doctor(
     id: 'lachinet',
-    name: AppStrings.doctorLachinet,
-    specialty: AppStrings.specialistFallback,
+    name: t.doctorLachinet,
+    specialty: t.specialistFallback,
     rating: 2.9,
     pricePerHour: 29,
     image: AppAssets.featureDoctorImage,
   ),
   Doctor(
     id: 'lachinet-2',
-    name: AppStrings.doctorLachinet,
-    specialty: AppStrings.specialistFallback,
+    name: t.doctorLachinet,
+    specialty: t.specialistFallback,
     rating: 2.9,
     pricePerHour: 29,
     image: AppAssets.featureDoctorImage,
   ),
   Doctor(
     id: 'lachinet-3',
-    name: AppStrings.doctorLachinet,
-    specialty: AppStrings.specialistFallback,
+    name: t.doctorLachinet,
+    specialty: t.specialistFallback,
     rating: 2.9,
     pricePerHour: 29,
     image: AppAssets.featureDoctorImage,
@@ -119,11 +118,11 @@ const List<Doctor> kFeatureDoctors = [
 
 /// Extra doctors surfaced by search. Mock data until the REST API exists —
 /// swap this list for a repository call and nothing else changes.
-const List<Doctor> kSearchDoctors = [
+List<Doctor> kSearchDoctors = [
   Doctor(
     id: 'shruti',
-    name: AppStrings.doctorShruti,
-    specialty: AppStrings.specialtyDentist,
+    name: t.doctorShruti,
+    specialty: t.specialtyDentist,
     rating: 4.9,
     pricePerHour: 24,
     image: AppAssets.popularDoctorImage,
@@ -135,8 +134,8 @@ const List<Doctor> kSearchDoctors = [
   ),
   Doctor(
     id: 'watamaniuk',
-    name: AppStrings.doctorWatamaniuk,
-    specialty: AppStrings.specialtyDentist,
+    name: t.doctorWatamaniuk,
+    specialty: t.specialtyDentist,
     rating: 4.6,
     pricePerHour: 21,
     image: AppAssets.featureDoctorImage,
@@ -147,8 +146,8 @@ const List<Doctor> kSearchDoctors = [
   ),
   Doctor(
     id: 'crownover',
-    name: AppStrings.doctorCrownover,
-    specialty: AppStrings.specialtyDentist,
+    name: t.doctorCrownover,
+    specialty: t.specialtyDentist,
     rating: 4.4,
     pricePerHour: 19,
     image: AppAssets.featureDoctorImage,
@@ -160,8 +159,8 @@ const List<Doctor> kSearchDoctors = [
   ),
   Doctor(
     id: 'balestra',
-    name: AppStrings.doctorBalestra,
-    specialty: AppStrings.specialtyDentist,
+    name: t.doctorBalestra,
+    specialty: t.specialtyDentist,
     rating: 4.2,
     pricePerHour: 23,
     image: AppAssets.popularDoctorImage,
@@ -173,7 +172,7 @@ const List<Doctor> kSearchDoctors = [
 ];
 
 /// All doctors in one place, so routes can resolve an id and search can filter.
-const List<Doctor> kAllDoctors = [
+List<Doctor> kAllDoctors = [
   ...kPopularDoctors,
   ...kFeatureDoctors,
   ...kSearchDoctors,

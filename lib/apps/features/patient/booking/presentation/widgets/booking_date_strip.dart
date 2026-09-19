@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
@@ -23,20 +24,15 @@ class BookingDateStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     final textScale = MediaQuery.textScalerOf(context).scale(1);
     final textExtra =
-        (textScale - 1).clamp(0.0, 1.0) *
-        context.sizeOf(AppSize.bookingDateTextBlock);
+        (textScale - 1).clamp(0.0, 1.0) * context.bookingDateTextBlock;
 
     return SizedBox(
-      height:
-          context.sizeOf(AppSize.bookingDateHeight) +
-          context.paddingOf(AppSize.s16) +
-          textExtra,
+      height: context.bookingDateHeight + context.s16 + textExtra,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(vertical: context.paddingOf(AppSize.s8)),
+        padding: EdgeInsets.symmetric(vertical: context.s8),
         itemCount: days.length,
-        separatorBuilder: (context, index) =>
-            SizedBox(width: context.paddingOf(AppSize.s12)),
+        separatorBuilder: (context, index) => SizedBox(width: context.s12),
         itemBuilder: (context, index) => _DateCard(
           day: days[index],
           label: AppStrings.dateLabel(
@@ -69,15 +65,11 @@ class _DateCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.bookingDateRadius),
-    );
+    final radius = BorderRadius.circular(context.bookingDateRadius);
 
     return Container(
-      constraints: BoxConstraints(
-        minHeight: context.sizeOf(AppSize.bookingDateHeight),
-      ),
-      width: context.sizeOf(AppSize.bookingDateWidth),
+      constraints: BoxConstraints(minHeight: context.bookingDateHeight),
+      width: context.bookingDateWidth,
       child: Material(
         color: selected ? scheme.primary : scheme.surface,
         borderRadius: radius,
@@ -85,9 +77,7 @@ class _DateCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: context.paddingOf(AppSize.s12),
-            ),
+            padding: EdgeInsets.symmetric(horizontal: context.s12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,13 +91,13 @@ class _DateCard extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
-                SizedBox(height: context.paddingOf(AppSize.s2)),
+                SizedBox(height: context.s2),
                 Text(
                   day.hasSlots
                       ? (day.totalSlots == 1
                             ? AppStrings.oneSlotAvailable
                             : AppStrings.slotsAvailable(day.totalSlots))
-                      : AppStrings.noSlotsAvailable,
+                      : t.noSlotsAvailable,
                   style: theme.textTheme.bodySmall?.copyWith(
                     fontSize: AppSize.s12,
                     color: selected

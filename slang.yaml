@@ -13,3 +13,6 @@ output_directory: lib/apps/core/i18n
 output_file_name: strings.g.dart
 flutter_integration: true
 namespaces: false
+
+# `{label}`-style placeholders in the JSON, matching the source catalogue.
+string_interpolation: braces

@@ -526,9 +526,9 @@ abstract final class AppTheme {
         backgroundColor: scheme.primary,
         foregroundColor: scheme.onPrimary,
         disabledBackgroundColor: scheme.primary.withValues(alpha: 0.5),
-        minimumSize: const Size(double.infinity, 56),
+        minimumSize: Size(double.infinity, 56),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+        textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
       ),
     );
   }
@@ -539,9 +539,9 @@ abstract final class AppTheme {
         backgroundColor: scheme.surface,
         foregroundColor: scheme.onSurface,
         side: BorderSide(color: scheme.outline),
-        minimumSize: const Size(double.infinity, 52),
+        minimumSize: Size(double.infinity, 52),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+        textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
       ),
     );
   }

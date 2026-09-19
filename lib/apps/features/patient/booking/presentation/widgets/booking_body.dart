@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -68,9 +69,7 @@ class _BookingBodyState extends State<BookingBody> {
 
   @override
   Widget build(BuildContext context) {
-    final gutter = EdgeInsets.symmetric(
-      horizontal: context.paddingOf(AppSize.homeRowPaddingH),
-    );
+    final gutter = EdgeInsets.symmetric(horizontal: context.homeRowPaddingH);
     final day = _day;
     final next = _nextDayWithSlots;
 
@@ -78,10 +77,7 @@ class _BookingBodyState extends State<BookingBody> {
       bottom: false,
       child: Column(
         children: [
-          DoctorTopBar(
-            title: AppStrings.doctorDetailsTitle,
-            centerTitle: false,
-          ),
+          DoctorTopBar(title: t.doctorDetailsTitle, centerTitle: false),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -91,7 +87,7 @@ class _BookingBodyState extends State<BookingBody> {
                     padding: gutter,
                     child: BookingDoctorCard(doctor: widget.doctor),
                   ),
-                  SizedBox(height: context.paddingOf(AppSize.s16)),
+                  SizedBox(height: context.s16),
                   Padding(
                     padding: gutter,
                     child: BookingDateStrip(
@@ -100,7 +96,7 @@ class _BookingBodyState extends State<BookingBody> {
                       onSelect: _selectDay,
                     ),
                   ),
-                  SizedBox(height: context.paddingOf(AppSize.s12)),
+                  SizedBox(height: context.s12),
                   Padding(
                     padding: gutter,
                     child: day.hasSlots
@@ -109,17 +105,16 @@ class _BookingBodyState extends State<BookingBody> {
                             dayLabel: _dayLabel(_selectedDay),
                             nextAvailabilityLabel: next == null
                                 ? null
-                                : AppStrings.nextAvailabilityOn(
-                                    AppStrings.dateLabel(_days[next].date),
+                                : t.nextAvailabilityOn(
+                                    day: AppStrings.dateLabel(_days[next].date),
                                   ),
                             onNextAvailability: next == null
                                 ? null
                                 : () => _selectDay(next),
-                            onContactClinic: () =>
-                                _notify(AppStrings.clinicFallback),
+                            onContactClinic: () => _notify(t.clinicFallback),
                           ),
                   ),
-                  SizedBox(height: context.paddingOf(AppSize.s24)),
+                  SizedBox(height: context.s24),
                 ],
               ),
             ),
@@ -138,22 +133,22 @@ class _BookingBodyState extends State<BookingBody> {
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleMedium,
         ),
-        SizedBox(height: context.paddingOf(AppSize.s16)),
+        SizedBox(height: context.s16),
         BookingSlotGrid(
-          period: AppStrings.afternoonPeriod,
+          period: t.afternoonPeriod,
           slots: day.afternoon,
           selectedSlots: _selectedSlots,
           onSelect: _toggleSlot,
         ),
-        SizedBox(height: context.paddingOf(AppSize.s16)),
+        SizedBox(height: context.s16),
         BookingSlotGrid(
-          period: AppStrings.eveningPeriod,
+          period: t.eveningPeriod,
           slots: day.evening,
           selectedSlots: _selectedSlots,
           onSelect: _toggleSlot,
         ),
         if (_selectedSlots.isNotEmpty) ...[
-          SizedBox(height: context.paddingOf(AppSize.s20)),
+          SizedBox(height: context.s20),
           PrimaryButton(
             label: AppStrings.bookNowWithCount(_selectedSlots.length),
             height: AppSize.bookingActionHeight,

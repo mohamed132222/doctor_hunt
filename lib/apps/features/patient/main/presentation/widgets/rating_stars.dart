@@ -17,7 +17,7 @@ class RatingStars extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final starSize = size ?? context.paddingOf(AppSize.s12);
+    final starSize = size ?? context.s12;
     final color = context.themeColors.starRating;
 
     return Row(
@@ -25,7 +25,7 @@ class RatingStars extends StatelessWidget {
       children: [
         for (var i = 0; i < max; i++)
           Padding(
-            padding: EdgeInsets.only(right: context.paddingOf(AppSize.s2)),
+            padding: EdgeInsets.only(right: context.s2),
             child: Icon(
               _iconFor(i),
               size: starSize,

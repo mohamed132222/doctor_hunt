@@ -1,8 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../main/data/models/doctor.dart';
 import '../../../main/presentation/widgets/doctor_photo.dart';
@@ -28,9 +28,7 @@ class _AppointmentDoctorCardState extends State<AppointmentDoctorCard> {
     final scheme = theme.colorScheme;
     final colors = context.themeColors;
     final doctor = widget.doctor;
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.bookingCardRadius),
-    );
+    final radius = BorderRadius.circular(context.bookingCardRadius);
 
     return Container(
       decoration: BoxDecoration(
@@ -41,35 +39,28 @@ class _AppointmentDoctorCardState extends State<AppointmentDoctorCard> {
       child: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.all(context.paddingOf(AppSize.s12)),
+            padding: EdgeInsets.all(context.s12),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Hero(
                   tag: doctor.photoHeroTag,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                      context.sizeOf(AppSize.r8),
-                    ),
+                    borderRadius: BorderRadius.circular(context.r8),
                     child: SizedBox(
-                      width: context.sizeOf(AppSize.appointmentPhotoWidth),
-                      height: context.sizeOf(AppSize.appointmentPhotoHeight),
-                      child: DoctorPhoto(
-                        doctor: doctor,
-                        iconSize: context.paddingOf(AppSize.s24),
-                      ),
+                      width: context.appointmentPhotoWidth,
+                      height: context.appointmentPhotoHeight,
+                      child: DoctorPhoto(doctor: doctor, iconSize: context.s24),
                     ),
                   ),
                 ),
-                SizedBox(width: context.paddingOf(AppSize.s12)),
+                SizedBox(width: context.s12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(
-                          right: context.paddingOf(AppSize.s28),
-                        ),
+                        padding: EdgeInsets.only(right: context.s28),
                         child: Text(
                           doctor.name,
                           style: theme.textTheme.titleLarge,
@@ -77,7 +68,7 @@ class _AppointmentDoctorCardState extends State<AppointmentDoctorCard> {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      SizedBox(height: context.paddingOf(AppSize.s2)),
+                      SizedBox(height: context.s2),
                       Text(
                         doctor.specialty,
                         style: theme.textTheme.bodySmall?.copyWith(
@@ -87,16 +78,13 @@ class _AppointmentDoctorCardState extends State<AppointmentDoctorCard> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: context.paddingOf(AppSize.s8)),
+                      SizedBox(height: context.s8),
                       Wrap(
                         alignment: WrapAlignment.spaceBetween,
                         crossAxisAlignment: WrapCrossAlignment.center,
-                        runSpacing: context.paddingOf(AppSize.s4),
+                        runSpacing: context.s4,
                         children: [
-                          RatingStars(
-                            rating: doctor.rating,
-                            size: context.paddingOf(AppSize.s14),
-                          ),
+                          RatingStars(rating: doctor.rating, size: context.s14),
                           Text.rich(
                             TextSpan(
                               children: [
@@ -110,7 +98,7 @@ class _AppointmentDoctorCardState extends State<AppointmentDoctorCard> {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: AppStrings.perHourShort,
+                                  text: t.perHourShort,
                                   style: theme.textTheme.labelSmall?.copyWith(
                                     fontSize: AppSize.s12,
                                     color: colors.priceAccent,
@@ -130,14 +118,14 @@ class _AppointmentDoctorCardState extends State<AppointmentDoctorCard> {
             ),
           ),
           Positioned(
-            top: context.paddingOf(AppSize.s12),
-            right: context.paddingOf(AppSize.s12),
+            top: context.s12,
+            right: context.s12,
             child: GestureDetector(
               onTap: () => setState(() => _favorite = !_favorite),
               behavior: HitTestBehavior.opaque,
               child: Icon(
                 _favorite ? Icons.favorite : Icons.favorite_border,
-                size: context.sizeOf(AppSize.detailsHeartSize),
+                size: context.detailsHeartSize,
                 color: _favorite ? scheme.error : colors.favoriteOutline,
               ),
             ),

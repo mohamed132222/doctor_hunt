@@ -1,6 +1,6 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
 import '../../../../../core/constants/app_strings.dart';
 import '../../data/models/doctor_details_content.dart';
@@ -18,11 +18,11 @@ class DoctorServices extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(AppStrings.servicesTitle, style: theme.textTheme.headlineSmall),
-        SizedBox(height: context.paddingOf(AppSize.s12)),
+        Text(t.servicesTitle, style: theme.textTheme.headlineSmall),
+        SizedBox(height: context.s12),
         for (var i = 0; i < points.length; i++)
           Padding(
-            padding: EdgeInsets.only(bottom: context.paddingOf(AppSize.s12)),
+            padding: EdgeInsets.only(bottom: context.s12),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -33,7 +33,7 @@ class DoctorServices extends StatelessWidget {
                     color: theme.colorScheme.primary,
                   ),
                 ),
-                SizedBox(width: context.paddingOf(AppSize.s8)),
+                SizedBox(width: context.s8),
                 Expanded(
                   child: Text(
                     points[i].text,

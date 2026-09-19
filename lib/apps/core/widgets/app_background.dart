@@ -1,7 +1,6 @@
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
 
-import '../appsize/app_size.dart';
 import '../appsize/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
@@ -45,7 +44,7 @@ class AppBackground extends StatelessWidget {
             child: ColoredBox(color: context.colorScheme.surface),
           ),
           Positioned(
-            top: -context.paddingOf(AppSize.ellipseTopOffset),
+            top: -context.ellipseTopOffset,
             left: -width * 0.25,
             child: Image.asset(
               AppAssets.ellipseTeal,
@@ -55,7 +54,7 @@ class AppBackground extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: -context.paddingOf(AppSize.ellipseBottomOffset),
+            bottom: -context.ellipseBottomOffset,
             right: -width * 0.2,
             child: Image.asset(
               AppAssets.ellipseGreen,

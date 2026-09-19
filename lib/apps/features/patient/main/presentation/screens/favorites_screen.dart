@@ -1,6 +1,6 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_strings.dart';
 import '../widgets/placeholder_tab.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -8,9 +8,6 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PlaceholderTab(
-      title: AppStrings.tabFavorites,
-      icon: Icons.favorite_rounded,
-    );
+    return PlaceholderTab(title: t.tabFavorites, icon: Icons.favorite_rounded);
   }
 }

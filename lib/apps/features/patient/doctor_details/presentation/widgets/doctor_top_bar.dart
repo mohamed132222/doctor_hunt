@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 
@@ -30,17 +29,13 @@ class DoctorTopBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = context.sizeOf(AppSize.detailsBackButton);
+    final size = context.detailsBackButton;
     final action = onAction;
 
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: context.paddingOf(AppSize.homeRowPaddingH),
-      ),
+      padding: EdgeInsets.symmetric(horizontal: context.homeRowPaddingH),
       child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minHeight: context.sizeOf(AppSize.detailsTopBarHeight),
-        ),
+        constraints: BoxConstraints(minHeight: context.detailsTopBarHeight),
         child: Row(
           children: [
             _SquareButton(
@@ -50,7 +45,7 @@ class DoctorTopBar extends StatelessWidget {
               tooltip: MaterialLocalizations.of(context).backButtonTooltip,
               onTap: onBack ?? () => Navigator.of(context).maybePop(),
             ),
-            if (!centerTitle) SizedBox(width: context.paddingOf(AppSize.s12)),
+            if (!centerTitle) SizedBox(width: context.s12),
 
             Expanded(
               child: Text(
@@ -97,9 +92,7 @@ class _SquareButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final shape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(
-        context.sizeOf(AppSize.detailsActionRadius),
-      ),
+      borderRadius: BorderRadius.circular(context.detailsActionRadius),
     );
     final button = SizedBox(
       width: size,
@@ -112,7 +105,7 @@ class _SquareButton extends StatelessWidget {
           onTap: onTap,
           child: Icon(
             icon,
-            size: context.sizeOf(AppSize.detailsActionIcon),
+            size: context.detailsActionIcon,
             color: color ?? theme.colorScheme.onSurface,
           ),
         ),

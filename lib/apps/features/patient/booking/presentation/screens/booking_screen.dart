@@ -1,6 +1,6 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/widgets/app_background.dart';
 import '../../../doctor_details/presentation/widgets/doctor_top_bar.dart';
 import '../../../main/data/models/doctor.dart';
@@ -18,9 +18,7 @@ class BookingScreen extends StatelessWidget {
     final doctor = doctorById(doctorId);
 
     return AppBackground(
-      child: doctor == null
-          ? const _BookingNotFound()
-          : BookingBody(doctor: doctor),
+      child: doctor == null ? _BookingNotFound() : BookingBody(doctor: doctor),
     );
   }
 }
@@ -34,11 +32,8 @@ class _BookingNotFound extends StatelessWidget {
       bottom: false,
       child: Column(
         children: [
-          DoctorTopBar(
-            title: AppStrings.doctorDetailsTitle,
-            centerTitle: false,
-          ),
-          const Expanded(child: Center(child: Text(AppStrings.doctorNotFound))),
+          DoctorTopBar(title: t.doctorDetailsTitle, centerTitle: false),
+          Expanded(child: Center(child: Text(t.doctorNotFound))),
         ],
       ),
     );

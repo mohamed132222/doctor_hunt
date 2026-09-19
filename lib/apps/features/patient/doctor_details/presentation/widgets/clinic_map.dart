@@ -1,9 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 
-import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../data/models/doctor_details_content.dart';
 
 /// A real OpenStreetMap view of the clinic.
@@ -24,17 +23,17 @@ class ClinicMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final markerSize = context.sizeOf(AppSize.detailsMapMarker);
-    final dotSize = context.sizeOf(AppSize.detailsMapDot);
+    final markerSize = context.detailsMapMarker;
+    final dotSize = context.detailsMapDot;
 
     return SizedBox(
-      height: context.sizeOf(AppSize.detailsMapHeight),
+      height: context.detailsMapHeight,
       width: double.infinity,
       child: FlutterMap(
         options: MapOptions(
           initialCameraFit: CameraFit.bounds(
             bounds: LatLngBounds(kUserLocation, kClinicLocation),
-            padding: EdgeInsets.all(context.paddingOf(AppSize.s24)),
+            padding: EdgeInsets.all(context.s24),
           ),
           interactionOptions: const InteractionOptions(
             flags: InteractiveFlag.none,
@@ -48,7 +47,7 @@ class ClinicMap extends StatelessWidget {
             // implementation in widget tests. Disabling the cache keeps the
             // map renderable in tests and still works at runtime.
             tileProvider: NetworkTileProvider(
-              cachingProvider: const DisabledMapCachingProvider(),
+              cachingProvider: DisabledMapCachingProvider(),
             ),
           ),
           PolylineLayer(
@@ -56,7 +55,7 @@ class ClinicMap extends StatelessWidget {
               Polyline(
                 points: [kUserLocation, kClinicLocation],
                 color: theme.colorScheme.primary,
-                strokeWidth: context.paddingOf(AppSize.s4),
+                strokeWidth: context.s4,
               ),
             ],
           ),
@@ -94,7 +93,7 @@ class ClinicMap extends StatelessWidget {
                     color: theme.colorScheme.tertiary,
                     border: Border.all(
                       color: theme.colorScheme.surface,
-                      width: context.paddingOf(AppSize.s2),
+                      width: context.s2,
                     ),
                   ),
                 ),
@@ -103,7 +102,7 @@ class ClinicMap extends StatelessWidget {
           ),
           RichAttributionWidget(
             showFlutterMapAttribution: false,
-            attributions: [TextSourceAttribution(AppStrings.mapAttribution)],
+            attributions: [TextSourceAttribution(t.mapAttribution)],
           ),
         ],
       ),

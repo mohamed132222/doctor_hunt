@@ -1,6 +1,6 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/constants/app_strings.dart';
 import '../widgets/placeholder_tab.dart';
 
 class AppointmentsScreen extends StatelessWidget {
@@ -8,9 +8,6 @@ class AppointmentsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PlaceholderTab(
-      title: AppStrings.tabAppointments,
-      icon: Icons.calendar_month,
-    );
+    return PlaceholderTab(title: t.tabAppointments, icon: Icons.calendar_month);
   }
 }

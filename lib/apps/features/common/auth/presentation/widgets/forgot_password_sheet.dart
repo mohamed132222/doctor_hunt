@@ -1,8 +1,7 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/validators/app_validators.dart';
 import '../../../../../core/widgets/app_sheet.dart';
 import '../../../../../core/widgets/auth_text_field.dart';
@@ -37,25 +36,22 @@ class _ForgotPasswordSheetState extends State<ForgotPasswordSheet> {
   @override
   Widget build(BuildContext context) {
     return AppSheet(
-      title: AppStrings.forgotPasswordTitle,
-      subtitle: AppStrings.forgotPasswordSubtitle,
+      title: t.forgotPasswordTitle,
+      subtitle: t.forgotPasswordSubtitle,
       child: Form(
         key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             AuthTextField(
-              hint: AppStrings.emailHint,
+              hint: t.emailHint,
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.done,
               validator: AppValidators.email,
             ),
-            SizedBox(height: context.paddingOf(AppSize.s24)),
-            PrimaryButton(
-              label: AppStrings.continueLabel,
-              onPressed: _continue,
-            ),
+            SizedBox(height: context.s24),
+            PrimaryButton(label: t.continueLabel, onPressed: _continue),
           ],
         ),
       ),

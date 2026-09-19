@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
@@ -40,23 +41,23 @@ class _AppointmentConfirmedDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final radius = BorderRadius.circular(context.sizeOf(AppSize.dialogRadius));
+    final radius = BorderRadius.circular(context.dialogRadius);
 
     return Dialog(
       backgroundColor: scheme.surface,
       shape: RoundedRectangleBorder(borderRadius: radius),
       insetPadding: EdgeInsets.symmetric(
-        horizontal: context.sizeOf(AppSize.dialogInset),
-        vertical: context.paddingOf(AppSize.s24),
+        horizontal: context.dialogInset,
+        vertical: context.s24,
       ),
       child: Padding(
-        padding: EdgeInsets.all(context.paddingOf(AppSize.dialogPadding)),
+        padding: EdgeInsets.all(context.dialogPadding),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: context.sizeOf(AppSize.dialogIconBadge),
-              height: context.sizeOf(AppSize.dialogIconBadge),
+              width: context.dialogIconBadge,
+              height: context.dialogIconBadge,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: scheme.primaryContainer,
@@ -64,28 +65,28 @@ class _AppointmentConfirmedDialog extends StatelessWidget {
               alignment: Alignment.center,
               child: Icon(
                 Icons.thumb_up_rounded,
-                size: context.sizeOf(AppSize.dialogIconGlyph),
+                size: context.dialogIconGlyph,
                 color: scheme.primary,
               ),
             ),
-            SizedBox(height: context.paddingOf(AppSize.s20)),
+            SizedBox(height: context.s20),
             Text(
-              AppStrings.thankYou,
+              t.thankYou,
               textAlign: TextAlign.center,
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontSize: AppSize.dialogTitleSize,
               ),
             ),
-            SizedBox(height: context.paddingOf(AppSize.s8)),
+            SizedBox(height: context.s8),
             Text(
-              AppStrings.appointmentSuccessful,
+              t.appointmentSuccessful,
               textAlign: TextAlign.center,
               style: theme.textTheme.titleSmall?.copyWith(
                 fontSize: AppSize.s14,
                 color: scheme.onSurfaceVariant,
               ),
             ),
-            SizedBox(height: context.paddingOf(AppSize.s16)),
+            SizedBox(height: context.s16),
             Text(
               AppStrings.bookedWith(doctor: doctorName, date: date, time: time),
               textAlign: TextAlign.center,
@@ -94,25 +95,25 @@ class _AppointmentConfirmedDialog extends StatelessWidget {
                 height: 1.5,
               ),
             ),
-            SizedBox(height: context.paddingOf(AppSize.s24)),
+            SizedBox(height: context.s24),
             SizedBox(
-              height: context.sizeOf(AppSize.confirmHeight),
+              height: context.confirmHeight,
               width: double.infinity,
               child: FilledButton(
                 onPressed: () => Navigator.of(context).pop(true),
                 child: Text(
-                  AppStrings.doneButton,
+                  t.doneButton,
                   style: theme.textTheme.labelLarge?.copyWith(
                     fontSize: AppSize.s16,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: context.paddingOf(AppSize.s12)),
+            SizedBox(height: context.s12),
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
               child: Text(
-                AppStrings.editAppointment,
+                t.editAppointment,
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: scheme.onSurfaceVariant,
                 ),

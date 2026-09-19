@@ -33,10 +33,10 @@ class BookingSlotGrid extends StatelessWidget {
           AppStrings.periodSlots(period, slots.length),
           style: theme.textTheme.titleSmall?.copyWith(fontSize: AppSize.s14),
         ),
-        SizedBox(height: context.paddingOf(AppSize.s8)),
+        SizedBox(height: context.s8),
         LayoutBuilder(
           builder: (context, constraints) {
-            final gap = context.paddingOf(AppSize.s8);
+            final gap = context.s8;
             final columnWidth = (constraints.maxWidth - gap * 3) / 4;
             return Wrap(
               spacing: gap,
@@ -71,14 +71,10 @@ class _SlotButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.bookingSlotRadius),
-    );
+    final radius = BorderRadius.circular(context.bookingSlotRadius);
 
     return Container(
-      constraints: BoxConstraints(
-        minHeight: context.sizeOf(AppSize.bookingSlotHeight),
-      ),
+      constraints: BoxConstraints(minHeight: context.bookingSlotHeight),
       child: Material(
         // Selected: the accent solid; unselected: the same accent at 8%.
         color: selected

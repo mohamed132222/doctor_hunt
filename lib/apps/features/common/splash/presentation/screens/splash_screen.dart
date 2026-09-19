@@ -4,11 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/app_background.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 
 /// First Flutter screen shown after the native splash.
 ///
@@ -33,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
     FlutterNativeSplash.remove();
 
     // TODO: replace with real init — restore session, check auth, load config.
-    await Future<void>.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(Duration(seconds: 2));
     if (!mounted) return;
     context.go(RoutePath.onboarding);
   }
@@ -56,8 +56,8 @@ class _SplashScreenState extends State<SplashScreen> {
               color: colors.splashCross,
             ),
           ),
-          SizedBox(height: context.paddingOf(AppSize.s24)),
-          Text(AppStrings.appName, style: context.textStyles.wordmark),
+          SizedBox(height: context.s24),
+          Text(t.appName, style: context.textStyles.wordmark),
         ],
       ),
     );

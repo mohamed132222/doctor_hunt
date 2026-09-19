@@ -1,8 +1,7 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
 
 /// White search field: the magnifier is the [InputDecoration.prefixIcon] and
@@ -50,10 +49,10 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final iconColor = theme.colorScheme.onSurfaceVariant;
-    final iconSize = context.sizeOf(AppSize.iconSmall);
-    final padH = context.paddingOf(AppSize.homeSearchPaddingH);
-    final gap = context.paddingOf(AppSize.homeSearchIconGap);
-    final padV = (context.sizeOf(AppSize.homeSearchHeight) - iconSize) / 2;
+    final iconSize = context.iconSmall;
+    final padH = context.homeSearchPaddingH;
+    final gap = context.homeSearchIconGap;
+    final padV = (context.homeSearchHeight - iconSize) / 2;
     const noConstraints = BoxConstraints(minWidth: 0, minHeight: 0);
 
     return GestureDetector(
@@ -62,9 +61,7 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
       child: Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          borderRadius: BorderRadius.circular(
-            context.sizeOf(AppSize.homeSearchRadius),
-          ),
+          borderRadius: BorderRadius.circular(context.homeSearchRadius),
           boxShadow: [context.themeColors.softShadow],
         ),
         child: TextField(
@@ -77,7 +74,7 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
           textAlignVertical: TextAlignVertical.center,
           style: theme.textTheme.bodyMedium,
           decoration: InputDecoration(
-            hintText: AppStrings.searchHint,
+            hintText: t.searchHint,
             isDense: true,
             isCollapsed: true,
             contentPadding: EdgeInsets.zero,

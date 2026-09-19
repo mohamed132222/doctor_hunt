@@ -1,7 +1,7 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/widgets/app_background.dart';
 import '../../../main/data/models/doctor.dart';
 import '../widgets/doctor_details_body.dart';
@@ -20,7 +20,7 @@ class DoctorDetailsScreen extends StatelessWidget {
 
     return AppBackground(
       child: doctor == null
-          ? const _DoctorNotFound()
+          ? _DoctorNotFound()
           : DoctorDetailsBody(doctor: doctor),
     );
   }
@@ -36,10 +36,10 @@ class _DoctorNotFound extends StatelessWidget {
       child: Column(
         children: [
           DoctorTopBar(
-            title: AppStrings.doctorDetailsTitle,
+            title: t.doctorDetailsTitle,
             onBack: () => context.pop(),
           ),
-          const Expanded(child: Center(child: Text(AppStrings.doctorNotFound))),
+          Expanded(child: Center(child: Text(t.doctorNotFound))),
         ],
       ),
     );

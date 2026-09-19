@@ -1,9 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/validators/app_validators.dart';
 import '../../../../../core/widgets/app_sheet.dart';
@@ -45,7 +44,7 @@ class _LoginBodyState extends State<LoginBody> {
   }
 
   Future<void> _forgotPassword() async {
-    await showAppSheet<void>(context, (_) => const ForgotPasswordSheet());
+    await showAppSheet<void>(context, (_) => ForgotPasswordSheet());
   }
 
   @override
@@ -55,15 +54,12 @@ class _LoginBodyState extends State<LoginBody> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const AuthHeader(
-            title: AppStrings.loginTitle,
-            subtitle: AppStrings.authSubtitle,
-          ),
-          SizedBox(height: context.paddingOf(AppSize.authSubtitleSocialGap)),
-          const SocialAuthRow(),
-          SizedBox(height: context.paddingOf(AppSize.authSocialFieldGap)),
+          AuthHeader(title: t.loginTitle, subtitle: t.authSubtitle),
+          SizedBox(height: context.authSubtitleSocialGap),
+          SocialAuthRow(),
+          SizedBox(height: context.authSocialFieldGap),
           AuthTextField(
-            hint: AppStrings.emailHint,
+            hint: t.emailHint,
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
@@ -71,20 +67,20 @@ class _LoginBodyState extends State<LoginBody> {
             suffixIcon: _emailValid ? Icon(Icons.check) : null,
             validator: AppValidators.email,
           ),
-          SizedBox(height: context.paddingOf(AppSize.authFieldGap)),
+          SizedBox(height: context.authFieldGap),
           PasswordField(
-            hint: AppStrings.passwordHint,
+            hint: t.passwordHint,
             controller: _passwordController,
             textInputAction: TextInputAction.done,
             validator: (v) => AppValidators.password(v, minLength: 1),
           ),
-          SizedBox(height: context.paddingOf(AppSize.authFieldButtonGap)),
-          PrimaryButton(label: AppStrings.loginButton, onPressed: _login),
-          SizedBox(height: context.paddingOf(AppSize.authButtonLinkGap)),
+          SizedBox(height: context.authFieldButtonGap),
+          PrimaryButton(label: t.loginButton, onPressed: _login),
+          SizedBox(height: context.authButtonLinkGap),
           Center(
             child: TextButton(
               onPressed: _forgotPassword,
-              child: const Text(AppStrings.forgotPassword),
+              child: Text(t.forgotPassword),
             ),
           ),
         ],

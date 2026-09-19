@@ -1,4 +1,4 @@
-import '../constants/app_strings.dart';
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 
 /// Form validation helpers — single source of truth for every field rule.
 abstract final class AppValidators {
@@ -13,7 +13,7 @@ abstract final class AppValidators {
   /// Required non-empty text.
   static String? required(String? value, [String label = 'this field']) {
     if (value == null || value.trim().isEmpty) {
-      return AppStrings.fieldRequired(label);
+      return t.fieldRequired(label: label);
     }
     return null;
   }
@@ -22,49 +22,47 @@ abstract final class AppValidators {
   /// letters (Latin or Arabic) with spaces, hyphens, apostrophes or dots.
   static String? personName(String? value, {int minLength = 3}) {
     final v = value?.trim() ?? '';
-    if (v.isEmpty) return AppStrings.fieldRequired(AppStrings.patientNameHint);
-    if (v.length < minLength) return AppStrings.nameTooShort;
-    return _nameRegex.hasMatch(v) ? null : AppStrings.nameInvalid;
+    if (v.isEmpty) return t.fieldRequired(label: t.patientNameHint);
+    if (v.length < minLength) return t.nameTooShort;
+    return _nameRegex.hasMatch(v) ? null : t.nameInvalid;
   }
 
   /// A contact number: required, and 8–15 digits once separators are ignored.
   static String? phone(String? value) {
     final v = value?.trim() ?? '';
     if (v.isEmpty) {
-      return AppStrings.fieldRequired(AppStrings.contactNumberHint);
+      return t.fieldRequired(label: t.contactNumberHint);
     }
     final digits = v.replaceAll(_digitsRegex, '');
-    return digits.length >= 8 && digits.length <= 15
-        ? null
-        : AppStrings.phoneInvalid;
+    return digits.length >= 8 && digits.length <= 15 ? null : t.phoneInvalid;
   }
 
   /// Valid email address.
   static String? email(String? value) {
     final v = value?.trim() ?? '';
-    if (v.isEmpty) return AppStrings.emailRequired;
-    return _emailRegex.hasMatch(v) ? null : AppStrings.emailInvalid;
+    if (v.isEmpty) return t.emailRequired;
+    return _emailRegex.hasMatch(v) ? null : t.emailInvalid;
   }
 
   /// Password with minimum length.
   static String? password(String? value, {int minLength = 6}) {
-    if (value == null || value.isEmpty) return AppStrings.passwordRequired;
+    if (value == null || value.isEmpty) return t.passwordRequired;
     return value.length < minLength
-        ? AppStrings.passwordMinLength(minLength)
+        ? t.passwordMinLength(minLength: minLength)
         : null;
   }
 
   /// Confirmation must match the original password.
   static String? confirmPassword(String? value, String original) {
     if (value == null || value.isEmpty) {
-      return AppStrings.reenterPasswordRequired;
+      return t.reenterPasswordRequired;
     }
-    return value != original ? AppStrings.passwordsDoNotMatch : null;
+    return value != original ? t.passwordsDoNotMatch : null;
   }
 
   /// 4-digit verification code.
   static String? otpCode(String? value, {int length = 4}) {
     final v = value?.trim() ?? '';
-    return v.length == length ? null : AppStrings.otpRequired(length);
+    return v.length == length ? null : t.otpRequired(length: length);
   }
 }

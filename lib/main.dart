@@ -25,7 +25,7 @@ void main() {
   // Keep the native splash on screen until the first Flutter frame is ready
   // (the SplashScreen calls `FlutterNativeSplash.remove()`).
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(TranslationProvider(child: const DoctorHuntApp()));
+  runApp(TranslationProvider(child: DoctorHuntApp()));
 }
 
 class DoctorHuntApp extends StatelessWidget {

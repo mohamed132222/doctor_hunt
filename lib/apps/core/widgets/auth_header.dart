@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../appsize/app_size.dart';
 import '../appsize/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
@@ -20,7 +19,7 @@ class AuthHeader extends StatelessWidget {
           textAlign: TextAlign.center,
           style: context.textStyles.authTitle,
         ),
-        SizedBox(height: context.paddingOf(AppSize.authTitleSubtitleGap)),
+        SizedBox(height: context.authTitleSubtitleGap),
         Text(
           subtitle,
           textAlign: TextAlign.center,

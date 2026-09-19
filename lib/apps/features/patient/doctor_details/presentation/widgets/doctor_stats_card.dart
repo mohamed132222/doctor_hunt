@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../data/models/doctor_details_content.dart';
@@ -20,18 +19,16 @@ class DoctorStatsCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(
-          context.sizeOf(AppSize.detailsStatRadius),
-        ),
+        borderRadius: BorderRadius.circular(context.detailsStatRadius),
         boxShadow: [context.themeColors.homeCardShadow],
       ),
-      padding: EdgeInsets.all(context.paddingOf(AppSize.detailsStatsPadding)),
+      padding: EdgeInsets.all(context.detailsStatsPadding),
       child: IntrinsicHeight(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             for (var i = 0; i < stats.length; i++) ...[
-              if (i > 0) SizedBox(width: context.paddingOf(AppSize.s10)),
+              if (i > 0) SizedBox(width: context.s10),
               Expanded(child: DoctorStatTile(stat: stats[i])),
             ],
           ],

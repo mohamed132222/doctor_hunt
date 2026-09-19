@@ -1,9 +1,9 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../main/data/models/doctor.dart';
 import '../../data/models/doctor_details_content.dart';
@@ -29,18 +29,16 @@ class DoctorDetailsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gutter = EdgeInsets.symmetric(
-      horizontal: context.paddingOf(AppSize.homeRowPaddingH),
-    );
+    final gutter = EdgeInsets.symmetric(horizontal: context.homeRowPaddingH);
 
     return SafeArea(
       bottom: false,
       child: Column(
         children: [
           DoctorTopBar(
-            title: AppStrings.doctorDetailsTitle,
+            title: t.doctorDetailsTitle,
             onBack: () => context.pop(),
-            actionTooltip: AppStrings.searchDoctors,
+            actionTooltip: t.searchDoctors,
             onAction: () => context.goNamed(RouteName.home),
           ),
           Expanded(
@@ -55,18 +53,18 @@ class DoctorDetailsBody extends StatelessWidget {
                       onBook: () => _onBook(context),
                     ),
                   ),
-                  SizedBox(height: context.paddingOf(AppSize.s16)),
+                  SizedBox(height: context.s16),
                   Padding(
                     padding: gutter,
                     child: DoctorStatsCard(stats: kDoctorStats),
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                      left: context.paddingOf(AppSize.servicesPaddingH),
-                      top: context.paddingOf(AppSize.servicesPaddingTop),
-                      right: context.paddingOf(AppSize.servicesPaddingH),
+                      left: context.servicesPaddingH,
+                      top: context.servicesPaddingTop,
+                      right: context.servicesPaddingH,
                     ),
-                    child: const DoctorServices(points: kServicePoints),
+                    child: DoctorServices(points: kServicePoints),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(
@@ -75,9 +73,9 @@ class DoctorDetailsBody extends StatelessWidget {
                       AppSize.s20,
                       AppSize.s42,
                     ),
-                    child: const DoctorMapCard(),
+                    child: DoctorMapCard(),
                   ),
-                  SizedBox(height: context.paddingOf(AppSize.s16)),
+                  SizedBox(height: context.s16),
                 ],
               ),
             ),

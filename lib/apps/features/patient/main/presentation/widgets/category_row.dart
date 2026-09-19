@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../data/models/doctor_category.dart';
@@ -14,11 +13,11 @@ class CategoryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: context.paddingOf(AppSize.s16)),
+      padding: EdgeInsets.symmetric(horizontal: context.s16),
       child: Row(
         children: [
           for (var i = 0; i < kDoctorCategories.length; i++) ...[
-            if (i > 0) SizedBox(width: context.paddingOf(AppSize.s8)),
+            if (i > 0) SizedBox(width: context.s8),
             Expanded(
               child: _CategoryTile(
                 category: kDoctorCategories[i],
@@ -40,7 +39,7 @@ class _CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final radius = BorderRadius.circular(context.sizeOf(AppSize.r16));
+    final radius = BorderRadius.circular(context.r16);
 
     return Semantics(
       label: category.label,

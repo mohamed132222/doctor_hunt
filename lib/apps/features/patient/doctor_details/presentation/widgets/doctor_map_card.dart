@@ -1,9 +1,9 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../data/models/doctor_details_content.dart';
 import 'clinic_map.dart';
@@ -19,9 +19,7 @@ class DoctorMapCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.detailsMapTopRadius),
-    );
+    final radius = BorderRadius.circular(context.detailsMapTopRadius);
     final metres = _distance.as(
       LengthUnit.Meter,
       kUserLocation,
@@ -44,20 +42,20 @@ class DoctorMapCard extends StatelessWidget {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: context.paddingOf(AppSize.s12),
-                vertical: context.paddingOf(AppSize.s10),
+                horizontal: context.s12,
+                vertical: context.s10,
               ),
               child: Row(
                 children: [
                   Icon(
                     Icons.near_me_rounded,
-                    size: context.paddingOf(AppSize.s16),
+                    size: context.s16,
                     color: theme.colorScheme.primary,
                   ),
-                  SizedBox(width: context.paddingOf(AppSize.s8)),
+                  SizedBox(width: context.s8),
                   Expanded(
                     child: Text(
-                      AppStrings.distanceAway(label),
+                      t.distanceAway(distance: label),
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontSize: AppSize.s12,
                         color: theme.colorScheme.onSurfaceVariant,

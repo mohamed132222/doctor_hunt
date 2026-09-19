@@ -1,4 +1,4 @@
-import '../../../../../core/constants/app_strings.dart';
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 
 /// The account roles the app supports.
@@ -6,7 +6,7 @@ enum UserRole { patient, admin }
 
 /// Presentational data for a role card.
 class RoleOption {
-  const RoleOption({
+  RoleOption({
     required this.role,
     required this.icon,
     required this.title,
@@ -21,17 +21,17 @@ class RoleOption {
   final String description;
 }
 
-const List<RoleOption> kRoleOptions = [
+List<RoleOption> kRoleOptions = [
   RoleOption(
     role: UserRole.patient,
     icon: AppAssets.patientIcon,
-    title: AppStrings.rolePatient,
-    description: AppStrings.rolePatientDescription,
+    title: t.rolePatient,
+    description: t.rolePatientDescription,
   ),
   RoleOption(
     role: UserRole.admin,
     icon: AppAssets.adminIcon,
-    title: AppStrings.roleAdmin,
-    description: AppStrings.roleAdminDescription,
+    title: t.roleAdmin,
+    description: t.roleAdminDescription,
   ),
 ];

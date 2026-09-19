@@ -1,8 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 
 /// Shown for a day with no free slots: the status, a shortcut to the next day
 /// that has slots, and a way to reach the clinic instead.
@@ -32,33 +32,33 @@ class BookingEmptyState extends StatelessWidget {
           textAlign: TextAlign.center,
           style: theme.textTheme.titleMedium,
         ),
-        SizedBox(height: context.paddingOf(AppSize.s4)),
+        SizedBox(height: context.s4),
         Text(
-          AppStrings.noSlotsAvailable,
+          t.noSlotsAvailable,
           textAlign: TextAlign.center,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
         if (nextAvailabilityLabel != null) ...[
-          SizedBox(height: context.paddingOf(AppSize.s20)),
+          SizedBox(height: context.s20),
           _BookingActionButton(
             label: nextAvailabilityLabel!,
             filled: true,
             onTap: onNextAvailability,
           ),
         ],
-        SizedBox(height: context.paddingOf(AppSize.s12)),
+        SizedBox(height: context.s12),
         Text(
-          AppStrings.orLabel,
+          t.orLabel,
           textAlign: TextAlign.center,
           style: theme.textTheme.bodySmall?.copyWith(
             color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
-        SizedBox(height: context.paddingOf(AppSize.s12)),
+        SizedBox(height: context.s12),
         _BookingActionButton(
-          label: AppStrings.contactClinic,
+          label: t.contactClinic,
           filled: false,
           onTap: onContactClinic,
         ),
@@ -82,9 +82,7 @@ class _BookingActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.bookingActionRadius),
-    );
+    final radius = BorderRadius.circular(context.bookingActionRadius);
     final shape = RoundedRectangleBorder(
       borderRadius: radius,
       side: filled
@@ -93,7 +91,7 @@ class _BookingActionButton extends StatelessWidget {
     );
 
     return SizedBox(
-      height: context.sizeOf(AppSize.bookingActionHeight),
+      height: context.bookingActionHeight,
       child: Material(
         color: filled ? scheme.primary : scheme.surface,
         shape: shape,

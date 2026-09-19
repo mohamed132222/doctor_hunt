@@ -18,14 +18,12 @@ class PageDots extends StatelessWidget {
       children: List.generate(count, (index) {
         final active = index == activeIndex;
         return AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          margin: EdgeInsets.symmetric(
-            horizontal: context.paddingOf(AppSize.s4),
-          ),
+          duration: Duration(milliseconds: 250),
+          margin: EdgeInsets.symmetric(horizontal: context.s4),
           width: context.sizeOf(
             active ? AppSize.dotActiveWidth : AppSize.dotSize,
           ),
-          height: context.sizeOf(AppSize.dotSize),
+          height: context.dotSize,
           decoration: BoxDecoration(
             color: active
                 ? context.colorScheme.primary

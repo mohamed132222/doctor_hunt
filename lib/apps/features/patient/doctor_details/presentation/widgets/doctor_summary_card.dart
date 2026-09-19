@@ -1,8 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../../main/data/models/doctor.dart';
 import '../../../main/presentation/widgets/doctor_photo.dart';
@@ -31,10 +31,8 @@ class _DoctorSummaryCardState extends State<DoctorSummaryCard> {
     final scheme = theme.colorScheme;
     final colors = context.themeColors;
     final doctor = widget.doctor;
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.detailsCardRadius),
-    );
-    final photo = context.sizeOf(AppSize.detailsPhotoSize);
+    final radius = BorderRadius.circular(context.detailsCardRadius);
+    final photo = context.detailsPhotoSize;
 
     return Container(
       decoration: BoxDecoration(
@@ -45,7 +43,7 @@ class _DoctorSummaryCardState extends State<DoctorSummaryCard> {
       child: Stack(
         children: [
           Padding(
-            padding: EdgeInsets.all(context.paddingOf(AppSize.s16)),
+            padding: EdgeInsets.all(context.s16),
             child: Column(
               children: [
                 Row(
@@ -56,27 +54,25 @@ class _DoctorSummaryCardState extends State<DoctorSummaryCard> {
                       tag: doctor.photoHeroTag,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(
-                          context.sizeOf(AppSize.detailsCardRadius),
+                          context.detailsCardRadius,
                         ),
                         child: SizedBox(
                           width: photo,
                           height: photo,
                           child: DoctorPhoto(
                             doctor: doctor,
-                            iconSize: context.paddingOf(AppSize.s24),
+                            iconSize: context.s24,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(width: context.paddingOf(AppSize.s12)),
+                    SizedBox(width: context.s12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.only(
-                              right: context.paddingOf(AppSize.s28),
-                            ),
+                            padding: EdgeInsets.only(right: context.s28),
                             child: Text(
                               doctor.name,
                               style: theme.textTheme.headlineSmall,
@@ -84,7 +80,7 @@ class _DoctorSummaryCardState extends State<DoctorSummaryCard> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s4)),
+                          SizedBox(height: context.s4),
                           Text(
                             doctor.specialty,
                             style: theme.textTheme.bodySmall?.copyWith(
@@ -93,17 +89,17 @@ class _DoctorSummaryCardState extends State<DoctorSummaryCard> {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          SizedBox(height: context.paddingOf(AppSize.s8)),
+                          SizedBox(height: context.s8),
                           Wrap(
                             alignment: WrapAlignment.spaceBetween,
                             crossAxisAlignment: WrapCrossAlignment.center,
-                            runSpacing: context.paddingOf(AppSize.s2),
+                            runSpacing: context.s2,
                             children: [
                               RatingStars(
                                 rating: doctor.rating,
-                                size: context.paddingOf(AppSize.s14),
+                                size: context.s14,
                               ),
-                              SizedBox(width: context.paddingOf(AppSize.s48)),
+                              SizedBox(width: context.s48),
                               Text.rich(
                                 TextSpan(
                                   children: [
@@ -118,7 +114,7 @@ class _DoctorSummaryCardState extends State<DoctorSummaryCard> {
                                           ),
                                     ),
                                     TextSpan(
-                                      text: AppStrings.perHourShort,
+                                      text: t.perHourShort,
                                       style: theme.textTheme.labelSmall
                                           ?.copyWith(
                                             fontSize: AppSize.s12,
@@ -137,20 +133,20 @@ class _DoctorSummaryCardState extends State<DoctorSummaryCard> {
                     ),
                   ],
                 ),
-                SizedBox(height: context.paddingOf(AppSize.s16)),
+                SizedBox(height: context.s16),
                 _BookNowButton(onTap: widget.onBook),
               ],
             ),
           ),
           Positioned(
-            top: context.paddingOf(AppSize.s16),
-            right: context.paddingOf(AppSize.s16),
+            top: context.s16,
+            right: context.s16,
             child: GestureDetector(
               onTap: _toggleFavorite,
               behavior: HitTestBehavior.opaque,
               child: Icon(
                 _favorite ? Icons.favorite : Icons.favorite_border,
-                size: context.sizeOf(AppSize.detailsHeartSize),
+                size: context.detailsHeartSize,
                 color: _favorite ? scheme.error : colors.favoriteOutline,
               ),
             ),
@@ -169,13 +165,11 @@ class _BookNowButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final radius = BorderRadius.circular(
-      context.sizeOf(AppSize.detailsBookButtonRadius),
-    );
+    final radius = BorderRadius.circular(context.detailsBookButtonRadius);
 
     return SizedBox(
-      width: context.sizeOf(AppSize.detailsBookButtonWidth),
-      height: context.sizeOf(AppSize.detailsBookButtonHeight),
+      width: context.detailsBookButtonWidth,
+      height: context.detailsBookButtonHeight,
       child: Material(
         color: theme.colorScheme.primary,
         borderRadius: radius,
@@ -184,7 +178,7 @@ class _BookNowButton extends StatelessWidget {
           onTap: onTap,
           child: Center(
             child: Text(
-              AppStrings.bookNow,
+              t.bookNow,
               style: theme.textTheme.labelLarge,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

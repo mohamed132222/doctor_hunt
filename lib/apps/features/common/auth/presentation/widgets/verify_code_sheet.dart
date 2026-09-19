@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/widgets/app_sheet.dart';
 import '../../../../../core/widgets/otp_field.dart';
 import '../../../../../core/widgets/primary_button.dart';
 import 'reset_password_sheet.dart';
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 
 /// Step 2: enter the 4-digit code sent to [email].
 class VerifyCodeSheet extends StatefulWidget {
@@ -24,20 +23,20 @@ class _VerifyCodeSheetState extends State<VerifyCodeSheet> {
   Future<void> _continue() async {
     if (_code.length != 4) return;
     Navigator.of(context).pop();
-    await showAppSheet<void>(context, (_) => const ResetPasswordSheet());
+    await showAppSheet<void>(context, (_) => ResetPasswordSheet());
   }
 
   @override
   Widget build(BuildContext context) {
     return AppSheet(
-      title: AppStrings.verifyCodeTitle,
-      subtitle: AppStrings.verifyCodeSubtitle,
+      title: t.verifyCodeTitle,
+      subtitle: t.verifyCodeSubtitle,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           OtpField(onCompleted: (code) => setState(() => _code = code)),
-          SizedBox(height: context.paddingOf(AppSize.s24)),
-          PrimaryButton(label: AppStrings.continueLabel, onPressed: _continue),
+          SizedBox(height: context.s24),
+          PrimaryButton(label: t.continueLabel, onPressed: _continue),
         ],
       ),
     );

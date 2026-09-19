@@ -1,25 +1,24 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
-import '../../../../../core/appsize/app_size.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'package:doctor_hunt/generated/image_assets.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
 
 /// A bottom-navigation destination: label + its SVG glyph.
 class NavEntry {
-  const NavEntry({required this.label, required this.svg});
+  NavEntry({required this.label, required this.svg});
 
   final String label;
   final String svg;
 }
 
-const List<NavEntry> kNavEntries = [
-  NavEntry(label: AppStrings.tabHome, svg: AppAssets.homeIcon),
-  NavEntry(label: AppStrings.tabFavorites, svg: AppAssets.heartIcon),
-  NavEntry(label: AppStrings.tabBook, svg: AppAssets.bookIcon),
-  NavEntry(label: AppStrings.tabChat, svg: AppAssets.messageIcon),
+List<NavEntry> kNavEntries = [
+  NavEntry(label: t.tabHome, svg: AppAssets.homeIcon),
+  NavEntry(label: t.tabFavorites, svg: AppAssets.heartIcon),
+  NavEntry(label: t.tabBook, svg: AppAssets.bookIcon),
+  NavEntry(label: t.tabChat, svg: AppAssets.messageIcon),
 ];
 
 /// Custom bottom navigation: white bar with rounded top corners, icon-only
@@ -46,15 +45,13 @@ class HomeBottomNav extends StatelessWidget {
       decoration: BoxDecoration(
         color: scheme.surface,
         borderRadius: BorderRadius.vertical(
-          top: Radius.circular(context.sizeOf(AppSize.navTopRadius)),
+          top: Radius.circular(context.navTopRadius),
         ),
       ),
       child: SizedBox(
-        height: context.sizeOf(AppSize.bottomNavHeight),
+        height: context.bottomNavHeight,
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: context.paddingOf(AppSize.navPaddingH),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: context.navPaddingH),
           child: Row(
             children: [
               for (var i = 0; i < kNavEntries.length; i++)
@@ -88,7 +85,7 @@ class _NavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final colors = context.themeColors;
-    final size = context.sizeOf(AppSize.navActiveCircle);
+    final size = context.navActiveCircle;
     final iconColor = active ? scheme.onPrimary : colors.navInactive;
 
     return Semantics(
@@ -113,7 +110,7 @@ class _NavItem extends StatelessWidget {
             child: Center(
               child: SvgPicture.asset(
                 entry.svg,
-                height: context.sizeOf(AppSize.navSvgHeight),
+                height: context.navSvgHeight,
                 colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
               ),
             ),

@@ -1,8 +1,8 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
 import '../../data/models/doctor.dart';
 import 'doctor_photo.dart';
@@ -32,19 +32,18 @@ class _FeatureDoctorCardState extends State<FeatureDoctorCard> {
     final scheme = theme.colorScheme;
     final colors = context.themeColors;
     final doctor = widget.doctor;
-    final radius = BorderRadius.circular(context.sizeOf(AppSize.r12));
+    final radius = BorderRadius.circular(context.r12);
     final labelStyle = theme.textTheme.labelSmall;
 
     // Grow the card with the system font size so accessible text is never
     // cropped by the design's fixed aspect.
     final textScale = MediaQuery.textScalerOf(context).scale(1);
     final textExtra =
-        (textScale - 1).clamp(0.0, 1.0) *
-        context.sizeOf(AppSize.featureTextBlockHeight);
+        (textScale - 1).clamp(0.0, 1.0) * context.featureTextBlockHeight;
 
     return SizedBox(
-      width: context.sizeOf(AppSize.featureCardWidth),
-      height: context.sizeOf(AppSize.featureCardHeight) + textExtra,
+      width: context.featureCardWidth,
+      height: context.featureCardHeight + textExtra,
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: scheme.surface,
@@ -58,7 +57,7 @@ class _FeatureDoctorCardState extends State<FeatureDoctorCard> {
             child: InkWell(
               onTap: widget.onTap,
               child: Padding(
-                padding: EdgeInsets.all(context.paddingOf(AppSize.s6)),
+                padding: EdgeInsets.all(context.s6),
                 child: Column(
                   children: [
                     Row(
@@ -68,19 +67,19 @@ class _FeatureDoctorCardState extends State<FeatureDoctorCard> {
                           behavior: HitTestBehavior.opaque,
                           child: Icon(
                             _favorite ? Icons.favorite : Icons.favorite_border,
-                            size: context.sizeOf(AppSize.featureIconSize),
+                            size: context.featureIconSize,
                             color: _favorite
                                 ? scheme.error
                                 : colors.favoriteOutline,
                           ),
                         ),
-                        const Spacer(),
+                        Spacer(),
                         Icon(
                           Icons.star_rounded,
-                          size: context.sizeOf(AppSize.featureIconSize),
+                          size: context.featureIconSize,
                           color: colors.starRating,
                         ),
-                        SizedBox(width: context.paddingOf(AppSize.s2)),
+                        SizedBox(width: context.s2),
                         Text(
                           doctor.rating.toStringAsFixed(1),
                           style: labelStyle?.copyWith(
@@ -90,7 +89,7 @@ class _FeatureDoctorCardState extends State<FeatureDoctorCard> {
                         ),
                       ],
                     ),
-                    SizedBox(height: context.paddingOf(AppSize.s6)),
+                    SizedBox(height: context.s6),
                     // Flexible + scaleDown: when a large system font needs more
                     // vertical room, the avatar gives it up instead of
                     // overflowing the card.
@@ -101,18 +100,18 @@ class _FeatureDoctorCardState extends State<FeatureDoctorCard> {
                           fit: BoxFit.scaleDown,
                           child: ClipOval(
                             child: SizedBox(
-                              width: context.sizeOf(AppSize.doctorAvatarSize),
-                              height: context.sizeOf(AppSize.doctorAvatarSize),
+                              width: context.doctorAvatarSize,
+                              height: context.doctorAvatarSize,
                               child: DoctorPhoto(
                                 doctor: doctor,
-                                iconSize: context.paddingOf(AppSize.s24),
+                                iconSize: context.s24,
                               ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: context.paddingOf(AppSize.s6)),
+                    SizedBox(height: context.s6),
                     Text(
                       doctor.name,
                       style: theme.textTheme.titleSmall?.copyWith(
@@ -121,7 +120,7 @@ class _FeatureDoctorCardState extends State<FeatureDoctorCard> {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    SizedBox(height: context.paddingOf(AppSize.s2)),
+                    SizedBox(height: context.s2),
                     Text.rich(
                       TextSpan(
                         children: [
@@ -134,7 +133,7 @@ class _FeatureDoctorCardState extends State<FeatureDoctorCard> {
                             ),
                           ),
                           TextSpan(
-                            text: AppStrings.perHourSuffix,
+                            text: t.perHourSuffix,
                             style: labelStyle?.copyWith(
                               fontSize: AppSize.featurePriceSize,
                               color: colors.priceAccent,

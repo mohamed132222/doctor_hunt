@@ -37,18 +37,16 @@ class ChoiceChipCircle extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         child: Container(
           // Minimum, not fixed: two scaled text lines must be able to grow.
-          constraints: BoxConstraints(
-            minHeight: context.sizeOf(AppSize.choiceChipHeight),
-          ),
+          constraints: BoxConstraints(minHeight: context.choiceChipHeight),
           padding: EdgeInsets.symmetric(
-            horizontal: context.paddingOf(AppSize.s8),
-            vertical: context.paddingOf(AppSize.s8),
+            horizontal: context.s8,
+            vertical: context.s8,
           ),
           decoration: BoxDecoration(
             color: selected
                 ? scheme.primary
                 : scheme.primary.withValues(alpha: AppSize.slotIdleAlpha),
-            borderRadius: BorderRadius.circular(context.sizeOf(AppSize.r24)),
+            borderRadius: BorderRadius.circular(context.r24),
           ),
           // No `alignment`: that would make the box greedy and take a whole
           // row in the Wrap. The Column below centres the content instead.

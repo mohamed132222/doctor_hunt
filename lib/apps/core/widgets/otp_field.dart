@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../appsize/app_size.dart';
-
 import 'package:flutter/services.dart';
 
 import '../appsize/media_query_extension.dart';
@@ -56,9 +54,9 @@ class _OtpFieldState extends State<OtpField> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final boxSize = context.sizeOf(AppSize.otpBoxSize);
-    final gap = context.paddingOf(AppSize.otpGap);
-    final radius = BorderRadius.circular(context.sizeOf(AppSize.otpRadius));
+    final boxSize = context.otpBoxSize;
+    final gap = context.otpGap;
+    final radius = BorderRadius.circular(context.otpRadius);
 
     InputBorder border(Color color, double width) => OutlineInputBorder(
       borderRadius: radius,
