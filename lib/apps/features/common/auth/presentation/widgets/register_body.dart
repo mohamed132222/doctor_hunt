@@ -1,15 +1,15 @@
+import 'package:doctor_hunt/apps/core/appsize/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/apps/core/router/app_router.dart';
+import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
+import 'package:doctor_hunt/apps/core/widgets/auth_header.dart';
+import 'package:doctor_hunt/apps/core/widgets/auth_switch_link.dart';
+import 'package:doctor_hunt/apps/core/widgets/auth_text_field.dart';
+import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
+import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
+import 'package:doctor_hunt/apps/core/widgets/social_auth_button.dart';
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/router/app_router.dart';
-import '../../../../../core/validators/app_validators.dart';
-import '../../../../../core/widgets/auth_header.dart';
-import '../../../../../core/widgets/auth_text_field.dart';
-import '../../../../../core/widgets/password_field.dart';
-import '../../../../../core/widgets/primary_button.dart';
-import '../../../../../core/widgets/social_auth_row.dart';
 
 /// Sign-up form body (stateful: owns the form + controllers).
 class RegisterBody extends StatefulWidget {
@@ -42,7 +42,7 @@ class _RegisterBodyState extends State<RegisterBody> {
       ).showSnackBar(SnackBar(content: Text(t.termsRequired)));
       return;
     }
-    context.go(RoutePath.home);
+    const HomeRoute().go(context);
   }
 
   @override
@@ -50,19 +50,22 @@ class _RegisterBodyState extends State<RegisterBody> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           AuthHeader(title: t.registerTitle, subtitle: t.authSubtitle),
-          SizedBox(height: context.s32),
-          SocialAuthRow(showFacebook: true),
-          SizedBox(height: context.s24),
+          const SizedBox(height: 66),
+          SocialButton(
+            label: "Google",
+            icon: "assets/icons/google_icon.svg",
+            textStyle: context.light16TextSub,
+          ),
+          const SizedBox(height: 34),
           AuthTextField(
             hint: t.nameHint,
             controller: _nameController,
             textInputAction: TextInputAction.next,
             validator: (v) => AppValidators.required(v, t.nameFieldLabel),
           ),
-          SizedBox(height: context.s16),
+          const SizedBox(height: 18),
           AuthTextField(
             hint: t.emailHint,
             controller: _emailController,
@@ -70,21 +73,30 @@ class _RegisterBodyState extends State<RegisterBody> {
             textInputAction: TextInputAction.next,
             validator: AppValidators.email,
           ),
-          SizedBox(height: context.s16),
+          const SizedBox(height: 18),
           PasswordField(
             hint: t.passwordHint,
             controller: _passwordController,
             textInputAction: TextInputAction.done,
             validator: AppValidators.password,
           ),
-          SizedBox(height: context.s16),
+          const SizedBox(height: 14),
           _TermsRow(
             agreed: _agreed,
             onChanged: (v) => setState(() => _agreed = v),
           ),
-          SizedBox(height: context.s32),
-          PrimaryButton(label: t.registerButton, onPressed: _register),
-          SizedBox(height: context.s16),
+          const SizedBox(height: 54),
+          PrimaryButton(
+            label: t.registerButton,
+            onPressed: _register,
+            width: context.sizeOf(295),
+          ),
+          const SizedBox(height: 16),
+          AuthSwitchLink(
+            prefix: t.registerSwitchPrefix,
+            action: t.registerSwitchAction,
+            onTap: () => const LoginRoute().go(context),
+          ),
         ],
       ),
     );
@@ -99,11 +111,10 @@ class _TermsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Row(
       children: [
         Checkbox(value: agreed, onChanged: (v) => onChanged(v ?? false)),
-        SizedBox(width: context.s12),
+        const SizedBox(width: 12),
         Expanded(
           child: GestureDetector(
             onTap: () => onChanged(!agreed),
@@ -112,12 +123,9 @@ class _TermsRow extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: t.termsPrefix,
-                    style: theme.textTheme.bodySmall,
+                    style: context.regular14TextSub,
                   ),
-                  TextSpan(
-                    text: t.termsAction,
-                    style: theme.textTheme.titleSmall,
-                  ),
+                  TextSpan(text: t.termsAction, style: context.medium14TextSub),
                 ],
               ),
             ),

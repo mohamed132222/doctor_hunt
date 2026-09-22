@@ -1,63 +1,118 @@
+import 'package:doctor_hunt/apps/core/appsize/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
+import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
+import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/validators/app_validators.dart';
-import '../../../../../core/widgets/app_sheet.dart';
-import '../../../../../core/widgets/password_field.dart';
-import '../../../../../core/widgets/primary_button.dart';
+class ResetPasswordStep extends StatefulWidget {
+  const ResetPasswordStep({
+    super.key,
+    required this.email,
+    required this.verificationCode,
+    required this.onBack,
+    required this.onSubmit,
+  });
 
-/// Step 3: set a new password and confirm it.
-class ResetPasswordSheet extends StatefulWidget {
-  const ResetPasswordSheet({super.key});
+  /// Email from the first step.
+  final String email;
+
+  /// Verified code from the second step.
+  ///
+  /// It is kept here so this step is ready for the API integration later.
+  final String verificationCode;
+
+  /// UI navigation only.
+  final VoidCallback onBack;
+
+  /// Called only after local validation succeeds.
+  ///
+  /// Later this callback can be connected directly to Cubit/API logic.
+  final void Function(String password, String confirmPassword) onSubmit;
 
   @override
-  State<ResetPasswordSheet> createState() => _ResetPasswordSheetState();
+  State<ResetPasswordStep> createState() => _ResetPasswordStepState();
 }
 
-class _ResetPasswordSheetState extends State<ResetPasswordSheet> {
+class _ResetPasswordStepState extends State<ResetPasswordStep> {
   final _formKey = GlobalKey<FormState>();
+
   final _passwordController = TextEditingController();
-  final _confirmController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
     _passwordController.dispose();
-    _confirmController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  void _update() {
-    if (!_formKey.currentState!.validate()) return;
-    Navigator.of(context).pop();
+  void _handleSubmit() {
+    final form = _formKey.currentState;
+
+    if (form == null || !form.validate()) {
+      return;
+    }
+
+    final password = _passwordController.text;
+    final confirmPassword = _confirmPasswordController.text;
+
+    widget.onSubmit(password, confirmPassword);
+  }
+
+  String? _validateConfirmPassword(String? value) {
+    return AppValidators.confirmPassword(value, _passwordController.text);
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppSheet(
-      title: t.resetPasswordTitle,
-      subtitle: t.resetPasswordSubtitle,
-      child: Form(
-        key: _formKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            PasswordField(
-              hint: t.newPasswordHint,
-              controller: _passwordController,
-              validator: AppValidators.password,
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Align(
+            alignment: Alignment.centerLeft,
+            child: IconButton(
+              onPressed: widget.onBack,
+              icon: const Icon(Icons.arrow_back),
+              padding: EdgeInsets.zero,
+              visualDensity: VisualDensity.compact,
             ),
-            SizedBox(height: context.s16),
-            PasswordField(
-              hint: t.reenterPasswordHint,
-              controller: _confirmController,
-              validator: (v) =>
-                  AppValidators.confirmPassword(v, _passwordController.text),
-            ),
-            SizedBox(height: context.s24),
-            PrimaryButton(label: t.updatePasswordButton, onPressed: _update),
-          ],
-        ),
+          ),
+
+          const SizedBox(height: 12),
+
+          Text(t.resetPasswordTitle, style: context.bold24),
+
+          const SizedBox(height: 12),
+
+          Text(t.resetPasswordSubtitle, style: context.regular14),
+
+          const SizedBox(height: 36),
+
+          PasswordField(
+            hint: t.newPasswordHint,
+            controller: _passwordController,
+            validator: AppValidators.password,
+          ),
+
+          const SizedBox(height: 16),
+
+          PasswordField(
+            hint: t.reenterPasswordHint,
+            controller: _confirmPasswordController,
+            validator: _validateConfirmPassword,
+          ),
+
+          const SizedBox(height: 24),
+
+          PrimaryButton(
+            label: t.updatePasswordButton,
+            onPressed: _handleSubmit,
+          ),
+        ],
       ),
     );
   }

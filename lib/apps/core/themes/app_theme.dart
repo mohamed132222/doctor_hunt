@@ -201,133 +201,6 @@ extension ColorSchemeX on BuildContext {
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
 }
 
-/// Named text styles that don't belong to the base [TextTheme].
-@immutable
-class AppTextStyles extends ThemeExtension<AppTextStyles> {
-  const AppTextStyles({
-    required this.wordmark,
-    required this.onboardingTitle,
-    required this.onboardingSubtitle,
-    required this.onboardingSkip,
-    required this.authTitle,
-    required this.authSubtitle,
-  });
-
-  /// Splash wordmark: Rubik Bold 25, letter-spacing -0.3.
-  final TextStyle wordmark;
-
-  /// Onboarding title: Rubik 500 / 28 / 100% / -0.3.
-  final TextStyle onboardingTitle;
-
-  /// Onboarding subtitle: Rubik 400 / 14 / 166% / -0.3.
-  final TextStyle onboardingSubtitle;
-
-  /// Onboarding skip label: Rubik 400 / 14 / 166% / -0.3.
-  final TextStyle onboardingSkip;
-
-  /// Auth screen title: Rubik 500 / 24 / 100% / -0.3.
-  final TextStyle authTitle;
-
-  /// Auth screen subtitle: Rubik 400 / 14 / 166% / -0.3.
-  final TextStyle authSubtitle;
-
-  static final AppTextStyles light = AppTextStyles(
-    wordmark: TextStyle(
-      fontFamily: 'Rubik',
-      fontSize: 25,
-      fontWeight: FontWeight.w700,
-      letterSpacing: -0.3,
-      color: AppThemeColors.light.splashWordmark,
-    ),
-    onboardingTitle: TextStyle(
-      fontFamily: 'Rubik',
-      fontSize: 28,
-      fontWeight: FontWeight.w500,
-      height: 1.0,
-      letterSpacing: -0.3,
-      color: AppColors.textMain,
-    ),
-    onboardingSubtitle: TextStyle(
-      fontFamily: 'Rubik',
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      height: 1.66,
-      letterSpacing: -0.3,
-      color: AppColors.textSub,
-    ),
-    onboardingSkip: TextStyle(
-      fontFamily: 'Rubik',
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      height: 1.66,
-      letterSpacing: -0.3,
-      color: AppColors.textSub,
-    ),
-    authTitle: TextStyle(
-      fontFamily: 'Rubik',
-      fontSize: 24,
-      fontWeight: FontWeight.w500,
-      height: 1.0,
-      letterSpacing: -0.3,
-      color: AppColors.textMain,
-    ),
-    authSubtitle: TextStyle(
-      fontFamily: 'Rubik',
-      fontSize: 14,
-      fontWeight: FontWeight.w400,
-      height: 1.66,
-      letterSpacing: -0.3,
-      color: AppColors.textSub,
-    ),
-  );
-
-  @override
-  AppTextStyles copyWith({
-    TextStyle? wordmark,
-    TextStyle? onboardingTitle,
-    TextStyle? onboardingSubtitle,
-    TextStyle? onboardingSkip,
-    TextStyle? authTitle,
-    TextStyle? authSubtitle,
-  }) {
-    return AppTextStyles(
-      wordmark: wordmark ?? this.wordmark,
-      onboardingTitle: onboardingTitle ?? this.onboardingTitle,
-      onboardingSubtitle: onboardingSubtitle ?? this.onboardingSubtitle,
-      onboardingSkip: onboardingSkip ?? this.onboardingSkip,
-      authTitle: authTitle ?? this.authTitle,
-      authSubtitle: authSubtitle ?? this.authSubtitle,
-    );
-  }
-
-  @override
-  AppTextStyles lerp(AppTextStyles? other, double t) {
-    if (other == null) return this;
-    return AppTextStyles(
-      wordmark: TextStyle.lerp(wordmark, other.wordmark, t)!,
-      onboardingTitle: TextStyle.lerp(
-        onboardingTitle,
-        other.onboardingTitle,
-        t,
-      )!,
-      onboardingSubtitle: TextStyle.lerp(
-        onboardingSubtitle,
-        other.onboardingSubtitle,
-        t,
-      )!,
-      onboardingSkip: TextStyle.lerp(onboardingSkip, other.onboardingSkip, t)!,
-      authTitle: TextStyle.lerp(authTitle, other.authTitle, t)!,
-      authSubtitle: TextStyle.lerp(authSubtitle, other.authSubtitle, t)!,
-    );
-  }
-}
-
-/// Reads the custom text styles from any [BuildContext].
-extension AppTextStylesX on BuildContext {
-  AppTextStyles get textStyles =>
-      Theme.of(this).extension<AppTextStyles>() ?? AppTextStyles.light;
-}
-
 /// Named button styles that differ from the global component themes.
 @immutable
 class AppButtonStyles extends ThemeExtension<AppButtonStyles> {
@@ -482,11 +355,7 @@ abstract final class AppTheme {
       colorScheme: colorScheme,
       scaffoldBackgroundColor: colorScheme.surface,
       textTheme: textTheme,
-      extensions: [
-        AppThemeColors.light,
-        AppTextStyles.light,
-        AppButtonStyles.light,
-      ],
+      extensions: [AppThemeColors.light, AppButtonStyles.light],
       inputDecorationTheme: _inputTheme(colorScheme),
       filledButtonTheme: _filledButtonTheme(colorScheme),
       outlinedButtonTheme: _outlinedButtonTheme(colorScheme),

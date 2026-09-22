@@ -1,6 +1,5 @@
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
@@ -55,10 +54,7 @@ class _AppointmentBodyState extends State<AppointmentBody> {
     if (_formKey.currentState?.validate() != true) return;
     // The date, time and reminder are chosen on the next step, which owns
     // the confirmation popup.
-    context.pushNamed(
-      RouteName.schedule,
-      pathParameters: {'doctorId': widget.doctor.id},
-    );
+    ScheduleRoute(doctorId: widget.doctor.id).push(context);
   }
 
   @override
@@ -155,7 +151,7 @@ class _AppointmentBodyState extends State<AppointmentBody> {
                         label: t.next,
                         height: AppSize.appointmentNextHeight,
                         radius: AppSize.bookingActionRadius,
-                        fontSize: AppSize.s16,
+
                         onPressed: _submit,
                       ),
                     ),

@@ -68,14 +68,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         final doctor = _results[index];
                         return SearchDoctorCard(
                           doctor: doctor,
-                          onTap: () => context.pushNamed(
-                            RouteName.doctorDetails,
-                            pathParameters: {'doctorId': doctor.id},
-                          ),
-                          onBook: () => context.pushNamed(
-                            RouteName.booking,
-                            pathParameters: {'doctorId': doctor.id},
-                          ),
+                          onTap: () => DoctorDetailsRoute(
+                            doctorId: doctor.id,
+                          ).push(context),
+                          onBook: () =>
+                              BookingRoute(doctorId: doctor.id).push(context),
                         );
                       },
                     ),

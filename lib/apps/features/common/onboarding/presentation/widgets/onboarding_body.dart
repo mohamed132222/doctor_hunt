@@ -1,19 +1,12 @@
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/apps/core/router/app_router.dart';
+import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
+import 'package:doctor_hunt/apps/features/common/onboarding/data/models/onboarding_item.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/router/app_router.dart';
-import '../../../../../core/themes/app_theme.dart';
-import '../../../../../core/widgets/primary_button.dart';
-import '../../data/models/onboarding_item.dart';
 import 'onboarding_slide.dart';
+import 'package:doctor_hunt/generated/style_atoms.dart';
 
-/// Onboarding body: fills the whole screen (background + decorations are
-/// full-bleed, the content is `Positioned.fill`), so it never shows as
-/// not-fullscreen. Slides differ only by image; the decorative shape flips
-/// side on odd/even slides (animated).
 class OnboardingBody extends StatefulWidget {
   const OnboardingBody({super.key, required this.items});
 
@@ -25,11 +18,11 @@ class OnboardingBody extends StatefulWidget {
 
 class _OnboardingBodyState extends State<OnboardingBody> {
   final PageController _controller = PageController();
+
+  ///todo used current index from controller
   int _currentIndex = 0;
 
   bool get _isLast => _currentIndex == widget.items.length - 1;
-
-  bool get _shapeOnRight => _currentIndex.isOdd;
 
   @override
   void dispose() {
@@ -41,7 +34,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
 
   void _next() {
     if (_isLast) {
-      context.go(RoutePath.chooseRole);
+      const ChooseRoleRoute().go(context);
       return;
     }
     _controller.nextPage(
@@ -50,87 +43,59 @@ class _OnboardingBodyState extends State<OnboardingBody> {
     );
   }
 
-  void _goNext() => context.go(RoutePath.chooseRole);
-
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        // Soft green glow — bottom-right (bleeds off the edge).
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Transform.translate(
-            offset: Offset(
-              context.onboardingGlowOffset,
-              context.onboardingGlowOffset,
-            ),
-            child: Image.asset(
-              AppAssets.onboardingGlow,
-              width: context.onboardingGlowWidth,
-              errorBuilder: (context, error, stackTrace) =>
-                  const SizedBox.shrink(),
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Transform.translate(
+              offset: const Offset(0, 0),
+              child: Image.asset(AppAssets.onboardingGlow),
             ),
           ),
-        ),
-        // Decorative shape — top-left / top-right, animated between slides.
-        AnimatedAlign(
-          duration: Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
-          alignment: _shapeOnRight ? Alignment.topRight : Alignment.topLeft,
-          child: Transform.flip(
-            flipX: _shapeOnRight,
-            child: Image.asset(
-              AppAssets.onboardingShape,
-              width: context.onboardingShapeWidth,
-              errorBuilder: (context, error, stackTrace) =>
-                  const SizedBox.shrink(),
+
+          AnimatedAlign(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+            alignment: _currentIndex == 1
+                ? Alignment.topRight
+                : Alignment.topLeft,
+            child: Transform.flip(
+              flipX: _currentIndex == 1,
+              child: Image.asset(AppAssets.onboardingShape),
             ),
           ),
-        ),
-        // Content fills the whole screen.
-        Positioned.fill(
-          child: Column(
-            children: [
-              SizedBox(height: context.onboardingImageTop),
-              Expanded(
-                child: PageView.builder(
-                  controller: _controller,
-                  itemCount: widget.items.length,
-                  onPageChanged: _onPageChanged,
-                  itemBuilder: (context, index) =>
-                      OnboardingSlide(item: widget.items[index]),
-                ),
+
+          Positioned.fill(
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: PageView.builder(
+                      controller: _controller,
+                      itemCount: widget.items.length,
+                      onPageChanged: _onPageChanged,
+                      itemBuilder: (context, index) =>
+                          OnboardingSlide(item: widget.items[index]),
+                    ),
+                  ),
+                  PrimaryButton(
+                    label: _isLast ? t.getStarted : t.next,
+                    onPressed: _next,
+                  ),
+                  TextButton(
+                    onPressed: () => const ChooseRoleRoute().go(context),
+                    child: Text(t.skip, style: context.regular14TextSub),
+                  ),
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: context.onboardingCtaPaddingH,
-                ),
-                child: PrimaryButton(
-                  label: _isLast ? t.getStarted : t.next,
-                  onPressed: _next,
-                  style: context.buttonStyles.onboardingCta,
-                ),
-              ),
-              SizedBox(height: context.onboardingButtonSkipGap),
-              TextButton(
-                onPressed: _goNext,
-                style: TextButton.styleFrom(
-                  minimumSize: Size.zero,
-                  padding: EdgeInsets.zero,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-                child: Text(t.skip, style: context.textStyles.onboardingSkip),
-              ),
-              SizedBox(
-                height:
-                    MediaQuery.paddingOf(context).bottom +
-                    context.onboardingBottomPadding,
-              ),
-            ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

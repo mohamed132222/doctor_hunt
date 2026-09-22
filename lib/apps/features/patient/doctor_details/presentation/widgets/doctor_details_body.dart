@@ -21,10 +21,7 @@ class DoctorDetailsBody extends StatelessWidget {
   final Doctor doctor;
 
   void _onBook(BuildContext context) {
-    context.pushNamed(
-      RouteName.booking,
-      pathParameters: {'doctorId': doctor.id},
-    );
+    BookingRoute(doctorId: doctor.id).push(context);
   }
 
   @override
@@ -39,7 +36,7 @@ class DoctorDetailsBody extends StatelessWidget {
             title: t.doctorDetailsTitle,
             onBack: () => context.pop(),
             actionTooltip: t.searchDoctors,
-            onAction: () => context.goNamed(RouteName.home),
+            onAction: () => const HomeRoute().go(context),
           ),
           Expanded(
             child: SingleChildScrollView(

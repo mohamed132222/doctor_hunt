@@ -1,44 +1,88 @@
+import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/apps/core/widgets/otp_field.dart';
+import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/widgets/app_sheet.dart';
-import '../../../../../core/widgets/otp_field.dart';
-import '../../../../../core/widgets/primary_button.dart';
-import 'reset_password_sheet.dart';
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+class VerifyCodeStep extends StatefulWidget {
+  const VerifyCodeStep({
+    super.key,
+    required this.email,
+    required this.onBack,
+    required this.onContinue,
+  });
 
-/// Step 2: enter the 4-digit code sent to [email].
-class VerifyCodeSheet extends StatefulWidget {
-  const VerifyCodeSheet({super.key, required this.email});
-
+  /// Email received from the previous step.
   final String email;
 
+  /// UI navigation only.
+  final VoidCallback onBack;
+
+  /// Called only when the user has entered a valid 4-digit code.
+  ///
+  /// Later this callback can be connected directly to Cubit/API logic.
+  final ValueChanged<String> onContinue;
+
   @override
-  State<VerifyCodeSheet> createState() => _VerifyCodeSheetState();
+  State<VerifyCodeStep> createState() => _VerifyCodeStepState();
 }
 
-class _VerifyCodeSheetState extends State<VerifyCodeSheet> {
+class _VerifyCodeStepState extends State<VerifyCodeStep> {
   String _code = '';
 
-  Future<void> _continue() async {
-    if (_code.length != 4) return;
-    Navigator.of(context).pop();
-    await showAppSheet<void>(context, (_) => ResetPasswordSheet());
+  bool get _isCodeComplete => _code.length == 4;
+
+  void _handleCodeCompleted(String code) {
+    // This rebuild happens only once when the OTP is completed.
+    if (_code == code) return;
+
+    setState(() {
+      _code = code;
+    });
+  }
+
+  void _handleContinue() {
+    if (!_isCodeComplete) return;
+
+    widget.onContinue(_code);
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppSheet(
-      title: t.verifyCodeTitle,
-      subtitle: t.verifyCodeSubtitle,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          OtpField(onCompleted: (code) => setState(() => _code = code)),
-          SizedBox(height: context.s24),
-          PrimaryButton(label: t.continueLabel, onPressed: _continue),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // Back button
+        Align(
+          alignment: Alignment.centerLeft,
+          child: IconButton(
+            onPressed: widget.onBack,
+            icon: const Icon(Icons.arrow_back),
+            padding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+          ),
+        ),
+
+        const SizedBox(height: 12),
+
+        // Title
+        Text(t.verifyCodeTitle, style: context.bold24),
+
+        const SizedBox(height: 12),
+
+        // Subtitle
+        Text(t.verifyCodeSubtitle, style: context.regular14),
+
+        const SizedBox(height: 36),
+
+        // OTP
+        OtpField(onCompleted: _handleCodeCompleted),
+
+        const SizedBox(height: 24),
+
+        // Continue
+        PrimaryButton(label: t.continueLabel, onPressed: _handleContinue),
+      ],
     );
   }
 }

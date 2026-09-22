@@ -1,6 +1,5 @@
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/appsize/media_query_extension.dart';
@@ -153,10 +152,8 @@ class _BookingBodyState extends State<BookingBody> {
             label: AppStrings.bookNowWithCount(_selectedSlots.length),
             height: AppSize.bookingActionHeight,
             radius: AppSize.bookingActionRadius,
-            onPressed: () => context.pushNamed(
-              RouteName.appointment,
-              pathParameters: {'doctorId': widget.doctor.id},
-            ),
+            onPressed: () =>
+                AppointmentRoute(doctorId: widget.doctor.id).push(context),
           ),
         ],
       ],
