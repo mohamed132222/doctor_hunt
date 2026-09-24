@@ -1,20 +1,28 @@
+import 'package:doctor_hunt/apps/core/di/injection.dart';
+import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/apps/core/router/app_router.dart';
+import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
+import 'package:doctor_hunt/apps/core/widgets/app_sheet.dart';
+import 'package:doctor_hunt/apps/core/widgets/auth_header.dart';
+import 'package:doctor_hunt/apps/core/widgets/auth_switch_link.dart';
+import 'package:doctor_hunt/apps/core/widgets/auth_text_field.dart';
+import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
+import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
+import 'package:doctor_hunt/apps/core/widgets/social_auth_button.dart';
+import 'package:doctor_hunt/apps/features/common/auth/data/repo/auth_repo.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/login/login_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/forget_password_flow.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
+import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../../core/appsize/media_query_extension.dart';
-import '../../../../../core/router/app_router.dart';
-import '../../../../../core/validators/app_validators.dart';
-import '../../../../../core/widgets/app_sheet.dart';
-import '../../../../../core/widgets/auth_header.dart';
-import '../../../../../core/widgets/auth_text_field.dart';
-import '../../../../../core/widgets/password_field.dart';
-import '../../../../../core/widgets/primary_button.dart';
-import '../../../../../core/widgets/social_auth_row.dart';
-import '../widgets/forgot_password_sheet.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginBody extends StatefulWidget {
-  const LoginBody({super.key});
+  const LoginBody({super.key, required this.role});
+
+  final UserRole role;
 
   @override
   State<LoginBody> createState() => _LoginBodyState();
@@ -24,7 +32,7 @@ class _LoginBodyState extends State<LoginBody> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _emailValid = false;
+  final bool _emailValid = false;
 
   @override
   void dispose() {
@@ -33,18 +41,26 @@ class _LoginBodyState extends State<LoginBody> {
     super.dispose();
   }
 
-  void _onEmailChanged(String value) {
-    final valid = AppValidators.email(value) == null;
-    if (valid != _emailValid) setState(() => _emailValid = valid);
-  }
-
   void _login() {
     if (!_formKey.currentState!.validate()) return;
-    context.go(RoutePath.home);
+
+    context.read<LoginBloc>().add(
+      LoginButtonPressed(
+        email: _emailController.text,
+        password: _passwordController.text,
+        role: widget.role,
+      ),
+    );
   }
 
-  Future<void> _forgotPassword() async {
-    await showAppSheet<void>(context, (_) => ForgotPasswordSheet());
+  void _openForgotPassword() {
+    showAppSheet<void>(
+      context,
+      (_) => BlocProvider(
+        create: (_) => ForgotPasswordBloc(getIt<AuthRepo>()),
+        child: const ForgotPasswordFlow(),
+      ),
+    );
   }
 
   @override
@@ -55,33 +71,53 @@ class _LoginBodyState extends State<LoginBody> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           AuthHeader(title: t.loginTitle, subtitle: t.authSubtitle),
-          SizedBox(height: context.authSubtitleSocialGap),
-          SocialAuthRow(),
-          SizedBox(height: context.authSocialFieldGap),
+          SizedBox(height: context.paddingOf(80)),
+          SocialButton(
+            label: "Google",
+            icon: "assets/icons/google_icon.svg",
+            textStyle: context.light16Black,
+            onPressed: () {},
+          ),
+          const SizedBox(height: 36),
           AuthTextField(
             hint: t.emailHint,
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            onChanged: _onEmailChanged,
             suffixIcon: _emailValid ? Icon(Icons.check) : null,
             validator: AppValidators.email,
           ),
-          SizedBox(height: context.authFieldGap),
+          const SizedBox(height: 18),
           PasswordField(
             hint: t.passwordHint,
             controller: _passwordController,
             textInputAction: TextInputAction.done,
             validator: (v) => AppValidators.password(v, minLength: 1),
           ),
-          SizedBox(height: context.authFieldButtonGap),
-          PrimaryButton(label: t.loginButton, onPressed: _login),
-          SizedBox(height: context.authButtonLinkGap),
+          const SizedBox(height: 32),
+          BlocBuilder<LoginBloc, LoginState>(
+            buildWhen: (previous, current) =>
+                previous.isLoading != current.isLoading,
+            builder: (context, state) {
+              return PrimaryButton(
+                label: t.loginButton,
+                isLoading: state.isLoading,
+                onPressed: _login,
+              );
+            },
+          ),
+          const SizedBox(height: 18),
           Center(
             child: TextButton(
-              onPressed: _forgotPassword,
+              onPressed: _openForgotPassword,
               child: Text(t.forgotPassword),
             ),
+          ),
+          SizedBox(height: context.paddingOf(124)),
+          AuthSwitchLink(
+            prefix: t.loginSwitchPrefix,
+            action: t.loginSwitchAction,
+            onTap: () => RegisterRoute(role: widget.role).go(context),
           ),
         ],
       ),

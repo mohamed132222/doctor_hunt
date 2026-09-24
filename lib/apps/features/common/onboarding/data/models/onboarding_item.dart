@@ -1,10 +1,6 @@
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 
-/// A single onboarding slide.
-///
-/// Slides differ only by [image]; the decorative ellipse side is derived from
-/// the slide index (odd → right, even → left) inside the body.
 class OnboardingItem {
   OnboardingItem({
     required this.image,

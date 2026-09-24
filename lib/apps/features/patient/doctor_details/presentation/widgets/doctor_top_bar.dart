@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 
 /// Details top bar: a back button, the screen title and a trailing action.

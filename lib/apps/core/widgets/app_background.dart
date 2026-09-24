@@ -1,19 +1,6 @@
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
 
-import '../appsize/media_query_extension.dart';
-import '../themes/app_theme.dart';
-
-/// The app's standard page shell: it owns the [Scaffold] so screens don't
-/// each build one.
-///
-/// Paints the two brand ellipses — teal glow top-left, green glow
-/// bottom-right (the splash decoration) — over the surface colour, then
-/// lays the screen's content on top.
-///
-/// ```dart
-/// return AppBackground(child: MyBody());
-/// ```
 class AppBackground extends StatelessWidget {
   const AppBackground({
     super.key,
@@ -24,44 +11,29 @@ class AppBackground extends StatelessWidget {
 
   final Widget child;
 
-  /// Forwarded to the internal [Scaffold].
   final Color? backgroundColor;
-
-  /// Forwarded to the internal [Scaffold].
   final bool? resizeToAvoidBottomInset;
 
   @override
   Widget build(BuildContext context) {
-    final width = context.screenWidth;
-
     return Scaffold(
       backgroundColor: backgroundColor,
       resizeToAvoidBottomInset: resizeToAvoidBottomInset,
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Positioned.fill(
-            child: ColoredBox(color: context.colorScheme.surface),
-          ),
+          ///todo enhance without mediaquery
           Positioned(
-            top: -context.ellipseTopOffset,
-            left: -width * 0.25,
-            child: Image.asset(
-              AppAssets.ellipseTeal,
-              width: width * 0.9,
-              errorBuilder: (context, error, stackTrace) =>
-                  const SizedBox.shrink(),
-            ),
+            top: 0,
+            left: 0,
+            child: Image.asset(AppAssets.ellipseTeal),
           ),
+
+          ///todo enhance without mediaquery
           Positioned(
-            bottom: -context.ellipseBottomOffset,
-            right: -width * 0.2,
-            child: Image.asset(
-              AppAssets.ellipseGreen,
-              width: width * 0.7,
-              errorBuilder: (context, error, stackTrace) =>
-                  const SizedBox.shrink(),
-            ),
+            bottom: 0,
+            right: 0,
+            child: Image.asset(AppAssets.ellipseGreen),
           ),
           child,
         ],

@@ -1,84 +1,90 @@
-import 'dart:math' as math;
-
+import 'package:doctor_hunt/apps/core/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../appsize/app_size.dart';
-import '../appsize/media_query_extension.dart';
-import '../themes/app_theme.dart';
-
-/// Rounded modal sheet with the grey drag handle, a left-aligned title /
-/// subtitle and keyboard-safe padding. All colors & typography come from the
-/// theme.
+/// Reusable bottom-sheet container.
+///
+/// Responsibilities:
+/// - Sheet shape
+/// - Drag handle
+/// - Safe area
+/// - Keyboard handling
+/// - Scrolling
+///
+/// This widget contains no feature-specific logic.
 class AppSheet extends StatelessWidget {
-  const AppSheet({
-    super.key,
-    required this.title,
-    this.subtitle,
-    required this.child,
-  });
+  const AppSheet({super.key, required this.child});
 
-  final String title;
-  final String? subtitle;
   final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    // Push the content above the keyboard, and always clear the bottom inset.
-    final bottomInset = math.max(
-      MediaQuery.viewInsetsOf(context).bottom,
-      MediaQuery.paddingOf(context).bottom + context.sheetBottomPadding,
-    );
+    // Granular MediaQuery accessors so the sheet only rebuilds when these
+    // specific metrics change (not on every MediaQuery change).
+    final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
+    final screenHeight = MediaQuery.sizeOf(context).height;
 
-    return Padding(
-      padding: EdgeInsets.only(
-        left: context.sheetPaddingH,
-        right: context.sheetPaddingH,
-        top: context.sheetTopPadding,
-        bottom: bottomInset,
-      ),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Center(
-              child: Container(
-                width: context.sheetHandleWidth,
-                height: context.sheetHandleHeight,
-                decoration: BoxDecoration(
-                  color: context.themeColors.sheetHandle,
-                  borderRadius: BorderRadius.circular(AppSize.r4),
-                ),
-              ),
+    // Cap the sheet so it never grows past the screen. The keyboard inset is
+    // added as bottom padding so the focused field stays visible, while the
+    // inner scroll view handles any remaining overflow instead of pushing the
+    // top of the sheet off-screen.
+    final maxHeight = screenHeight * 0.9;
+
+    return AnimatedPadding(
+      duration: const Duration(milliseconds: 200),
+      curve: Curves.easeOut,
+      padding: EdgeInsets.only(bottom: bottomInset),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: maxHeight),
+        child: SafeArea(
+          top: false,
+          minimum: const EdgeInsets.only(
+            left: 20,
+            right: 20,
+            top: 10,
+            bottom: 60,
+          ),
+          child: SingleChildScrollView(
+            keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [_SheetHandle(), const SizedBox(height: 60), child],
             ),
-            SizedBox(height: context.sheetHandleTitleGap),
-            Text(title, style: theme.textTheme.headlineMedium),
-            if (subtitle != null) ...[
-              SizedBox(height: context.sheetTitleSubtitleGap),
-              Text(subtitle!, style: context.textStyles.authSubtitle),
-            ],
-            SizedBox(height: context.sheetSubtitleContentGap),
-            child,
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-/// Opens [builder] as a modal sheet that only dismisses on a swipe-down —
-/// tapping the scrim does nothing. Used by every auth popup for consistency.
+class _SheetHandle extends StatelessWidget {
+  const _SheetHandle();
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      thickness: 5,
+      color: AppColors.geryLight,
+      indent: 120,
+      endIndent: 120,
+      radius: BorderRadius.circular(6),
+    );
+  }
+}
+
+/// Opens a reusable application bottom sheet.
+///
+/// Feature-specific navigation and state should live outside
+/// this widget.
 Future<T?> showAppSheet<T>(BuildContext context, WidgetBuilder builder) {
   return showModalBottomSheet<T>(
     context: context,
     isScrollControlled: true,
     isDismissible: false,
     enableDrag: true,
-    useSafeArea: true,
-    backgroundColor: context.colorScheme.surface,
+    backgroundColor: AppColors.white,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(context.r24)),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
     ),
     builder: builder,
   );

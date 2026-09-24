@@ -1,7 +1,6 @@
+import 'package:doctor_hunt/apps/features/common/onboarding/data/models/onboarding_item.dart';
+import 'package:doctor_hunt/apps/features/common/onboarding/presentation/widgets/onboarding_body.dart';
 import 'package:flutter/material.dart';
-
-import '../../data/models/onboarding_item.dart';
-import '../widgets/onboarding_body.dart';
 
 /// Onboarding screen — thin StatelessWidget; all state lives in
 /// [OnboardingBody].

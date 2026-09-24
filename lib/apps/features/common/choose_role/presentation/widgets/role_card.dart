@@ -1,9 +1,8 @@
+import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
+import 'package:doctor_hunt/apps/core/themes/app_colors.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import '../../../../../core/appsize/app_size.dart';
-import '../../../../../core/appsize/media_query_extension.dart';
-import '../../data/models/role.dart';
 
 /// Selectable role card: icon chip + title + description.
 ///
@@ -34,20 +33,20 @@ class RoleCard extends StatelessWidget {
         children: [
           AnimatedContainer(
             duration: Duration(milliseconds: 180),
-            padding: EdgeInsets.all(context.s20),
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: scheme.surface,
-              borderRadius: BorderRadius.circular(context.r16),
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(
-                color: selected ? scheme.primary : scheme.outline,
-                width: selected ? AppSize.borderFocus : AppSize.borderThin,
+                color: selected ? AppColors.primary : AppColors.geryLight,
+                width: selected ? 2 : 1,
               ),
             ),
             child: Row(
               children: [
                 Container(
-                  width: context.s48,
-                  height: context.s48,
+                  width: 48,
+                  height: 48,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -57,12 +56,12 @@ class RoleCard extends StatelessWidget {
                   ),
                   child: SvgPicture.asset(
                     option.icon,
-                    width: context.s24,
-                    height: context.s24,
+                    width: 24,
+                    height: 24,
                     colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
                   ),
                 ),
-                SizedBox(width: context.s16),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

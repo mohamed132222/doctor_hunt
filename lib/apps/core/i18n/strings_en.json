@@ -151,7 +151,10 @@
   "todayLabelShort": "Today",
   "tomorrowLabel": "Tomorrow",
   "updatePasswordButton": "Update Password",
-  "verifyCodeSubtitle": "Enter the 4 digits code that you received on your email.",
-  "verifyCodeTitle": "Enter 4 Digits Code",
+  "verifyCodeSubtitle": "Enter the 6 digits code that you received on your email.",
+  "verifyCodeTitle": "Enter 6 Digits Code",
+  "resendCodeQuestion": "Didn't receive the code?",
+  "resendCodeButton": "Resend code",
+  "resendCodeCountdown": "Resend code in {seconds}s",
   "whoIsPatientTitle": "Who is this patient?"
 }

@@ -36,6 +36,7 @@ extension ColorAtoms on TextStyle {
   TextStyle get secondaryDark => copyWith(color: AppColors.secondaryDark);
 
   TextStyle get textMain => copyWith(color: AppColors.textMain);
+  TextStyle get textTitle => copyWith(color: AppColors.textTitle);
 
   TextStyle get textSub => copyWith(color: AppColors.textSub);
 

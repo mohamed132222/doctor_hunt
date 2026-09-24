@@ -1,8 +1,7 @@
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/widgets/app_background.dart';
 import '../../data/models/doctor.dart';
@@ -23,10 +22,7 @@ class HomeScreen extends StatelessWidget {
         slivers: [
           SliverToBoxAdapter(
             child: HomeHeader(
-              onSearchSubmitted: (query) => context.pushNamed(
-                RouteName.search,
-                queryParameters: {'q': query},
-              ),
+              onSearchSubmitted: (query) => SearchRoute(q: query).push(context),
             ),
           ),
           SliverToBoxAdapter(child: SizedBox(height: context.s24)),
@@ -76,10 +72,7 @@ class _PopularDoctorsRow extends StatelessWidget {
           final doctor = kPopularDoctors[index];
           return PopularDoctorCard(
             doctor: doctor,
-            onTap: () => context.pushNamed(
-              RouteName.doctorDetails,
-              pathParameters: {'doctorId': doctor.id},
-            ),
+            onTap: () => DoctorDetailsRoute(doctorId: doctor.id).push(context),
           );
         },
       ),
@@ -114,10 +107,7 @@ class _FeatureDoctorsRow extends StatelessWidget {
           final doctor = kFeatureDoctors[index];
           return FeatureDoctorCard(
             doctor: doctor,
-            onTap: () => context.pushNamed(
-              RouteName.doctorDetails,
-              pathParameters: {'doctorId': doctor.id},
-            ),
+            onTap: () => DoctorDetailsRoute(doctorId: doctor.id).push(context),
           );
         },
       ),

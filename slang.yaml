@@ -8,7 +8,7 @@
 base_locale: en
 fallback_strategy: base_locale
 input_directory: lib/apps/core/i18n
-input_file_pattern: .i18n.json
+input_file_pattern: string_ar.json
 output_directory: lib/apps/core/i18n
 output_file_name: strings.g.dart
 flutter_integration: true

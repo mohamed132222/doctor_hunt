@@ -1,6 +1,8 @@
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/presentation/screens/choose_role_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/common/auth/presentation/screens/choose_role_screen.dart';
 import '../../features/common/auth/presentation/screens/login_screen.dart';
 import '../../features/common/auth/presentation/screens/register_screen.dart';
 import '../../features/common/onboarding/presentation/screens/onboarding_screen.dart';
@@ -16,123 +18,226 @@ import '../../features/patient/main/presentation/screens/home_screen.dart';
 import '../../features/patient/main/presentation/screens/main_shell.dart';
 import '../../features/patient/search/presentation/screens/search_screen.dart';
 
-/// Central route configuration for the app.
+part 'app_router.g.dart';
+
+/// Central route configuration.
 ///
-/// Route names live in [RouteName], paths in [RoutePath].
-/// Navigate with `context.goNamed(RouteName.login)` or `context.pushNamed(...)`.
+/// Routes are **typed classes**. `go_router_builder` generates
+/// `app_router.g.dart` (the `part` above), which produces the `$appRoutes` tree.
+/// Navigation is compile-checked — no string keys:
+///
+/// ```dart
+/// const LoginRoute().go(context);
+/// DoctorDetailsRoute(doctorId: id).push(context);
+/// ```
+///
+/// Paths live in [RoutePath] so the URL scheme stays in one place.
 class AppRouter {
   AppRouter._();
 
   static final GoRouter router = GoRouter(
     initialLocation: RoutePath.splash,
-    routes: [
-      GoRoute(
-        name: RouteName.splash,
-        path: RoutePath.splash,
-        builder: (context, state) => const SplashScreen(),
-      ),
-      GoRoute(
-        name: RouteName.onboarding,
-        path: RoutePath.onboarding,
-        builder: (context, state) => const OnboardingScreen(),
-      ),
-      GoRoute(
-        name: RouteName.chooseRole,
-        path: RoutePath.chooseRole,
-        builder: (context, state) => const ChooseRoleScreen(),
-      ),
-      GoRoute(
-        name: RouteName.login,
-        path: RoutePath.login,
-        builder: (context, state) => const LoginScreen(),
-      ),
-      GoRoute(
-        name: RouteName.register,
-        path: RoutePath.register,
-        builder: (context, state) => const RegisterScreen(),
-      ),
-
-      // Full-screen detail page, pushed over the shell (no bottom nav).
-      GoRoute(
-        name: RouteName.doctorDetails,
-        path: RoutePath.doctorDetails,
-        builder: (context, state) => DoctorDetailsScreen(
-          doctorId: state.pathParameters['doctorId'] ?? '',
-        ),
-      ),
-      GoRoute(
-        name: RouteName.booking,
-        path: RoutePath.booking,
-        builder: (context, state) =>
-            BookingScreen(doctorId: state.pathParameters['doctorId'] ?? ''),
-      ),
-      GoRoute(
-        name: RouteName.search,
-        path: RoutePath.search,
-        builder: (context, state) =>
-            SearchScreen(initialQuery: state.uri.queryParameters['q'] ?? ''),
-      ),
-      GoRoute(
-        name: RouteName.appointment,
-        path: RoutePath.appointment,
-        builder: (context, state) =>
-            AppointmentScreen(doctorId: state.pathParameters['doctorId'] ?? ''),
-      ),
-      GoRoute(
-        name: RouteName.schedule,
-        path: RoutePath.schedule,
-        builder: (context, state) =>
-            ScheduleScreen(doctorId: state.pathParameters['doctorId'] ?? ''),
-      ),
-
-      // In-app tabs, hosted by a bottom navigation bar. Each branch keeps its
-      // own stack so tab state survives switching.
-      StatefulShellRoute.indexedStack(
-        builder: (context, state, navigationShell) =>
-            MainShell(navigationShell: navigationShell),
-        branches: [
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: RouteName.home,
-                path: RoutePath.home,
-                builder: (context, state) => const HomeScreen(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: RouteName.favorites,
-                path: RoutePath.favorites,
-                builder: (context, state) => const FavoritesScreen(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: RouteName.book,
-                path: RoutePath.book,
-                builder: (context, state) => const BookScreen(),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                name: RouteName.chat,
-                path: RoutePath.chat,
-                builder: (context, state) => const ChatScreen(),
-              ),
-            ],
-          ),
-        ],
-      ),
-    ],
+    routes: $appRoutes,
   );
 }
 
+// ── Entry / onboarding ──────────────────────────────────────────────────────
+
+@TypedGoRoute<SplashRoute>(path: RoutePath.splash)
+class SplashRoute extends GoRouteData with _$SplashRoute {
+  const SplashRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const SplashScreen();
+}
+
+@TypedGoRoute<OnboardingRoute>(path: RoutePath.onboarding)
+class OnboardingRoute extends GoRouteData with _$OnboardingRoute {
+  const OnboardingRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const OnboardingScreen();
+}
+
+// ── Auth ────────────────────────────────────────────────────────────────────
+
+@TypedGoRoute<ChooseRoleRoute>(path: RoutePath.chooseRole)
+class ChooseRoleRoute extends GoRouteData with _$ChooseRoleRoute {
+  const ChooseRoleRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const ChooseRoleScreen();
+}
+
+@TypedGoRoute<LoginRoute>(path: RoutePath.login)
+class LoginRoute extends GoRouteData with _$LoginRoute {
+  const LoginRoute({required this.role});
+
+  final UserRole role;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return LoginScreen(role: role);
+  }
+}
+
+@TypedGoRoute<RegisterRoute>(path: RoutePath.register)
+class RegisterRoute extends GoRouteData with _$RegisterRoute {
+  const RegisterRoute({required this.role});
+
+  final UserRole role;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return RegisterScreen(role: role);
+  }
+}
+
+// ── Patient journey (pushed over the shell) ─────────────────────────────────
+
+@TypedGoRoute<DoctorDetailsRoute>(path: RoutePath.doctorDetails)
+class DoctorDetailsRoute extends GoRouteData with _$DoctorDetailsRoute {
+  const DoctorDetailsRoute({required this.doctorId});
+
+  final String doctorId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      DoctorDetailsScreen(doctorId: doctorId);
+}
+
+@TypedGoRoute<BookingRoute>(path: RoutePath.booking)
+class BookingRoute extends GoRouteData with _$BookingRoute {
+  const BookingRoute({required this.doctorId});
+
+  final String doctorId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      BookingScreen(doctorId: doctorId);
+}
+
+@TypedGoRoute<SearchRoute>(path: RoutePath.search)
+class SearchRoute extends GoRouteData with _$SearchRoute {
+  const SearchRoute({this.q = ''});
+
+  final String q;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      SearchScreen(initialQuery: q);
+}
+
+@TypedGoRoute<AppointmentRoute>(path: RoutePath.appointment)
+class AppointmentRoute extends GoRouteData with _$AppointmentRoute {
+  const AppointmentRoute({required this.doctorId});
+
+  final String doctorId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      AppointmentScreen(doctorId: doctorId);
+}
+
+@TypedGoRoute<ScheduleRoute>(path: RoutePath.schedule)
+class ScheduleRoute extends GoRouteData with _$ScheduleRoute {
+  const ScheduleRoute({required this.doctorId});
+
+  final String doctorId;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      ScheduleScreen(doctorId: doctorId);
+}
+
+// ── Bottom-nav shell ────────────────────────────────────────────────────────
+
+@TypedStatefulShellRoute<MainShellRoute>(
+  branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
+    TypedStatefulShellBranch<HomeBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<HomeRoute>(path: RoutePath.home),
+      ],
+    ),
+    TypedStatefulShellBranch<FavoritesBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<FavoritesRoute>(path: RoutePath.favorites),
+      ],
+    ),
+    TypedStatefulShellBranch<BookBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<BookRoute>(path: RoutePath.book),
+      ],
+    ),
+    TypedStatefulShellBranch<ChatBranchData>(
+      routes: <TypedRoute<RouteData>>[
+        TypedGoRoute<ChatRoute>(path: RoutePath.chat),
+      ],
+    ),
+  ],
+)
+class MainShellRoute extends StatefulShellRouteData {
+  const MainShellRoute();
+
+  static const String $restorationScopeId = 'main-shell';
+
+  @override
+  Widget builder(
+    BuildContext context,
+    GoRouterState state,
+    StatefulNavigationShell navigationShell,
+  ) => MainShell(navigationShell: navigationShell);
+}
+
+class HomeBranchData extends StatefulShellBranchData {
+  const HomeBranchData();
+}
+
+class FavoritesBranchData extends StatefulShellBranchData {
+  const FavoritesBranchData();
+}
+
+class BookBranchData extends StatefulShellBranchData {
+  const BookBranchData();
+}
+
+class ChatBranchData extends StatefulShellBranchData {
+  const ChatBranchData();
+}
+
+class HomeRoute extends GoRouteData with _$HomeRoute {
+  const HomeRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const HomeScreen();
+}
+
+class FavoritesRoute extends GoRouteData with _$FavoritesRoute {
+  const FavoritesRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) =>
+      const FavoritesScreen();
+}
+
+class BookRoute extends GoRouteData with _$BookRoute {
+  const BookRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const BookScreen();
+}
+
+class ChatRoute extends GoRouteData with _$ChatRoute {
+  const ChatRoute();
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) => const ChatScreen();
+}
+
+/// URL scheme — the single place a path string is written down.
 abstract final class RoutePath {
   static const String splash = '/';
   static const String onboarding = '/onboarding';
@@ -140,43 +245,14 @@ abstract final class RoutePath {
   static const String login = '/login';
   static const String register = '/register';
 
-  /// Doctor details, deep-linkable by doctor slug.
   static const String doctorDetails = '/doctor/:doctorId';
-
-  /// Booking page for a doctor, deep-linkable by slug.
   static const String booking = '/booking/:doctorId';
-
-  /// Doctor search; the query is optional (`/search?q=dentist`).
   static const String search = '/search';
-
-  /// Appointment details for a doctor, deep-linkable by slug.
   static const String appointment = '/appointment/:doctorId';
-
-  /// Date / time / reminder step, deep-linkable by slug.
   static const String schedule = '/appointment/:doctorId/schedule';
 
-  // Bottom-nav branches.
   static const String home = '/home';
   static const String favorites = '/favorites';
   static const String book = '/book';
   static const String chat = '/chat';
-}
-
-abstract final class RouteName {
-  static const String splash = 'splash';
-  static const String onboarding = 'onboarding';
-  static const String chooseRole = 'choose-role';
-  static const String login = 'login';
-  static const String register = 'register';
-
-  static const String doctorDetails = 'doctor-details';
-  static const String booking = 'booking';
-  static const String search = 'search';
-  static const String appointment = 'appointment';
-  static const String schedule = 'schedule';
-
-  static const String home = 'home';
-  static const String favorites = 'favorites';
-  static const String book = 'book';
-  static const String chat = 'chat';
 }

@@ -1,7 +1,7 @@
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 
 /// White search field: the magnifier is the [InputDecoration.prefixIcon] and

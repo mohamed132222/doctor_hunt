@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../../core/appsize/app_size.dart';
-import '../../../../../core/appsize/media_query_extension.dart';
 import '../../../../../core/router/app_router.dart';
-import '../../../../../core/themes/app_theme.dart';
 import '../../../../../core/widgets/app_background.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/style_atoms.dart';
 
 /// First Flutter screen shown after the native splash.
 ///
@@ -25,39 +22,28 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    _naviagtion();
+    _navigation();
   }
 
-  Future<void> _naviagtion() async {
+  Future<void> _navigation() async {
     // Native splash has served its purpose — drop it once Flutter renders.
     FlutterNativeSplash.remove();
 
     // TODO: replace with real init — restore session, check auth, load config.
     await Future<void>.delayed(Duration(seconds: 2));
     if (!mounted) return;
-    context.go(RoutePath.onboarding);
+    const OnboardingRoute().go(context);
   }
 
   @override
   Widget build(BuildContext context) {
-    final colors = context.themeColors;
-    final width = context.screenWidth;
-
     return AppBackground(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(
-            AppAssets.splashLogo,
-            width: width * AppSize.splashLogoFraction,
-            errorBuilder: (context, error, stackTrace) => Icon(
-              Icons.local_hospital,
-              size: width * AppSize.splashLogoFraction,
-              color: colors.splashCross,
-            ),
-          ),
-          SizedBox(height: context.s24),
-          Text(t.appName, style: context.textStyles.wordmark),
+          Image.asset(AppAssets.splashLogo, width: 70),
+          const SizedBox(height: 16),
+          Text(t.appName, style: context.bold24),
         ],
       ),
     );

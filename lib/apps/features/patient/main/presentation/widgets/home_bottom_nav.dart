@@ -3,7 +3,7 @@ import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 
 /// A bottom-navigation destination: label + its SVG glyph.

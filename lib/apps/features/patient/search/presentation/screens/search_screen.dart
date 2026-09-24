@@ -2,7 +2,7 @@ import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/widgets/app_background.dart';
 import '../../../doctor_details/presentation/widgets/doctor_top_bar.dart';
@@ -68,14 +68,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         final doctor = _results[index];
                         return SearchDoctorCard(
                           doctor: doctor,
-                          onTap: () => context.pushNamed(
-                            RouteName.doctorDetails,
-                            pathParameters: {'doctorId': doctor.id},
-                          ),
-                          onBook: () => context.pushNamed(
-                            RouteName.booking,
-                            pathParameters: {'doctorId': doctor.id},
-                          ),
+                          onTap: () => DoctorDetailsRoute(
+                            doctorId: doctor.id,
+                          ).push(context),
+                          onBook: () =>
+                              BookingRoute(doctorId: doctor.id).push(context),
                         );
                       },
                     ),

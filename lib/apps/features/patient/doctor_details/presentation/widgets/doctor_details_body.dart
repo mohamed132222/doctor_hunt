@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/app_size.dart';
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../main/data/models/doctor.dart';
 import '../../data/models/doctor_details_content.dart';
@@ -21,10 +21,7 @@ class DoctorDetailsBody extends StatelessWidget {
   final Doctor doctor;
 
   void _onBook(BuildContext context) {
-    context.pushNamed(
-      RouteName.booking,
-      pathParameters: {'doctorId': doctor.id},
-    );
+    BookingRoute(doctorId: doctor.id).push(context);
   }
 
   @override
@@ -39,7 +36,7 @@ class DoctorDetailsBody extends StatelessWidget {
             title: t.doctorDetailsTitle,
             onBack: () => context.pop(),
             actionTooltip: t.searchDoctors,
-            onAction: () => context.goNamed(RouteName.home),
+            onAction: () => const HomeRoute().go(context),
           ),
           Expanded(
             child: SingleChildScrollView(
