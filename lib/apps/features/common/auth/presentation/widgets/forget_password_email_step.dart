@@ -6,12 +6,19 @@ import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordEmailStep extends StatefulWidget {
-  const ForgotPasswordEmailStep({super.key, required this.onContinue});
+  const ForgotPasswordEmailStep({
+    super.key,
+    required this.onContinue,
+    this.isLoading = false,
+  });
 
   /// Called only after the email passes validation.
   ///
   /// Later this callback can be connected directly to Cubit/API logic.
   final ValueChanged<String> onContinue;
+
+  /// Shows a loading indicator on the action button while the OTP is sent.
+  final bool isLoading;
 
   @override
   State<ForgotPasswordEmailStep> createState() =>
@@ -65,7 +72,11 @@ class _ForgotPasswordEmailStepState extends State<ForgotPasswordEmailStep> {
 
           const SizedBox(height: 30),
 
-          PrimaryButton(label: t.continueLabel, onPressed: _handleContinue),
+          PrimaryButton(
+            label: t.continueLabel,
+            onPressed: _handleContinue,
+            isLoading: widget.isLoading,
+          ),
         ],
       ),
     );

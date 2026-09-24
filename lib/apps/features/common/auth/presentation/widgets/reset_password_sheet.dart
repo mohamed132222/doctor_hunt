@@ -1,4 +1,3 @@
-import 'package:doctor_hunt/apps/core/appsize/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
 import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
@@ -13,6 +12,7 @@ class ResetPasswordStep extends StatefulWidget {
     required this.verificationCode,
     required this.onBack,
     required this.onSubmit,
+    this.isLoading = false,
   });
 
   /// Email from the first step.
@@ -30,6 +30,9 @@ class ResetPasswordStep extends StatefulWidget {
   ///
   /// Later this callback can be connected directly to Cubit/API logic.
   final void Function(String password, String confirmPassword) onSubmit;
+
+  /// Shows a loading indicator on the action button while updating.
+  final bool isLoading;
 
   @override
   State<ResetPasswordStep> createState() => _ResetPasswordStepState();
@@ -111,6 +114,7 @@ class _ResetPasswordStepState extends State<ResetPasswordStep> {
           PrimaryButton(
             label: t.updatePasswordButton,
             onPressed: _handleSubmit,
+            isLoading: widget.isLoading,
           ),
         ],
       ),

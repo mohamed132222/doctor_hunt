@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../appsize/app_size.dart';
-import '../appsize/media_query_extension.dart';
+import '../extensions/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
 /// Row of page-indicator dots for carousels / onboarding.

@@ -1,4 +1,3 @@
-import 'package:doctor_hunt/apps/core/appsize/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
@@ -8,12 +7,16 @@ import 'package:doctor_hunt/apps/core/widgets/auth_text_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
 import 'package:doctor_hunt/apps/core/widgets/social_auth_button.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/register/register_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// Sign-up form body (stateful: owns the form + controllers).
 class RegisterBody extends StatefulWidget {
-  const RegisterBody({super.key});
+  const RegisterBody({super.key, required this.role});
+  final UserRole role;
 
   @override
   State<RegisterBody> createState() => _RegisterBodyState();
@@ -36,13 +39,15 @@ class _RegisterBodyState extends State<RegisterBody> {
 
   void _register() {
     if (!_formKey.currentState!.validate()) return;
-    if (!_agreed) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(t.termsRequired)));
-      return;
-    }
-    const HomeRoute().go(context);
+
+    context.read<RegisterBloc>().add(
+      RegisterButtonPressed(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        role: widget.role,
+      ),
+    );
   }
 
   @override
@@ -86,16 +91,22 @@ class _RegisterBodyState extends State<RegisterBody> {
             onChanged: (v) => setState(() => _agreed = v),
           ),
           const SizedBox(height: 54),
-          PrimaryButton(
-            label: t.registerButton,
-            onPressed: _register,
-            width: context.sizeOf(295),
+          BlocBuilder<RegisterBloc, RegisterState>(
+            buildWhen: (previous, current) =>
+                previous.isLoading != current.isLoading,
+            builder: (context, state) {
+              return PrimaryButton(
+                label: t.registerButton,
+                isLoading: state.isLoading,
+                onPressed: _register,
+              );
+            },
           ),
           const SizedBox(height: 16),
           AuthSwitchLink(
             prefix: t.registerSwitchPrefix,
             action: t.registerSwitchAction,
-            onTap: () => const LoginRoute().go(context),
+            onTap: () => LoginRoute(role: widget.role).go(context),
           ),
         ],
       ),

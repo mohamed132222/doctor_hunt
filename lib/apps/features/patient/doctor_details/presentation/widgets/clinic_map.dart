@@ -2,7 +2,7 @@ import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../data/models/doctor_details_content.dart';
 
 /// A real OpenStreetMap view of the clinic.

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'app_size.dart';
+import '../appsize/app_size.dart';
 
 /// The frame every design value was authored in.
 const double _designWidth = 375;

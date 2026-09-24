@@ -1,98 +1,107 @@
+import 'package:doctor_hunt/apps/core/enums/app_status.dart';
 import 'package:doctor_hunt/apps/core/widgets/app_sheet.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_event.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_state.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/forget_password_email_step.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/reset_password_sheet.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/verify_code_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ForgotPasswordFlow extends StatefulWidget {
+class ForgotPasswordFlow extends StatelessWidget {
   const ForgotPasswordFlow({super.key});
 
   @override
-  State<ForgotPasswordFlow> createState() => _ForgotPasswordFlowState();
-}
-
-class _ForgotPasswordFlowState extends State<ForgotPasswordFlow> {
-  int _currentStep = 0;
-
-  String _email = '';
-  String _verificationCode = '';
-
-  void _handleEmailContinue(String email) {
-    _email = email;
-    _nextStep();
-  }
-
-  void _handleCodeContinue(String code) {
-    _verificationCode = code;
-    _nextStep();
-  }
-
-  void _handleResetSubmit(String password, String confirmPassword) {
-    // Later:
-    // context.read<ForgotPasswordCubit>().resetPassword(
-    //   email: _email,
-    //   verificationCode: _verificationCode,
-    //   password: password,
-    // );
-
-    debugPrint('Email: $_email');
-    debugPrint('Code: $_verificationCode');
-    debugPrint('Password: $password');
-    debugPrint('Confirm Password: $confirmPassword');
-
-    _finish();
-  }
-
-  void _nextStep() {
-    if (_currentStep >= 2) return;
-
-    setState(() {
-      _currentStep++;
-    });
-  }
-
-  void _previousStep() {
-    if (_currentStep == 0) {
-      Navigator.of(context).pop();
-      return;
-    }
-
-    setState(() {
-      _currentStep--;
-    });
-  }
-
-  void _finish() {
-    Navigator.of(context).pop();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return AppSheet(child: _buildCurrentStep());
-  }
+    return BlocListener<ForgotPasswordBloc, ForgotPasswordState>(
+      listenWhen: (previous, current) =>
+          previous.status != current.status || previous.step != current.step,
+      listener: (context, state) {
+        if (state.status == AppStatus.error) {
+          // The verifyOtp step shows its error inline, so skip the SnackBar
+          // there to avoid a duplicate message.
+          if (state.step == ForgotPasswordStep.verifyOtp) return;
 
-  Widget _buildCurrentStep() {
-    switch (_currentStep) {
-      case 0:
-        return ForgotPasswordEmailStep(onContinue: _handleEmailContinue);
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.errorMessage ?? 'Something went wrong'),
+            ),
+          );
+          return;
+        }
 
-      case 1:
-        return VerifyCodeStep(
-          email: _email,
-          onBack: _previousStep,
-          onContinue: _handleCodeContinue,
-        );
+        if (state.status == AppStatus.success &&
+            state.step == ForgotPasswordStep.completed) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: AppSheet(
+        child: BlocBuilder<ForgotPasswordBloc, ForgotPasswordState>(
+          buildWhen: (previous, current) =>
+              previous.step != current.step ||
+              previous.email != current.email ||
+              previous.status != current.status,
+          builder: (context, state) {
+            final isLoading = state.isLoading;
+            switch (state.step) {
+              case ForgotPasswordStep.email:
+                return ForgotPasswordEmailStep(
+                  isLoading: isLoading,
+                  onContinue: (email) {
+                    context.read<ForgotPasswordBloc>().add(
+                      SendPasswordResetOtp(email: email),
+                    );
+                  },
+                );
 
-      case 2:
-        return ResetPasswordStep(
-          email: _email,
-          verificationCode: _verificationCode,
-          onBack: _previousStep,
-          onSubmit: _handleResetSubmit,
-        );
+              case ForgotPasswordStep.verifyOtp:
+                return VerifyCodeStep(
+                  email: state.email ?? '',
+                  isLoading: isLoading,
+                  errorMessage: state.status == AppStatus.error
+                      ? state.errorMessage
+                      : null,
+                  onBack: () {
+                    context.read<ForgotPasswordBloc>().add(
+                      GoBackToPreviousStep(),
+                    );
+                  },
+                  onResend: () {
+                    context.read<ForgotPasswordBloc>().add(
+                      ResendPasswordResetOtp(),
+                    );
+                  },
+                  onContinue: (code) {
+                    context.read<ForgotPasswordBloc>().add(
+                      VerifyPasswordResetOtp(token: code),
+                    );
+                  },
+                );
 
-      default:
-        return const SizedBox.shrink();
-    }
+              case ForgotPasswordStep.resetPassword:
+                return ResetPasswordStep(
+                  email: state.email ?? '',
+                  verificationCode: '',
+                  isLoading: isLoading,
+                  onBack: () {
+                    context.read<ForgotPasswordBloc>().add(
+                      GoBackToPreviousStep(),
+                    );
+                  },
+                  onSubmit: (password, confirmPassword) {
+                    context.read<ForgotPasswordBloc>().add(
+                      ResetPassword(password: password),
+                    );
+                  },
+                );
+
+              case ForgotPasswordStep.completed:
+                return const SizedBox.shrink();
+            }
+          },
+        ),
+      ),
+    );
   }
 }

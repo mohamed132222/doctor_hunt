@@ -1,7 +1,7 @@
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 
 /// Section title with an optional "See all ›" action on the right.
 class SectionHeader extends StatelessWidget {

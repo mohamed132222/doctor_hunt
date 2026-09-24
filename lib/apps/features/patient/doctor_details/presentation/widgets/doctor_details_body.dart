@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/appsize/app_size.dart';
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../main/data/models/doctor.dart';
 import '../../data/models/doctor_details_content.dart';

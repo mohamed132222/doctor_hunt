@@ -377,8 +377,12 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
   String get tomorrowLabel => 'Tomorrow';
   String get updatePasswordButton => 'Update Password';
   String get verifyCodeSubtitle =>
-      'Enter the 4 digits code that you received on your email.';
-  String get verifyCodeTitle => 'Enter 4 Digits Code';
+      'Enter the 6 digits code that you received on your email.';
+  String get verifyCodeTitle => 'Enter 6 Digits Code';
+  String get resendCodeQuestion => 'Didn\'t receive the code?';
+  String get resendCodeButton => 'Resend code';
+  String resendCodeCountdown({required Object seconds}) =>
+      'Resend code in ${seconds}s';
   String get whoIsPatientTitle => 'Who is this patient?';
 }
 
@@ -742,9 +746,16 @@ class _StringsAr extends Translations {
   String get updatePasswordButton => 'تحديث كلمة المرور';
   @override
   String get verifyCodeSubtitle =>
-      'أدخل الرمز المكوّن من ٤ أرقام الذي وصلك على بريدك الإلكتروني.';
+      'أدخل الرمز المكوّن من ٦ أرقام الذي وصلك على بريدك الإلكتروني.';
   @override
-  String get verifyCodeTitle => 'أدخل الرمز المكوّن من ٤ أرقام';
+  String get verifyCodeTitle => 'أدخل الرمز المكوّن من ٦ أرقام';
+  @override
+  String get resendCodeQuestion => 'لم يصلك الرمز؟';
+  @override
+  String get resendCodeButton => 'إعادة إرسال الرمز';
+  @override
+  String resendCodeCountdown({required Object seconds}) =>
+      'إعادة الإرسال خلال ${seconds} ثانية';
   @override
   String get whoIsPatientTitle => 'من هو المريض؟';
 }

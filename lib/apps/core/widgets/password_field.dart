@@ -2,7 +2,7 @@ import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../appsize/media_query_extension.dart';
+import '../extensions/media_query_extension.dart';
 import 'auth_text_field.dart';
 
 /// Password input with a visibility toggle.

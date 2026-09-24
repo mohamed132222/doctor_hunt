@@ -1,4 +1,5 @@
-import 'package:doctor_hunt/apps/core/appsize/media_query_extension.dart';
+import 'package:doctor_hunt/apps/core/di/injection.dart';
+import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
@@ -9,14 +10,19 @@ import 'package:doctor_hunt/apps/core/widgets/auth_text_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
 import 'package:doctor_hunt/apps/core/widgets/social_auth_button.dart';
+import 'package:doctor_hunt/apps/features/common/auth/data/repo/auth_repo.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/login/login_bloc.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/forget_password_flow.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/forget_password_email_step.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginBody extends StatefulWidget {
-  const LoginBody({super.key});
+  const LoginBody({super.key, required this.role});
+
+  final UserRole role;
 
   @override
   State<LoginBody> createState() => _LoginBodyState();
@@ -26,7 +32,7 @@ class _LoginBodyState extends State<LoginBody> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _emailValid = false;
+  final bool _emailValid = false;
 
   @override
   void dispose() {
@@ -37,11 +43,24 @@ class _LoginBodyState extends State<LoginBody> {
 
   void _login() {
     if (!_formKey.currentState!.validate()) return;
-    const HomeRoute().go(context);
+
+    context.read<LoginBloc>().add(
+      LoginButtonPressed(
+        email: _emailController.text,
+        password: _passwordController.text,
+        role: widget.role,
+      ),
+    );
   }
 
   void _openForgotPassword() {
-    showAppSheet<void>(context, (_) => const ForgotPasswordFlow());
+    showAppSheet<void>(
+      context,
+      (_) => BlocProvider(
+        create: (_) => ForgotPasswordBloc(getIt<AuthRepo>()),
+        child: const ForgotPasswordFlow(),
+      ),
+    );
   }
 
   @override
@@ -76,7 +95,17 @@ class _LoginBodyState extends State<LoginBody> {
             validator: (v) => AppValidators.password(v, minLength: 1),
           ),
           const SizedBox(height: 32),
-          PrimaryButton(label: t.loginButton, onPressed: _login),
+          BlocBuilder<LoginBloc, LoginState>(
+            buildWhen: (previous, current) =>
+                previous.isLoading != current.isLoading,
+            builder: (context, state) {
+              return PrimaryButton(
+                label: t.loginButton,
+                isLoading: state.isLoading,
+                onPressed: _login,
+              );
+            },
+          ),
           const SizedBox(height: 18),
           Center(
             child: TextButton(
@@ -88,7 +117,7 @@ class _LoginBodyState extends State<LoginBody> {
           AuthSwitchLink(
             prefix: t.loginSwitchPrefix,
             action: t.loginSwitchAction,
-            onTap: () => const RegisterRoute().go(context),
+            onTap: () => RegisterRoute(role: widget.role).go(context),
           ),
         ],
       ),

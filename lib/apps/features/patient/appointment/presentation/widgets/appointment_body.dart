@@ -2,7 +2,7 @@ import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
-import '../../../../../core/appsize/media_query_extension.dart';
+import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/validators/app_validators.dart';
 import '../../../../../core/widgets/auth_text_field.dart';

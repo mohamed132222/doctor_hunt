@@ -42,6 +42,14 @@ dependencies:
   latlong2: ^0.10.1
   slang: ^3.32.0
   slang_flutter: ^3.32.0
+  flutter_bloc: ^9.1.1
+  supabase_flutter: ^2.17.2
+  equatable: ^3.0.0
+  supabase: ^2.16.1
+  dartz: ^0.10.1
+  bloc_concurrency: ^0.3.0
+  get_it: ^9.3.0
+  pinput: ^6.0.2
 
 dev_dependencies:
   flutter_test:

@@ -10,7 +10,7 @@ class PrimaryButton extends StatelessWidget {
   final VoidCallback onPressed;
   final ButtonStyle? style;
   final bool enabled;
-  final bool loading;
+  final bool isLoading;
   final Widget? icon;
   final Color? backgroundColor;
   final TextStyle? textStyle;
@@ -24,7 +24,7 @@ class PrimaryButton extends StatelessWidget {
     this.radius,
     this.style,
     this.enabled = true,
-    this.loading = false,
+    this.isLoading = false,
     this.backgroundColor,
     this.icon,
     this.textStyle,
@@ -32,10 +32,17 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Disable interaction while loading or explicitly disabled to prevent
+    // double submissions.
+    final isEnabled = enabled && !isLoading;
+
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isEnabled ? onPressed : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor ?? AppColors.primary,
+        // Keep the same color while loading/disabled so the button doesn't
+        // flash to the default grey disabled color.
+        disabledBackgroundColor: backgroundColor ?? AppColors.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius ?? 10),
         ),
@@ -47,10 +54,24 @@ class PrimaryButton extends StatelessWidget {
               children: [
                 icon!,
                 const SizedBox(width: 10),
-                Text(label, style: textStyle ?? context.medium18White),
+                isLoading
+                    ? _loader()
+                    : Text(label, style: textStyle ?? context.medium18White),
               ],
             )
+          : isLoading
+          ? _loader()
           : Text(label, style: textStyle ?? context.medium18White),
     );
   }
+
+  /// Fixed-size loader so the button keeps its height/background while loading.
+  Widget _loader() => const SizedBox(
+    height: 24,
+    width: 24,
+    child: CircularProgressIndicator(
+      strokeWidth: 2.5,
+      color: AppColors.white,
+    ),
+  );
 }

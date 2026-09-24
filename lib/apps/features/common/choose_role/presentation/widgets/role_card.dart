@@ -1,5 +1,4 @@
-import 'package:doctor_hunt/apps/core/appsize/app_size.dart';
-import 'package:doctor_hunt/apps/core/appsize/media_query_extension.dart';
+import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/themes/app_colors.dart';
 import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
 import 'package:flutter/material.dart';

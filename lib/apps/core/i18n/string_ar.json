@@ -151,7 +151,10 @@
   "todayLabelShort": "اليوم",
   "tomorrowLabel": "غدًا",
   "updatePasswordButton": "تحديث كلمة المرور",
-  "verifyCodeSubtitle": "أدخل الرمز المكوّن من ٤ أرقام الذي وصلك على بريدك الإلكتروني.",
-  "verifyCodeTitle": "أدخل الرمز المكوّن من ٤ أرقام",
+  "verifyCodeSubtitle": "أدخل الرمز المكوّن من ٦ أرقام الذي وصلك على بريدك الإلكتروني.",
+  "verifyCodeTitle": "أدخل الرمز المكوّن من ٦ أرقام",
+  "resendCodeQuestion": "لم يصلك الرمز؟",
+  "resendCodeButton": "إعادة إرسال الرمز",
+  "resendCodeCountdown": "إعادة الإرسال خلال {seconds} ثانية",
   "whoIsPatientTitle": "من هو المريض؟"
 }

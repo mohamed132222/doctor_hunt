@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/apps/core/appsize/media_query_extension.dart';
+import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/widgets/app_background.dart';
@@ -57,7 +57,7 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
               PrimaryButton(
                 label: t.continueLabel,
 
-                onPressed: () => const LoginRoute().go(context),
+                onPressed: () => LoginRoute(role: _selected).go(context),
               ),
             ],
           ),

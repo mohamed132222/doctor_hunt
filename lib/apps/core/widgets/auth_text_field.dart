@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../appsize/media_query_extension.dart';
+import '../extensions/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
 /// Reusable text input shown as a soft white card (shadow from the theme).

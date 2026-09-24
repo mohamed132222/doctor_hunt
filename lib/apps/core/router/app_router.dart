@@ -1,3 +1,4 @@
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
 import 'package:doctor_hunt/apps/features/common/choose_role/presentation/screens/choose_role_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -73,20 +74,26 @@ class ChooseRoleRoute extends GoRouteData with _$ChooseRoleRoute {
 
 @TypedGoRoute<LoginRoute>(path: RoutePath.login)
 class LoginRoute extends GoRouteData with _$LoginRoute {
-  const LoginRoute();
+  const LoginRoute({required this.role});
+
+  final UserRole role;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const LoginScreen();
+  Widget build(BuildContext context, GoRouterState state) {
+    return LoginScreen(role: role);
+  }
 }
 
 @TypedGoRoute<RegisterRoute>(path: RoutePath.register)
 class RegisterRoute extends GoRouteData with _$RegisterRoute {
-  const RegisterRoute();
+  const RegisterRoute({required this.role});
+
+  final UserRole role;
 
   @override
-  Widget build(BuildContext context, GoRouterState state) =>
-      const RegisterScreen();
+  Widget build(BuildContext context, GoRouterState state) {
+    return RegisterScreen(role: role);
+  }
 }
 
 // ── Patient journey (pushed over the shell) ─────────────────────────────────
