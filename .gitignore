@@ -46,3 +46,6 @@ app.*.map.json
 
 # agent scratch / temp scripts
 .openclaw/
+
+# MCP server config — contains the Supabase access token, do not commit
+.mcp.json

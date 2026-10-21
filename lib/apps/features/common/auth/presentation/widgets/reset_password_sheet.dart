@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
 import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
@@ -15,23 +15,14 @@ class ResetPasswordStep extends StatefulWidget {
     this.isLoading = false,
   });
 
-  /// Email from the first step.
   final String email;
 
-  /// Verified code from the second step.
-  ///
-  /// It is kept here so this step is ready for the API integration later.
   final String verificationCode;
 
-  /// UI navigation only.
   final VoidCallback onBack;
 
-  /// Called only after local validation succeeds.
-  ///
-  /// Later this callback can be connected directly to Cubit/API logic.
   final void Function(String password, String confirmPassword) onSubmit;
 
-  /// Shows a loading indicator on the action button while updating.
   final bool isLoading;
 
   @override

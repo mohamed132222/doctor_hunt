@@ -4,7 +4,6 @@ import '../appsize/app_size.dart';
 import '../extensions/media_query_extension.dart';
 import '../themes/app_theme.dart';
 
-/// Row of page-indicator dots for carousels / onboarding.
 class PageDots extends StatelessWidget {
   const PageDots({super.key, required this.count, required this.activeIndex});
 

@@ -1,17 +1,21 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'home_search_bar.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
-import 'home_search_bar.dart';
+import 'home_header_avatar.dart';
 
-/// Teal→green gradient header: greeting, title, avatar and the search bar.
-///
-/// The gradient ends at the search bar's vertical centre, so the bar straddles
-/// the header's bottom edge, exactly as in the design.
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key, this.onSearchChanged, this.onSearchSubmitted});
+  const HomeHeader({
+    super.key,
+    this.photo,
+    this.onSearchChanged,
+    this.onSearchSubmitted,
+  });
 
+  final String? photo;
   final ValueChanged<String>? onSearchChanged;
   final ValueChanged<String>? onSearchSubmitted;
 
@@ -22,8 +26,6 @@ class HomeHeader extends StatelessWidget {
     final safeTop = MediaQuery.paddingOf(context).top;
     final searchHeight = context.homeSearchHeight;
 
-    // Fixed-aspect geometry — use the width scale throughout so the header's
-    // parts stay proportional (and in step with the card rows).
     final gradientHeight =
         safeTop +
         context.homeHeaderTopGap +
@@ -63,6 +65,8 @@ class HomeHeader extends StatelessWidget {
             children: [
               Row(
                 children: [
+                  _MenuButton(size: context.homeMenuIcon),
+                  SizedBox(width: context.s12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +88,7 @@ class HomeHeader extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: context.s16),
-                  _Avatar(size: context.homeAvatarSize),
+                  HomeHeaderAvatar(size: context.homeAvatarSize, photo: photo),
                 ],
               ),
               SizedBox(height: context.homeHeaderTitleGap),
@@ -100,22 +104,22 @@ class HomeHeader extends StatelessWidget {
   }
 }
 
-class _Avatar extends StatelessWidget {
-  const _Avatar({required this.size});
+class _MenuButton extends StatelessWidget {
+  const _MenuButton({required this.size});
 
   final double size;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Container(
-      width: size,
-      height: size,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: scheme.onPrimary.withValues(alpha: 0.22),
+    return Semantics(
+      button: true,
+      label: t.drawerOpenMenu,
+      child: InkResponse(
+        onTap: () => ZoomDrawer.of(context)?.toggle(),
+        radius: size,
+        child: Icon(Icons.menu, color: scheme.onPrimary, size: size),
       ),
-      child: Icon(Icons.person, color: scheme.onPrimary, size: size * 0.55),
     );
   }
 }

@@ -1,11 +1,11 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
-import 'package:doctor_hunt/apps/features/common/onboarding/data/models/onboarding_item.dart';
+import 'package:doctor_hunt/apps/features/common/onboarding/data/models/onboarding_item_model.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
-import 'onboarding_slide.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
+import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
 
 class OnboardingBody extends StatefulWidget {
   const OnboardingBody({super.key, required this.items});
@@ -19,7 +19,6 @@ class OnboardingBody extends StatefulWidget {
 class _OnboardingBodyState extends State<OnboardingBody> {
   final PageController _controller = PageController();
 
-  ///todo used current index from controller
   int _currentIndex = 0;
 
   bool get _isLast => _currentIndex == widget.items.length - 1;
@@ -79,7 +78,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                       itemCount: widget.items.length,
                       onPageChanged: _onPageChanged,
                       itemBuilder: (context, index) =>
-                          OnboardingSlide(item: widget.items[index]),
+                          _OnboardingSlide(item: widget.items[index]),
                     ),
                   ),
                   PrimaryButton(
@@ -93,6 +92,43 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                 ],
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _OnboardingSlide extends StatelessWidget {
+  const _OnboardingSlide({super.key, required this.item});
+
+  final OnboardingItem item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 42),
+      child: Column(
+        children: [
+          Flexible(
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: ClipOval(
+                child: Image.asset(item.image, fit: BoxFit.cover),
+              ),
+            ),
+          ),
+          SizedBox(height: context.paddingOf(60)),
+          Text(
+            item.title,
+            textAlign: TextAlign.center,
+            style: context.medium28.textTitle,
+          ),
+          const SizedBox(height: 14),
+          Text(
+            item.subtitle,
+            textAlign: TextAlign.center,
+            style: context.regular14.textSub,
           ),
         ],
       ),

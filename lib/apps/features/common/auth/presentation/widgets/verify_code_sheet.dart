@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/apps/core/widgets/otp_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
@@ -19,28 +19,20 @@ class VerifyCodeStep extends StatefulWidget {
     this.errorMessage,
   });
 
-  /// Email received from the previous step.
   final String email;
 
-  /// UI navigation only.
   final VoidCallback onBack;
 
-  /// Requests a new OTP for the same email.
   final VoidCallback onResend;
 
-  /// Number of OTP digits. Supabase recovery codes are 6 digits by default.
   final int codeLength;
 
-  /// Shows a loading indicator on the action button while verifying.
   final bool isLoading;
 
-  /// Seconds the user must wait before requesting a new code (rate-limit safe).
   final int resendCooldownSeconds;
 
-  /// Error text shown under the OTP field (e.g. wrong or expired code).
   final String? errorMessage;
 
-  /// Called only when the user has entered a complete code.
   final ValueChanged<String> onContinue;
 
   @override
@@ -59,7 +51,6 @@ class _VerifyCodeStepState extends State<VerifyCodeStep> {
   @override
   void initState() {
     super.initState();
-    // A code was just sent when this step opened, so start the cooldown.
     _startCooldown();
   }
 
@@ -91,7 +82,6 @@ class _VerifyCodeStepState extends State<VerifyCodeStep> {
   }
 
   void _handleCodeCompleted(String code) {
-    // This rebuild happens only once when the OTP is completed.
     if (_code == code) return;
 
     setState(() {
@@ -110,7 +100,6 @@ class _VerifyCodeStepState extends State<VerifyCodeStep> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        // Back button
         Align(
           alignment: Alignment.centerLeft,
           child: IconButton(
@@ -123,20 +112,16 @@ class _VerifyCodeStepState extends State<VerifyCodeStep> {
 
         const SizedBox(height: 12),
 
-        // Title
         Text(t.verifyCodeTitle, style: context.bold24),
 
         const SizedBox(height: 12),
 
-        // Subtitle
         Text(t.verifyCodeSubtitle, style: context.regular14),
 
         const SizedBox(height: 36),
 
-        // OTP
         OtpField(length: widget.codeLength, onCompleted: _handleCodeCompleted),
 
-        // Inline error message (wrong / expired code).
         if (widget.errorMessage != null) ...[
           const SizedBox(height: 12),
           Text(
@@ -150,7 +135,6 @@ class _VerifyCodeStepState extends State<VerifyCodeStep> {
 
         const SizedBox(height: 24),
 
-        // Continue
         PrimaryButton(
           label: t.continueLabel,
           onPressed: _handleContinue,
@@ -159,7 +143,6 @@ class _VerifyCodeStepState extends State<VerifyCodeStep> {
 
         const SizedBox(height: 8),
 
-        // Resend code with cooldown.
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

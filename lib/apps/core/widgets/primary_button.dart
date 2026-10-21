@@ -32,16 +32,12 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Disable interaction while loading or explicitly disabled to prevent
-    // double submissions.
     final isEnabled = enabled && !isLoading;
 
     return ElevatedButton(
       onPressed: isEnabled ? onPressed : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor ?? AppColors.primary,
-        // Keep the same color while loading/disabled so the button doesn't
-        // flash to the default grey disabled color.
         disabledBackgroundColor: backgroundColor ?? AppColors.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius ?? 10),
@@ -56,22 +52,32 @@ class PrimaryButton extends StatelessWidget {
                 const SizedBox(width: 10),
                 isLoading
                     ? _loader()
-                    : Text(label, style: textStyle ?? context.medium18White),
+                    : FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          label,
+                          maxLines: 1,
+                          style: textStyle ?? context.medium18White,
+                        ),
+                      ),
               ],
             )
           : isLoading
           ? _loader()
-          : Text(label, style: textStyle ?? context.medium18White),
+          : FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                label,
+                maxLines: 1,
+                style: textStyle ?? context.medium18White,
+              ),
+            ),
     );
   }
 
-  /// Fixed-size loader so the button keeps its height/background while loading.
   Widget _loader() => const SizedBox(
     height: 24,
     width: 24,
-    child: CircularProgressIndicator(
-      strokeWidth: 2.5,
-      color: AppColors.white,
-    ),
+    child: CircularProgressIndicator(strokeWidth: 2.5, color: AppColors.white),
   );
 }

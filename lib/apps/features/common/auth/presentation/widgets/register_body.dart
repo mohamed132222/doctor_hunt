@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
 import 'package:doctor_hunt/apps/core/widgets/auth_header.dart';
@@ -7,13 +7,12 @@ import 'package:doctor_hunt/apps/core/widgets/auth_text_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
 import 'package:doctor_hunt/apps/core/widgets/social_auth_button.dart';
-import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/register/register_bloc.dart';
-import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controllers/register/register_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role_model.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// Sign-up form body (stateful: owns the form + controllers).
 class RegisterBody extends StatefulWidget {
   const RegisterBody({super.key, required this.role});
   final UserRole role;
@@ -39,6 +38,13 @@ class _RegisterBodyState extends State<RegisterBody> {
 
   void _register() {
     if (!_formKey.currentState!.validate()) return;
+
+    if (!_agreed) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(t.termsRequired)));
+      return;
+    }
 
     context.read<RegisterBloc>().add(
       RegisterButtonPressed(

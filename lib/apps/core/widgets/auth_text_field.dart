@@ -1,34 +1,62 @@
-import 'package:flutter/material.dart';
-
 import '../extensions/media_query_extension.dart';
-import '../themes/app_theme.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:doctor_hunt/generated/image_assets.dart';
+import 'package:doctor_hunt/apps/core/themes/app_theme.dart';
 
-/// Reusable text input shown as a soft white card (shadow from the theme).
-/// All field styling (fill, border, radius, hint color) comes from the app
-/// theme's `InputDecorationTheme`.
-class AuthTextField extends StatelessWidget {
+class AuthTextField extends StatefulWidget {
   const AuthTextField({
     super.key,
     required this.hint,
     this.controller,
     this.keyboardType,
     this.textInputAction,
-    this.obscureText = false,
     this.suffixIcon,
+    this.prefixIcon,
+    this.inputFormatters,
     this.validator,
     this.onChanged,
     this.enabled = true,
+    this.isPassword = false,
   });
 
   final String hint;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
-  final bool obscureText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final List<TextInputFormatter>? inputFormatters;
   final String? Function(String?)? validator;
   final ValueChanged<String>? onChanged;
   final bool enabled;
+
+  final bool isPassword;
+
+  bool get isPasswordField => isPassword;
+
+  @override
+  State<AuthTextField> createState() => _AuthTextFieldState();
+}
+
+class _AuthTextFieldState extends State<AuthTextField> {
+  bool _obscure = true;
+
+  Widget _passwordToggle(BuildContext context) {
+    final iconWidth = context.authEyeIconWidth;
+
+    return IconButton(
+      icon: _obscure
+          ? SvgPicture.asset(
+              AppAssets.passwordObscureIcon,
+              width: iconWidth,
+              height: context.authEyeIconHeight,
+            )
+          : Icon(Icons.visibility_outlined, size: iconWidth),
+      onPressed: () => setState(() => _obscure = !_obscure),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +66,21 @@ class AuthTextField extends StatelessWidget {
         boxShadow: [context.themeColors.cardShadow],
       ),
       child: TextFormField(
-        controller: controller,
-        keyboardType: keyboardType,
-        textInputAction: textInputAction,
-        obscureText: obscureText,
-        enabled: enabled,
-        validator: validator,
-        onChanged: onChanged,
-        decoration: InputDecoration(hintText: hint, suffixIcon: suffixIcon),
+        controller: widget.controller,
+        keyboardType: widget.keyboardType,
+        textInputAction: widget.textInputAction,
+        obscureText: widget.isPasswordField && _obscure,
+        enabled: widget.enabled,
+        validator: widget.validator,
+        onChanged: widget.onChanged,
+        inputFormatters: widget.inputFormatters,
+        decoration: InputDecoration(
+          hintText: widget.hint,
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.isPasswordField
+              ? _passwordToggle(context)
+              : widget.suffixIcon,
+        ),
       ),
     );
   }

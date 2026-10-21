@@ -1,6 +1,5 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 
-/// Form validation helpers — single source of truth for every field rule.
 abstract final class AppValidators {
   AppValidators._();
 
@@ -10,7 +9,6 @@ abstract final class AppValidators {
   );
   static final RegExp _digitsRegex = RegExp(r'[^0-9]');
 
-  /// Required non-empty text.
   static String? required(String? value, [String label = 'this field']) {
     if (value == null || value.trim().isEmpty) {
       return t.fieldRequired(label: label);
@@ -18,8 +16,6 @@ abstract final class AppValidators {
     return null;
   }
 
-  /// A person's name: required, at least [minLength] characters, and made of
-  /// letters (Latin or Arabic) with spaces, hyphens, apostrophes or dots.
   static String? personName(String? value, {int minLength = 3}) {
     final v = value?.trim() ?? '';
     if (v.isEmpty) return t.fieldRequired(label: t.patientNameHint);
@@ -27,7 +23,6 @@ abstract final class AppValidators {
     return _nameRegex.hasMatch(v) ? null : t.nameInvalid;
   }
 
-  /// A contact number: required, and 8–15 digits once separators are ignored.
   static String? phone(String? value) {
     final v = value?.trim() ?? '';
     if (v.isEmpty) {
@@ -37,14 +32,12 @@ abstract final class AppValidators {
     return digits.length >= 8 && digits.length <= 15 ? null : t.phoneInvalid;
   }
 
-  /// Valid email address.
   static String? email(String? value) {
     final v = value?.trim() ?? '';
     if (v.isEmpty) return t.emailRequired;
     return _emailRegex.hasMatch(v) ? null : t.emailInvalid;
   }
 
-  /// Password with minimum length.
   static String? password(String? value, {int minLength = 6}) {
     if (value == null || value.isEmpty) return t.passwordRequired;
     return value.length < minLength
@@ -52,7 +45,6 @@ abstract final class AppValidators {
         : null;
   }
 
-  /// Confirmation must match the original password.
   static String? confirmPassword(String? value, String original) {
     if (value == null || value.isEmpty) {
       return t.reenterPasswordRequired;
@@ -60,7 +52,6 @@ abstract final class AppValidators {
     return value != original ? t.passwordsDoNotMatch : null;
   }
 
-  /// 4-digit verification code.
   static String? otpCode(String? value, {int length = 4}) {
     final v = value?.trim() ?? '';
     return v.length == length ? null : t.otpRequired(length: length);

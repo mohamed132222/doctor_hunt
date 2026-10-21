@@ -1,0 +1,27 @@
+# build_runner configuration.
+#
+#   dart run build_runner build -d
+#
+# The `slang_build_runner` options below MUST live here: build_runner reads
+# builder options from `build.yaml` only. A standalone `slang.yaml` is read by
+# the slang CLI, not by build_runner — keep the two in sync or the generated
+# output lands in the wrong directory.
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        options:
+          base_locale: en
+          fallback_strategy: base_locale
+          input_directory: assets/i18n
+          # Suffix match (not a glob). The locale is parsed from the file
+          # name: `strings.i18n.json` is the base, `strings_ar.i18n.json` is a
+          # secondary locale. A bare `<locale>.i18n.json` does NOT work — the
+          # name is alphanumeric, so slang reads it as a base file.
+          input_file_pattern: ".i18n.json"
+          output_directory: lib/generated
+          output_file_name: strings.g.dart
+          flutter_integration: true
+          namespaces: false
+          # `{label}`-style placeholders in the JSON, matching the source catalogue.
+          string_interpolation: braces

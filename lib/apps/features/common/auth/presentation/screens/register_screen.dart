@@ -3,10 +3,9 @@ import 'package:doctor_hunt/apps/core/enums/app_status.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/themes/app_colors.dart';
 import 'package:doctor_hunt/apps/core/widgets/app_background.dart';
-import 'package:doctor_hunt/apps/features/common/auth/data/repo/auth_repo.dart';
-import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/register/register_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controllers/register/register_bloc.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/register_body.dart';
-import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,8 +17,9 @@ class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => RegisterBloc(getIt<AuthRepo>()),
+      create: (_) => getIt<RegisterBloc>(),
       child: BlocListener<RegisterBloc, RegisterState>(
+        listenWhen: (p, c) => p.status != c.status,
         listener: (context, state) {
           if (state.status == AppStatus.success) {
             ScaffoldMessenger.of(context).showSnackBar(

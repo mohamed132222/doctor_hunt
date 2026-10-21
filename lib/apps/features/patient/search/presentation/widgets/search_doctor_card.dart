@@ -1,15 +1,15 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/constants/app_strings.dart';
 import '../../../../../core/themes/app_theme.dart';
-import '../../../main/data/models/doctor.dart';
+import '../../../main/data/models/doctor_model.dart';
+import '../../../main/presentation/controllers/favorites/favorites_cubit.dart';
 import '../../../main/presentation/widgets/doctor_photo.dart';
 
-/// A search result: photo, name, specialty, experience, satisfaction metrics,
-/// next availability and a booking shortcut.
 class SearchDoctorCard extends StatefulWidget {
   const SearchDoctorCard({
     super.key,
@@ -27,8 +27,6 @@ class SearchDoctorCard extends StatefulWidget {
 }
 
 class _SearchDoctorCardState extends State<SearchDoctorCard> {
-  late bool _favorite = widget.doctor.isFavorite;
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -125,16 +123,22 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
                       ),
                     ),
                     SizedBox(width: context.s8),
-                    GestureDetector(
-                      onTap: () => setState(() => _favorite = !_favorite),
-                      behavior: HitTestBehavior.opaque,
-                      child: Icon(
-                        _favorite ? Icons.favorite : Icons.favorite_border,
-                        size: context.detailsHeartSize,
-                        color: _favorite
-                            ? scheme.error
-                            : colors.favoriteOutline,
-                      ),
+                    BlocSelector<FavoritesCubit, FavoritesState, bool>(
+                      selector: (state) => state.ids.contains(doctor.id),
+                      builder: (context, favorite) {
+                        return GestureDetector(
+                          onTap: () =>
+                              context.read<FavoritesCubit>().toggle(doctor.id),
+                          behavior: HitTestBehavior.opaque,
+                          child: Icon(
+                            favorite ? Icons.favorite : Icons.favorite_border,
+                            size: context.detailsHeartSize,
+                            color: favorite
+                                ? scheme.error
+                                : colors.favoriteOutline,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -201,7 +205,6 @@ class _SearchDoctorCardState extends State<SearchDoctorCard> {
   }
 }
 
-/// A dotted metric pair, e.g. "• 87%".
 class _Metric extends StatelessWidget {
   const _Metric({required this.label});
 

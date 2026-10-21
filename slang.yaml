@@ -2,17 +2,19 @@
 #
 #   dart run build_runner build -d
 #
-# Source of truth lives in lib/apps/core/i18n/ as <locale>.i18n.json.
+# Source of truth lives in assets/i18n/ as <locale>.i18n.json.
 # Generated output (strings.g.dart) is committed so builds don't require
 # codegen — see the project README.
 base_locale: en
 fallback_strategy: base_locale
-input_directory: lib/apps/core/i18n
-input_file_pattern: string_ar.json
-output_directory: lib/apps/core/i18n
+input_directory: assets/i18n
+input_file_pattern: "{locale}.i18n.json"
+output_directory: lib/generated
 output_file_name: strings.g.dart
 flutter_integration: true
 namespaces: false
 
 # `{label}`-style placeholders in the JSON, matching the source catalogue.
+# Suffix match. Locales come from the file NAME: `strings.i18n.json` (base) and
+# `strings_ar.i18n.json` (secondary). `ar.i18n.json` is treated as a base file.
 string_interpolation: braces

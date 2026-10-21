@@ -1,14 +1,8 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
-import 'package:flutter/material.dart';
-
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
+import 'package:flutter/material.dart';
 
-/// White search field: the magnifier is the [InputDecoration.prefixIcon] and
-/// the clear action is the [InputDecoration.suffixIcon].
-///
-/// The field has no height of its own — the symmetric vertical padding around
-/// those icons gives the design's 54px pill and keeps the content centred.
 class HomeSearchBar extends StatefulWidget {
   const HomeSearchBar({
     super.key,
@@ -16,12 +10,15 @@ class HomeSearchBar extends StatefulWidget {
     this.initialQuery = '',
     this.autofocus = false,
     this.onSubmitted,
+    this.hint,
   });
 
   final ValueChanged<String>? onChanged;
   final String initialQuery;
   final bool autofocus;
   final ValueChanged<String>? onSubmitted;
+
+  final String? hint;
 
   @override
   State<HomeSearchBar> createState() => _HomeSearchBarState();
@@ -74,7 +71,7 @@ class _HomeSearchBarState extends State<HomeSearchBar> {
           textAlignVertical: TextAlignVertical.center,
           style: theme.textTheme.bodyMedium,
           decoration: InputDecoration(
-            hintText: t.searchHint,
+            hintText: widget.hint ?? t.searchHint,
             isDense: true,
             isCollapsed: true,
             contentPadding: EdgeInsets.zero,

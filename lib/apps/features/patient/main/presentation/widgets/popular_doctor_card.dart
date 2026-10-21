@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
-import '../../data/models/doctor.dart';
+import '../../data/models/doctor_model.dart';
 import 'doctor_photo.dart';
-import 'rating_stars.dart';
+import '../../../../../core/widgets/rating_stars.dart';
 
-/// "Popular Doctor" card — 140 x 195 in the design.
-///
-/// The photo fills the card edge to edge across the top (~2/3 of the height,
-/// no inset), with name, specialty and stars centred underneath.
 class PopularDoctorCard extends StatelessWidget {
   const PopularDoctorCard({super.key, required this.doctor, this.onTap});
 

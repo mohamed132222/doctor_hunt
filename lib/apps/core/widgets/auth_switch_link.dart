@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-/// Shared bottom link for the auth screens (login / register).
-///
-/// Same styling everywhere — only [prefix], [action] and [onTap] differ.
 class AuthSwitchLink extends StatelessWidget {
   const AuthSwitchLink({
     super.key,
