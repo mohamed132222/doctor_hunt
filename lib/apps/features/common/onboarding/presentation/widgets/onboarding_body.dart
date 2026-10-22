@@ -5,12 +5,12 @@ import 'package:doctor_hunt/apps/features/common/onboarding/data/models/onboardi
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
-import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
+import 'onboarding_slide.dart';
 
 class OnboardingBody extends StatefulWidget {
   const OnboardingBody({super.key, required this.items});
 
-  final List<OnboardingItem> items;
+  final List<OnboardingItemModel> items;
 
   @override
   State<OnboardingBody> createState() => _OnboardingBodyState();
@@ -78,7 +78,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                       itemCount: widget.items.length,
                       onPageChanged: _onPageChanged,
                       itemBuilder: (context, index) =>
-                          _OnboardingSlide(item: widget.items[index]),
+                          OnboardingSlide(item: widget.items[index]),
                     ),
                   ),
                   PrimaryButton(
@@ -92,43 +92,6 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _OnboardingSlide extends StatelessWidget {
-  const _OnboardingSlide({super.key, required this.item});
-
-  final OnboardingItem item;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 42),
-      child: Column(
-        children: [
-          Flexible(
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: ClipOval(
-                child: Image.asset(item.image, fit: BoxFit.cover),
-              ),
-            ),
-          ),
-          SizedBox(height: context.paddingOf(60)),
-          Text(
-            item.title,
-            textAlign: TextAlign.center,
-            style: context.medium28.textTitle,
-          ),
-          const SizedBox(height: 14),
-          Text(
-            item.subtitle,
-            textAlign: TextAlign.center,
-            style: context.regular14.textSub,
           ),
         ],
       ),

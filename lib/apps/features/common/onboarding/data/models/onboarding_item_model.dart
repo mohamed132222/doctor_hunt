@@ -1,8 +1,8 @@
 import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 
-class OnboardingItem {
-  OnboardingItem({
+class OnboardingItemModel {
+  OnboardingItemModel({
     required this.image,
     required this.title,
     required this.subtitle,
@@ -13,18 +13,18 @@ class OnboardingItem {
   final String subtitle;
 }
 
-List<OnboardingItem> get kOnboardingItems => [
-  OnboardingItem(
+List<OnboardingItemModel> get kOnboardingItemModels => [
+  OnboardingItemModel(
     image: AppAssets.onboarding1,
     title: t.onboardingTitle1,
     subtitle: t.onboardingSubtitle,
   ),
-  OnboardingItem(
+  OnboardingItemModel(
     image: AppAssets.onboarding2,
     title: t.onboardingTitle2,
     subtitle: t.onboardingSubtitle,
   ),
-  OnboardingItem(
+  OnboardingItemModel(
     image: AppAssets.onboarding3,
     title: t.onboardingTitle3,
     subtitle: t.onboardingSubtitle,
