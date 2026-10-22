@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,26 +6,22 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 
-/// A bottom-navigation destination: label + its SVG glyph.
 class NavEntry {
-  NavEntry({required this.label, required this.svg});
+  NavEntry({required this.label, this.svg, this.icon})
+    : assert(svg != null || icon != null, 'provide an svg or an icon');
 
   final String label;
-  final String svg;
+  final String? svg;
+  final IconData? icon;
 }
 
 List<NavEntry> kNavEntries = [
   NavEntry(label: t.tabHome, svg: AppAssets.homeIcon),
   NavEntry(label: t.tabFavorites, svg: AppAssets.heartIcon),
   NavEntry(label: t.tabBook, svg: AppAssets.bookIcon),
-  NavEntry(label: t.tabChat, svg: AppAssets.messageIcon),
+  NavEntry(label: t.drawerSettings, icon: Icons.settings_outlined),
 ];
 
-/// Custom bottom navigation: white bar with rounded top corners, icon-only
-/// items, the active item in a filled primary circle.
-///
-/// All four glyphs are SVG art kept at their own aspect ratio (20px tall), so
-/// the book reads wider than the chat exactly as in the design.
 class HomeBottomNav extends StatelessWidget {
   const HomeBottomNav({
     super.key,
@@ -105,14 +101,18 @@ class _NavItem extends StatelessWidget {
               shape: BoxShape.circle,
               color: active ? scheme.primary : Colors.transparent,
             ),
-            // Center gives the glyph loose constraints: without it the tight
-            // 48x48 box would scale the SVG up to fill the circle.
             child: Center(
-              child: SvgPicture.asset(
-                entry.svg,
-                height: context.navSvgHeight,
-                colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-              ),
+              child: entry.icon != null
+                  ? Icon(
+                      entry.icon,
+                      size: context.navSvgHeight,
+                      color: iconColor,
+                    )
+                  : SvgPicture.asset(
+                      entry.svg!,
+                      height: context.navSvgHeight,
+                      colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
+                    ),
             ),
           ),
         ),

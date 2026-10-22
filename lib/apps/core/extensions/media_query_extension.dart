@@ -3,30 +3,13 @@ import 'package:go_router/go_router.dart';
 
 import '../appsize/app_size.dart';
 
-/// The frame every design value was authored in.
 const double _designWidth = 375;
 const double _designHeight = 812;
 
-/// Spacing never collapses to nothing on a short screen, nor balloons on a
-/// large one. The floor must stay below the landscape phone's smaller-axis
-/// scale (~0.46 at 800×375) so screens that already fitted there still fit.
 const double _minSpacingScale = 0.4;
 const double _maxSpacingScale = 1.35;
 
-/// Everything a screen needs from its BuildContext: screen metrics, layout
-/// flags, route extras, and the two responsive scalers.
-///
-/// Screen metrics come from Flutter's own MediaQuery context extension
-/// (`mediaQuerySize`, `mediaQueryPadding`, `mediaQueryOrientation`).
-///
-/// * [sizeOf] — anything that sizes a box or a glyph: **width, height**,
-///   radius, icon size, font size.
-/// * [paddingOf] — **spacing**: `EdgeInsets`, `padding:`, gaps between boxes,
-///   list spacing, anything sized by a spacing token.
 extension AppSizeExtension on BuildContext {
-  // ── Screen ───────────────────────────────────────────────────────────────
-  // Reads Flutter's MediaQuery directly — the single source of truth for
-  // device metrics — so screens never call it themselves.
   Size get screenSize => MediaQuery.of(this).size;
 
   double get screenWidth => MediaQuery.of(this).size.width;
@@ -47,39 +30,24 @@ extension AppSizeExtension on BuildContext {
 
   bool get isEnglish => Localizations.localeOf(this).languageCode == 'en';
 
-  /// Route arguments: `context.extra<MyArgs>()`.
   T extra<T>() => GoRouterState.of(this).extra as T;
 
-  // ── Responsive scaling ───────────────────────────────────────────────────
-  /// Device width relative to the design frame.
   double get _widthScale => screenWidth / _designWidth;
 
-  /// Device height relative to the design frame.
   double get _heightScale => screenHeight / _designHeight;
 
-  /// The spacing scale: smaller axis, clamped. Exactly 1.0 on the design frame.
   double get _spacingScale {
     final sx = _widthScale;
     final sy = _heightScale;
     return (sx < sy ? sx : sy).clamp(_minSpacingScale, _maxSpacingScale);
   }
 
-  /// A dimension — width, height, radius, icon size, font size.
   double sizeOf(double value) => value * _widthScale;
 
-  /// Height-scaled design px. For the rare layout whose vertical rhythm must
-  /// track the screen's *height* rather than its width (the onboarding page,
-  /// which was authored that way).
   double heightOf(double value) => value * _heightScale;
 
-  /// Spacing — `EdgeInsets`, `padding:`, gaps, list spacing.
   double paddingOf(double value) => value * _spacingScale;
 
-  // ── AppSize tokens ───────────────────────────────────────────────────────
-  // Call sites read `context.s16` instead of `context.s16`.
-  // Each keeps the scaler its value actually needs.
-
-  // paddingOf
   double get authBottomGap => paddingOf(AppSize.authBottomGap);
 
   double get authButtonLinkGap => paddingOf(AppSize.authButtonLinkGap);
@@ -189,10 +157,8 @@ extension AppSizeExtension on BuildContext {
 
   double get sheetTopPadding => paddingOf(AppSize.sheetTopPadding);
 
-  // heightOf
   double get onboardingImageTop => heightOf(AppSize.onboardingImageTop);
 
-  // sizeOf
   double get appointmentPhotoHeight => sizeOf(AppSize.appointmentPhotoHeight);
 
   double get appointmentPhotoWidth => sizeOf(AppSize.appointmentPhotoWidth);
@@ -293,6 +259,8 @@ extension AppSizeExtension on BuildContext {
 
   double get homeAvatarSize => sizeOf(AppSize.homeAvatarSize);
 
+  double get homeMenuIcon => sizeOf(AppSize.homeMenuIcon);
+
   double get homeHeaderRadius => sizeOf(AppSize.homeHeaderRadius);
 
   double get homeSearchHeight => sizeOf(AppSize.homeSearchHeight);
@@ -360,4 +328,115 @@ extension AppSizeExtension on BuildContext {
   double get sheetHandleWidth => sizeOf(AppSize.sheetHandleWidth);
 
   double get socialButtonHeight => sizeOf(AppSize.socialButtonHeight);
+
+  double get adminHeaderAvatar => sizeOf(AppSize.adminHeaderAvatar);
+
+  double get adminBellSize => sizeOf(AppSize.adminBellSize);
+
+  double get adminStatCardHeight => sizeOf(AppSize.adminStatCardHeight);
+
+  double get adminStatCardRadius => sizeOf(AppSize.adminStatCardRadius);
+
+  double get adminSearchHeight => sizeOf(AppSize.adminSearchHeight);
+
+  double get adminSearchRadius => sizeOf(AppSize.adminSearchRadius);
+
+  double get adminChipHeight => sizeOf(AppSize.adminChipHeight);
+
+  double get adminChipRadius => sizeOf(AppSize.adminChipRadius);
+
+  double get adminDoctorCardRadius => sizeOf(AppSize.adminDoctorCardRadius);
+
+  double get adminDoctorCardPhoto => sizeOf(AppSize.adminDoctorCardPhoto);
+
+  double get adminDoctorCardPhotoRadius =>
+      sizeOf(AppSize.adminDoctorCardPhotoRadius);
+
+  double get adminCardRadius => sizeOf(AppSize.adminCardRadius);
+
+  double get statusPillHeight => sizeOf(AppSize.statusPillHeight);
+
+  double get statusPillRadius => sizeOf(AppSize.statusPillRadius);
+
+  double get statusDotSize => sizeOf(AppSize.statusDotSize);
+
+  double get adminFabHeight => sizeOf(AppSize.adminFabHeight);
+
+  double get adminFabRadius => sizeOf(AppSize.adminFabRadius);
+
+  double get emptyStateCircle => sizeOf(AppSize.emptyStateCircle);
+
+  double get emptyStateGlyph => sizeOf(AppSize.emptyStateGlyph);
+
+  double get emptyStateBadge => sizeOf(AppSize.emptyStateBadge);
+
+  double get adminFormPhoto => sizeOf(AppSize.adminFormPhoto);
+
+  double get adminFormPhotoBadge => sizeOf(AppSize.adminFormPhotoBadge);
+
+  double get adminDropdownHeight => sizeOf(AppSize.adminDropdownHeight);
+
+  double get adminToggleTileHeight => sizeOf(AppSize.adminToggleTileHeight);
+
+  double get adminDayIconBox => sizeOf(AppSize.adminDayIconBox);
+
+  double get infoTileIconBox => sizeOf(AppSize.infoTileIconBox);
+
+  double get infoTileRadius => sizeOf(AppSize.infoTileRadius);
+
+  double get infoTileMinHeight => sizeOf(AppSize.infoTileMinHeight);
+
+  double get segmentedTabHeight => sizeOf(AppSize.segmentedTabHeight);
+
+  double get segmentedTabRadius => sizeOf(AppSize.segmentedTabRadius);
+
+  double get adminTopBarHeight => sizeOf(AppSize.adminTopBarHeight);
+
+  double get adminBackButton => sizeOf(AppSize.adminBackButton);
+
+  double get adminDetailPhoto => sizeOf(AppSize.adminDetailPhoto);
+
+  double get adminVerifiedBadge => sizeOf(AppSize.adminVerifiedBadge);
+
+  double get adminSettingsIconBox => sizeOf(AppSize.adminSettingsIconBox);
+
+  double get adminRatingStar => sizeOf(AppSize.adminRatingStar);
+
+  double get adminScreenPaddingH => paddingOf(AppSize.adminScreenPaddingH);
+
+  double get drawerAvatar => sizeOf(AppSize.drawerAvatar);
+
+  double get drawerIcon => sizeOf(AppSize.drawerIcon);
+
+  double get drawerChevron => sizeOf(AppSize.drawerChevron);
+
+  double get drawerMainRadius => sizeOf(AppSize.drawerMainRadius);
+
+  double get locationPickerHeight => sizeOf(AppSize.locationPickerHeight);
+
+  double get profileHeaderHeight => sizeOf(AppSize.profileHeaderHeight);
+
+  double get profileHeaderRadius => sizeOf(AppSize.profileHeaderRadius);
+
+  double get profileAvatar => sizeOf(AppSize.profileAvatar);
+
+  double get profileAvatarBorder => sizeOf(AppSize.profileAvatarBorder);
+
+  double get profileCameraBadge => sizeOf(AppSize.profileCameraBadge);
+
+  double get profileCameraIcon => sizeOf(AppSize.profileCameraIcon);
+
+  double get profileFieldRadius => sizeOf(AppSize.profileFieldRadius);
+
+  double get profileEditIcon => sizeOf(AppSize.profileEditIcon);
+
+  double get favoritePhoto => sizeOf(AppSize.favoritePhoto);
+
+  double get favoriteCardRadius => sizeOf(AppSize.favoriteCardRadius);
+
+  double get favoriteHeart => sizeOf(AppSize.favoriteHeart);
+
+  double get settingsIconCircle => sizeOf(AppSize.settingsIconCircle);
+
+  double get settingsRowHeight => sizeOf(AppSize.settingsRowHeight);
 }

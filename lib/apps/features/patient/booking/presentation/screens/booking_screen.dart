@@ -1,13 +1,14 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/apps/core/di/injection.dart';
+import 'package:doctor_hunt/apps/features/patient/booking/presentation/controllers/booking/booking_cubit.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/widgets/app_background.dart';
 import '../../../doctor_details/presentation/widgets/doctor_top_bar.dart';
-import '../../../main/data/models/doctor.dart';
+import '../../../main/data/models/doctor_model.dart';
 import '../widgets/booking_body.dart';
 
-/// Booking page — a thin shell that resolves the doctor from the route and
-/// hands it to [BookingBody].
 class BookingScreen extends StatelessWidget {
   const BookingScreen({super.key, required this.doctorId});
 
@@ -18,7 +19,12 @@ class BookingScreen extends StatelessWidget {
     final doctor = doctorById(doctorId);
 
     return AppBackground(
-      child: doctor == null ? _BookingNotFound() : BookingBody(doctor: doctor),
+      child: doctor == null
+          ? _BookingNotFound()
+          : BlocProvider<BookingCubit>(
+              create: (_) => getIt<BookingCubit>()..load(doctorId),
+              child: BookingBody(doctor: doctor),
+            ),
     );
   }
 }

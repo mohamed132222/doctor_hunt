@@ -1,14 +1,10 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/constants/app_strings.dart';
 
-/// Success dialog shown after confirming an appointment.
-///
-/// Resolves to `true` when the user chooses Done (the caller then returns
-/// home) and to `false`/`null` when they choose to edit instead.
 Future<bool?> showAppointmentConfirmedDialog(
   BuildContext context, {
   required String doctorName,

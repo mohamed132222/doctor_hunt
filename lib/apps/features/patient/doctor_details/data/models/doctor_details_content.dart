@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:latlong2/latlong.dart';
 
 /// A single figure in the doctor's stats row.

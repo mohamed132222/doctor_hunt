@@ -1,6 +1,6 @@
 import 'package:doctor_hunt/apps/core/di/injection.dart';
 import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
 import 'package:doctor_hunt/apps/core/widgets/app_sheet.dart';
@@ -10,11 +10,10 @@ import 'package:doctor_hunt/apps/core/widgets/auth_text_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/password_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
 import 'package:doctor_hunt/apps/core/widgets/social_auth_button.dart';
-import 'package:doctor_hunt/apps/features/common/auth/data/repo/auth_repo.dart';
-import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_bloc.dart';
-import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/login/login_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controllers/forget_pass/forget_pass_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controllers/login/login_bloc.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/forget_password_flow.dart';
-import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role_model.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +31,6 @@ class _LoginBodyState extends State<LoginBody> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  final bool _emailValid = false;
 
   @override
   void dispose() {
@@ -57,7 +55,7 @@ class _LoginBodyState extends State<LoginBody> {
     showAppSheet<void>(
       context,
       (_) => BlocProvider(
-        create: (_) => ForgotPasswordBloc(getIt<AuthRepo>()),
+        create: (_) => getIt<ForgotPasswordBloc>(),
         child: const ForgotPasswordFlow(),
       ),
     );
@@ -65,6 +63,7 @@ class _LoginBodyState extends State<LoginBody> {
 
   @override
   Widget build(BuildContext context) {
+    final isAdmin = widget.role == UserRole.admin;
     return Form(
       key: _formKey,
       child: Column(
@@ -72,19 +71,20 @@ class _LoginBodyState extends State<LoginBody> {
         children: [
           AuthHeader(title: t.loginTitle, subtitle: t.authSubtitle),
           SizedBox(height: context.paddingOf(80)),
-          SocialButton(
-            label: "Google",
-            icon: "assets/icons/google_icon.svg",
-            textStyle: context.light16Black,
-            onPressed: () {},
-          ),
-          const SizedBox(height: 36),
+          if (!isAdmin) ...[
+            SocialButton(
+              label: "Google",
+              icon: "assets/icons/google_icon.svg",
+              textStyle: context.light16Black,
+              onPressed: () {},
+            ),
+            const SizedBox(height: 36),
+          ],
           AuthTextField(
             hint: t.emailHint,
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            suffixIcon: _emailValid ? Icon(Icons.check) : null,
             validator: AppValidators.email,
           ),
           const SizedBox(height: 18),
@@ -107,18 +107,20 @@ class _LoginBodyState extends State<LoginBody> {
             },
           ),
           const SizedBox(height: 18),
-          Center(
-            child: TextButton(
-              onPressed: _openForgotPassword,
-              child: Text(t.forgotPassword),
+          if (!isAdmin)
+            Center(
+              child: TextButton(
+                onPressed: _openForgotPassword,
+                child: Text(t.forgotPassword),
+              ),
             ),
-          ),
           SizedBox(height: context.paddingOf(124)),
-          AuthSwitchLink(
-            prefix: t.loginSwitchPrefix,
-            action: t.loginSwitchAction,
-            onTap: () => RegisterRoute(role: widget.role).go(context),
-          ),
+          if (!isAdmin)
+            AuthSwitchLink(
+              prefix: t.loginSwitchPrefix,
+              action: t.loginSwitchAction,
+              onTap: () => RegisterRoute(role: widget.role).go(context),
+            ),
         ],
       ),
     );

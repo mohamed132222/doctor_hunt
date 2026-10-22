@@ -1,11 +1,9 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
 
-/// Minimal placeholder for a bottom-nav tab screen.
-/// Replace with real screens as the UI is delivered.
 class PlaceholderTab extends StatelessWidget {
   const PlaceholderTab({super.key, required this.title, required this.icon});
 

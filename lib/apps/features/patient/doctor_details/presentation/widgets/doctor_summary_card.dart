@@ -1,12 +1,12 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/appsize/app_size.dart';
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
-import '../../../main/data/models/doctor.dart';
+import '../../../main/data/models/doctor_model.dart';
 import '../../../main/presentation/widgets/doctor_photo.dart';
-import '../../../main/presentation/widgets/rating_stars.dart';
+import 'package:doctor_hunt/apps/core/widgets/rating_stars.dart';
 
 /// The doctor's summary card: photo, name, specialty, rating, price and the
 /// booking CTA, plus a favourite toggle.

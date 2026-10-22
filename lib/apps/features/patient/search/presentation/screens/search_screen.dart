@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,12 +6,10 @@ import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/router/app_router.dart';
 import '../../../../../core/widgets/app_background.dart';
 import '../../../doctor_details/presentation/widgets/doctor_top_bar.dart';
-import '../../../main/data/models/doctor.dart';
+import '../../../main/data/models/doctor_model.dart';
 import '../../../main/presentation/widgets/home_search_bar.dart';
 import '../widgets/search_doctor_card.dart';
 
-/// Doctor search results. Filtering is local mock data for now — swap
-/// [searchDoctors] for a repository call and this screen is unchanged.
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key, this.initialQuery = ''});
 

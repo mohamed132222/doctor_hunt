@@ -1,14 +1,12 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../../core/widgets/app_background.dart';
-import '../../../main/data/models/doctor.dart';
+import '../../../main/data/models/doctor_model.dart';
 import '../widgets/doctor_details_body.dart';
 import '../widgets/doctor_top_bar.dart';
 
-/// Doctor details page — a thin shell that resolves the doctor from the route
-/// and hands it to [DoctorDetailsBody].
 class DoctorDetailsScreen extends StatelessWidget {
   const DoctorDetailsScreen({super.key, required this.doctorId});
 

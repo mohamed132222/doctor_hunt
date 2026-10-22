@@ -1,7 +1,7 @@
 # `features/admin/`
 
 Everything only an **admin** can reach. Currently empty — the role exists in
-`common/auth/data/models/role.dart` and the routing shell is ready for it.
+`common/choose_role/data/models/role_model.dart` and the routing shell is ready for it.
 
 Suggested layout when the first admin screens land, mirroring `patient/`:
 

@@ -1,4 +1,4 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/apps/core/validators/app_validators.dart';
 import 'package:doctor_hunt/apps/core/widgets/auth_text_field.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
@@ -12,12 +12,8 @@ class ForgotPasswordEmailStep extends StatefulWidget {
     this.isLoading = false,
   });
 
-  /// Called only after the email passes validation.
-  ///
-  /// Later this callback can be connected directly to Cubit/API logic.
   final ValueChanged<String> onContinue;
 
-  /// Shows a loading indicator on the action button while the OTP is sent.
   final bool isLoading;
 
   @override

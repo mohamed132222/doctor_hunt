@@ -28,6 +28,11 @@ abstract final class AppAssets {
       'assets/icons/password_obscure_icon.svg';
   static const String checkIcon = 'assets/icons/check_icon.svg';
   static const String bookIcon = 'assets/icons/book_icon.svg';
+  static const String emptyDoctorsIcon = 'assets/icons/empty_doctors.svg';
+  static const String navDoctorsIcon = 'assets/icons/doctors_icon.svg';
+  static const String navAppointmentsIcon =
+      'assets/icons/appointments_icon.svg';
+  static const String navSettingsIcon = 'assets/icons/settings_icon.svg';
   static const String messageIcon = 'assets/icons/message_icon.svg';
   static const String homeIcon = 'assets/icons/home_icon.svg';
   static const String heartIcon = 'assets/icons/heart_icon.svg';
@@ -47,4 +52,11 @@ abstract final class AppAssets {
   static const String featureDoctorImage = 'assets/images/home/mock2.png';
   static const String patientIcon = 'assets/icons/patient_icon.svg';
   static const String adminIcon = 'assets/icons/admin_icon.svg';
+  static const String calendarDaysIcon = 'assets/icons/calendar_days_icon.svg';
+  static const String consultationFeeIcon =
+      'assets/icons/consultation_fee_icon.svg';
+  static const String specialityIcon = 'assets/icons/speciality_icon.svg';
+  static const String verificationIcon = 'assets/icons/verification_icon.svg';
+  static const String bookingNoSlotsImage =
+      'assets/images/booking_no_slots.png';
 }

@@ -1,8 +1,8 @@
 import 'package:doctor_hunt/apps/core/enums/app_status.dart';
 import 'package:doctor_hunt/apps/core/widgets/app_sheet.dart';
-import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_bloc.dart';
-import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_event.dart';
-import 'package:doctor_hunt/apps/features/common/auth/presentation/controller/forget_pass/forget_pass_state.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controllers/forget_pass/forget_pass_bloc.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controllers/forget_pass/forget_pass_event.dart';
+import 'package:doctor_hunt/apps/features/common/auth/presentation/controllers/forget_pass/forget_pass_state.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/forget_password_email_step.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/reset_password_sheet.dart';
 import 'package:doctor_hunt/apps/features/common/auth/presentation/widgets/verify_code_sheet.dart';
@@ -19,8 +19,6 @@ class ForgotPasswordFlow extends StatelessWidget {
           previous.status != current.status || previous.step != current.step,
       listener: (context, state) {
         if (state.status == AppStatus.error) {
-          // The verifyOtp step shows its error inline, so skip the SnackBar
-          // there to avoid a duplicate message.
           if (state.step == ForgotPasswordStep.verifyOtp) return;
 
           ScaffoldMessenger.of(context).showSnackBar(

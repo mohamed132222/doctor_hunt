@@ -1,13 +1,9 @@
 import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
 import 'package:doctor_hunt/apps/core/themes/app_colors.dart';
-import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-/// Selectable role card: icon chip + title + description.
-///
-/// Selected → primary green border + green icon + check badge.
-/// Unselected → outline border + muted icon. All colors from the theme.
 class RoleCard extends StatelessWidget {
   const RoleCard({
     super.key,

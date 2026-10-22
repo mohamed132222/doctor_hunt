@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../appsize/app_size.dart';
 import 'app_colors.dart';
 
-/// Extra colors not covered by [ColorScheme] (gradient washes, brand logos).
-/// Read from any screen via `context.themeColors`.
 @immutable
 class AppThemeColors extends ThemeExtension<AppThemeColors> {
   const AppThemeColors({
@@ -37,39 +35,27 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   final Color splashCross;
   final Color splashWordmark;
 
-  /// Soft card shadow used by the auth cards and fields.
   final BoxShadow cardShadow;
 
-  /// Grey drag-handle bar on modal sheets.
   final Color sheetHandle;
 
-  /// Home header gradient (teal → green).
   final Color headerGradientStart;
   final Color headerGradientEnd;
 
-  /// Amber used for star ratings.
   final Color starRating;
 
-  /// Inactive bottom-navigation icon colour.
   final Color navInactive;
 
-  /// Tighter, lighter shadow used by overlaid pills (e.g. the home search).
   final BoxShadow softShadow;
 
-  /// Soft, wider shadow that lifts the home category tiles.
   final BoxShadow tileShadow;
 
-  /// Shadow for the home doctor cards — much lighter than [cardShadow] so it
-  /// hugs each card instead of reading as a shadow across the whole row.
   final BoxShadow homeCardShadow;
 
-  /// Outline colour of an un-favourited heart.
   final Color favoriteOutline;
 
-  /// Accent used for the hourly price.
   final Color priceAccent;
 
-  /// Faint page tint used behind white cards on detail screens.
   final Color screenTint;
 
   static const AppThemeColors light = AppThemeColors(
@@ -88,7 +74,7 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
     sheetHandle: Color(0xFFC4C4C4),
     headerGradientStart: Color(0xFF0EBE7E),
     headerGradientEnd: Color(0xFF08D7AC),
-    starRating: Color(0xFFF59E0B),
+    starRating: Color(0xFFFFC107),
     navInactive: Color(0xFF858EA9),
     softShadow: BoxShadow(
       color: Color(0x05000000),
@@ -190,23 +176,19 @@ class AppThemeColors extends ThemeExtension<AppThemeColors> {
   }
 }
 
-/// Reads the custom theme colors from any [BuildContext].
 extension AppThemeColorsX on BuildContext {
   AppThemeColors get themeColors =>
       Theme.of(this).extension<AppThemeColors>() ?? AppThemeColors.light;
 }
 
-/// Shorthand for `Theme.of(context).colorScheme`.
 extension ColorSchemeX on BuildContext {
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
 }
 
-/// Named button styles that differ from the global component themes.
 @immutable
 class AppButtonStyles extends ThemeExtension<AppButtonStyles> {
   const AppButtonStyles({required this.onboardingCta});
 
-  /// Onboarding CTA: 54 high, radius 10, Rubik 18/500.
   final ButtonStyle onboardingCta;
 
   static final AppButtonStyles light = AppButtonStyles(
@@ -240,14 +222,11 @@ class AppButtonStyles extends ThemeExtension<AppButtonStyles> {
   }
 }
 
-/// Reads the named button styles from any [BuildContext].
 extension AppButtonStylesX on BuildContext {
   AppButtonStyles get buttonStyles =>
       Theme.of(this).extension<AppButtonStyles>() ?? AppButtonStyles.light;
 }
 
-/// Light theme - the single source of truth for colors, typography and
-/// component styles. Screens must read from this, never hardcode.
 abstract final class AppTheme {
   static ThemeData get light {
     final base = ThemeData(
@@ -274,8 +253,6 @@ abstract final class AppTheme {
           outlineVariant: AppColors.textPlaceholder,
         );
 
-    // Rubik via Google Fonts - explicit sizes/weights/colors so screens never
-    // hardcode them. Falls back to the bundled Rubik / default sans.
     final textTheme = base.textTheme.copyWith(
       headlineLarge: TextStyle(
         fontFamily: 'Rubik',
@@ -361,6 +338,7 @@ abstract final class AppTheme {
       outlinedButtonTheme: _outlinedButtonTheme(colorScheme),
       textButtonTheme: _textButtonTheme(colorScheme),
       checkboxTheme: _checkboxTheme(colorScheme),
+      switchTheme: _switchTheme(colorScheme),
       snackBarTheme: SnackBarThemeData(
         behavior: SnackBarBehavior.floating,
         backgroundColor: colorScheme.onSurface,
@@ -428,6 +406,18 @@ abstract final class AppTheme {
             states.contains(WidgetState.selected) ? scheme.primary : null,
       ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+    );
+  }
+
+  static SwitchThemeData _switchTheme(ColorScheme scheme) {
+    return SwitchThemeData(
+      thumbColor: WidgetStateProperty.all(scheme.surface),
+      trackColor: WidgetStateProperty.resolveWith(
+        (states) => states.contains(WidgetState.selected)
+            ? scheme.primary
+            : scheme.outlineVariant,
+      ),
+      trackOutlineColor: WidgetStateProperty.all(Colors.transparent),
     );
   }
 }

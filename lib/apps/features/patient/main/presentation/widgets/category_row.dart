@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/extensions/media_query_extension.dart';
 import '../../../../../core/themes/app_theme.dart';
-import '../../data/models/doctor_category.dart';
+import '../../data/models/doctor_category_model.dart';
 
-/// The row of medical-category tiles (equal-width squares).
 class CategoryRow extends StatelessWidget {
   const CategoryRow({super.key, this.onSelect});
 
@@ -46,8 +45,6 @@ class _CategoryTile extends StatelessWidget {
       button: true,
       child: AspectRatio(
         aspectRatio: .8,
-        // The shadow must live outside the Material: an Ink decoration is
-        // clipped to the Material's bounds, so a boxShadow there never shows.
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: radius,

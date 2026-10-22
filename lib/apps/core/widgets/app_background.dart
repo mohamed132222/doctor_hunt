@@ -22,14 +22,12 @@ class AppBackground extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          ///todo enhance without mediaquery
           Positioned(
             top: 0,
             left: 0,
             child: Image.asset(AppAssets.ellipseTeal),
           ),
 
-          ///todo enhance without mediaquery
           Positioned(
             bottom: 0,
             right: 0,

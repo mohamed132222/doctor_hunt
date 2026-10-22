@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Central color tokens for the app.
-///
-/// Values follow the Doctor Hunt design system:
-/// emerald-green primary, dark charcoal text, and soft ice/mint gradient
-/// washes for the auth and onboarding backgrounds.
 class AppColors {
   AppColors._();
 
-  // ── Brand ─────────────────────────────────────────────────────────────────
   static const Color primary = Color(0xFF10B981);
   static const Color primaryLight = Color(0xFF6EE7B7);
   static const Color primaryDark = Color(0xFF047857);
@@ -19,14 +13,12 @@ class AppColors {
   static const Color shadow = Color(0x14000000);
   static const Color geryLight = Color(0xFFC4C4C4);
 
-  // ── Text ──────────────────────────────────────────────────────────────────
   static const Color textMain = Color(0xFF1A1A1A);
   static const Color textSub = Color(0xFF6B7280);
   static const Color textTitle = Color(0xFF333333);
   static const Color textPlaceholder = Color(0xFF9CA3AF);
   static const Color textBorders = Color(0xFFE5E7EB);
 
-  // ── Semantic ──────────────────────────────────────────────────────────────
   static const Color danger = Color(0xFFEF4444);
   static const Color dangerLight = Color(0xFFFEE2E2);
 
@@ -40,11 +32,16 @@ class AppColors {
   static const Color black = Color(0xFF000000);
   static const Color boxShadow = Color(0x14000000);
 
-  // ── Background gradient (auth / onboarding) ───────────────────────────────
   static const Color gradientIce = Color(0xFFEAF6FB);
   static const Color gradientMint = Color(0xFFE2F6EC);
 
-  // ── Social brands ─────────────────────────────────────────────────────────
+  static const Color adminSurface = Color(0xFFF1F8F4);
+
+  static const Color drawerBackground = Color(0xFF6C7A9B);
+
+  static const Color drawerShadowNear = Color(0xFF9AA5BE);
+  static const Color drawerShadowFar = Color(0xFF8793AF);
+
   static const Color googleBlue = Color(0xFF4285F4);
   static const Color googleRed = Color(0xFFEA4335);
   static const Color googleYellow = Color(0xFFFBBC05);

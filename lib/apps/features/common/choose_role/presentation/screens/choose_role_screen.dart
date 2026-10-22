@@ -1,9 +1,9 @@
 import 'package:doctor_hunt/apps/core/extensions/media_query_extension.dart';
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/widgets/app_background.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
-import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role.dart';
+import 'package:doctor_hunt/apps/features/common/choose_role/data/models/role_model.dart';
 import 'package:doctor_hunt/apps/features/common/choose_role/presentation/widgets/role_card.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';

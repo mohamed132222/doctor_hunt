@@ -1,16 +1,16 @@
-import 'package:doctor_hunt/apps/core/i18n/strings.g.dart';
+import 'package:doctor_hunt/generated/strings.g.dart';
 import 'package:doctor_hunt/apps/core/router/app_router.dart';
 import 'package:doctor_hunt/apps/core/widgets/primary_button.dart';
-import 'package:doctor_hunt/apps/features/common/onboarding/data/models/onboarding_item.dart';
+import 'package:doctor_hunt/apps/features/common/onboarding/data/models/onboarding_item_model.dart';
 import 'package:doctor_hunt/generated/image_assets.dart';
 import 'package:flutter/material.dart';
-import 'onboarding_slide.dart';
 import 'package:doctor_hunt/generated/style_atoms.dart';
+import 'onboarding_slide.dart';
 
 class OnboardingBody extends StatefulWidget {
   const OnboardingBody({super.key, required this.items});
 
-  final List<OnboardingItem> items;
+  final List<OnboardingItemModel> items;
 
   @override
   State<OnboardingBody> createState() => _OnboardingBodyState();
@@ -19,7 +19,6 @@ class OnboardingBody extends StatefulWidget {
 class _OnboardingBodyState extends State<OnboardingBody> {
   final PageController _controller = PageController();
 
-  ///todo used current index from controller
   int _currentIndex = 0;
 
   bool get _isLast => _currentIndex == widget.items.length - 1;
